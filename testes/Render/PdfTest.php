@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PdfTest extends TestCase
 {
-    public function test_deve_criar_o_pdf_apartir_do_html(): void
+    public function test_deve_criar_o_pdf_a_partir_do_html(): void
     {
         $dom = $this->createMock(\Dompdf\Dompdf::class);
 
