@@ -39,7 +39,7 @@ class SefazRetorno extends Rules
     /**
      * @var string
      */
-    public $identificador;
+    protected $identificador;
     /**
      * {@inheritdoc}
      */
