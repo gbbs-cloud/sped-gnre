@@ -65,7 +65,7 @@ class CertificatePfx
      */
     public function getPrivateKey()
     {
-        $filePrefix = new FilePrefix;
+        $filePrefix = new FilePrefix();
         $filePrefix->setPrefix('_privKEY');
 
         return $this->cerficationFileOperation->writeFile($this->dataCertificate['pkey'], $filePrefix);
@@ -84,7 +84,7 @@ class CertificatePfx
      */
     public function getCertificatePem()
     {
-        $filePrefix = new FilePrefix;
+        $filePrefix = new FilePrefix();
         $filePrefix->setPrefix('_certKEY');
 
         return $this->cerficationFileOperation->writeFile($this->dataCertificate['cert'], $filePrefix);

@@ -42,10 +42,7 @@ class ConfigUf extends ConsultaConfigUf
             'http://www.testegnre.pe.gov.br/webservice/GnreConfigUF' :
             'http://www.gnre.pe.gov.br/webservice/GnreConfigUF';
 
-        return [
-            'Content-Type: application/soap+xml;charset=utf-8;action="'.$action.'"',
-            'SOAPAction: consultar',
-        ];
+        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: consultar'];
     }
 
     /**

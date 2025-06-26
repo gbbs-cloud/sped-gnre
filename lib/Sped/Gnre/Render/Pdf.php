@@ -36,7 +36,7 @@ class Pdf
      */
     protected function getDomPdf(): \Dompdf\Dompdf
     {
-        return new Dompdf;
+        return new Dompdf();
     }
 
     /**

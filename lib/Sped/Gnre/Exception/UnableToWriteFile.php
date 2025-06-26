@@ -37,6 +37,6 @@ class UnableToWriteFile extends \Exception
      */
     public function __construct($file)
     {
-        parent::__construct('Não foi possível criar/escrever no arquivo '.$file, null);
+        parent::__construct('Não foi possível criar/escrever no arquivo ' . $file, null);
     }
 }

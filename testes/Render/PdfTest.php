@@ -24,4 +24,10 @@ class PdfTest extends TestCase
 
         $this->assertInstanceOf(\Dompdf\Dompdf::class, $domPdf);
     }
+
+    public function test_deve_retornar_uma_instancia_do_dom_pdf(): void
+    {
+        $dom = new CoveragePdf();
+        $this->assertInstanceOf(\Dompdf\Dompdf::class, $dom->getDomPdf());
+    }
 }

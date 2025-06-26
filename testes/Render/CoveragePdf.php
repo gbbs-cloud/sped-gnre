@@ -4,7 +4,7 @@ namespace Sped\Gnre\Test\Render;
 
 class CoveragePdf extends \Sped\Gnre\Render\Pdf
 {
-    protected function getDomPdf(): \Dompdf\Dompdf
+    public function getDomPdf()
     {
         return parent::getDomPdf();
     }

@@ -26,7 +26,7 @@ abstract class Padrao
      */
     public function getNodeCamposExtras(\DOMDocument $gnre, Guia $gnreGuia)
     {
-        if (is_array($gnreGuia->c39_camposExtras) && count($gnreGuia->c39_camposExtras) > 0) {
+        if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
             $c39_camposExtras = $gnre->createElement('c39_camposExtras');
 
             foreach ($gnreGuia->c39_camposExtras as $campos) {

@@ -49,20 +49,7 @@ class Connection
      */
     public function __construct(private readonly Setup $setup, $headers, $data)
     {
-        $this->curlOptions = [
-            CURLOPT_PORT => 443,
-            CURLOPT_HEADER => 1,
-            CURLOPT_SSLVERSION => 3,
-            CURLOPT_SSL_VERIFYHOST => 0,
-            CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_SSLCERT => $this->setup->getCertificatePemFile(),
-            CURLOPT_SSLKEY => $this->setup->getPrivateKey(),
-            CURLOPT_POST => 1,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_VERBOSE => $this->setup->getDebug(),
-        ];
+        $this->curlOptions = [CURLOPT_PORT => 443, CURLOPT_HEADER => 1, CURLOPT_SSLVERSION => 3, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSLCERT => $this->setup->getCertificatePemFile(), CURLOPT_SSLKEY => $this->setup->getPrivateKey(), CURLOPT_POST => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_POSTFIELDS => $data, CURLOPT_HTTPHEADER => $headers, CURLOPT_VERBOSE => $this->setup->getDebug()];
 
         $ip = $this->setup->getProxyIp();
         $port = $this->setup->getProxyPort();
@@ -70,14 +57,16 @@ class Connection
         if (! empty($ip) && $port) {
             $this->curlOptions[CURLOPT_HTTPPROXYTUNNEL] = 1;
             $this->curlOptions[CURLOPT_PROXYTYPE] = 'CURLPROXY_HTTP';
-            $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp().':'.$this->setup->getProxyPort();
+            $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp() . ':' . $this->setup->getProxyPort();
         }
     }
 
     /**
      * Retorna as opções definidas para o curl
+     *
+     * @return array
      */
-    public function getCurlOptions(): array
+    public function getCurlOptions()
     {
         return $this->curlOptions;
     }

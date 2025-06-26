@@ -259,7 +259,9 @@ class SefazRetorno extends Rules
         $this->lote['lote'][$this->index]->retornoNumeroDeControle = $content;
     }
 
-    protected function getIdentificadorGuia() {}
+    protected function getIdentificadorGuia()
+    {
+    }
 
     protected function getSequencialGuiaErroValidacao()
     {
@@ -299,11 +301,17 @@ class SefazRetorno extends Rules
         }
     }
 
-    protected function getNumeroProtocolo() {}
+    protected function getNumeroProtocolo()
+    {
+    }
 
-    protected function getTotalGuias() {}
+    protected function getTotalGuias()
+    {
+    }
 
-    protected function getHashDeValidacao() {}
+    protected function getHashDeValidacao()
+    {
+    }
 
     protected function aplicarParser()
     {

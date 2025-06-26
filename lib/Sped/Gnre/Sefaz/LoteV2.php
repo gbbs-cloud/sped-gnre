@@ -272,7 +272,7 @@ class LoteV2 extends Lote
 
     public function gerarCamposExtras($gnre, $gnreGuia)
     {
-        if (is_array($gnreGuia->c39_camposExtras) && count($gnreGuia->c39_camposExtras) > 0) {
+        if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
             $c39_camposExtras = $gnre->createElement('camposExtras');
             foreach ($gnreGuia->c39_camposExtras as $campos) {
                 $campoExtra = $gnre->createElement('campoExtra');
@@ -294,33 +294,10 @@ class LoteV2 extends Lote
         $doc = '10';
 
         return match ($uf) {
-            'AC' => '10',
-            'AL' => '10',
-            'AP' => '10',
-            'AM' => '22',
-            'BA' => '10',
-            'CE' => '10',
-            'DF' => '10',
-            'ES' => '10',
-            'GO' => '10',
-            'MA' => '10',
-            'MT' => '10',
-            'MS' => '10',
-            'MG' => '10',
-            'PA' => '10',
-            'PB' => '10',
-            'PR' => '10',
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => '10',
+            'AM', 'RS' => '22',
             'PE' => $difa ? '24' : '22',
-            'PI' => '10',
-            'RJ' => '24',
-            'RN' => '10',
-            'RS' => '22',
-            'RO' => '10',
-            'RR' => '10',
-            'SC' => '24',
-            'SP' => '10',
-            'SE' => '10',
-            'TO' => '10',
+            'RJ', 'SC' => '24',
             default => $doc,
         };
     }
@@ -330,33 +307,8 @@ class LoteV2 extends Lote
         $doc = 'numero';
 
         return match ($uf) {
-            'AC' => 'numero',
-            'AL' => 'numero',
-            'AP' => 'numero',
-            'AM' => 'chave',
-            'BA' => 'numero',
-            'CE' => 'numero',
-            'DF' => 'numero',
-            'ES' => 'numero',
-            'GO' => 'numero',
-            'MA' => 'numero',
-            'MT' => 'numero',
-            'MS' => 'numero',
-            'MG' => 'numero',
-            'PA' => 'numero',
-            'PB' => 'numero',
-            'PR' => 'numero',
-            'PE' => 'chave',
-            'PI' => 'numero',
-            'RJ' => 'chave',
-            'RN' => 'numero',
-            'RS' => 'chave',
-            'RO' => 'numero',
-            'RR' => 'numero',
-            'SC' => 'chave',
-            'SP' => 'numero',
-            'SE' => 'numero',
-            'TO' => 'numero',
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => 'numero',
+            'AM', 'PE', 'RJ', 'RS', 'SC' => 'chave',
             default => $doc,
         };
     }

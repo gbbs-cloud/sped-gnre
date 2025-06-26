@@ -34,7 +34,7 @@ class FileOperationTest extends TestCase
 
     public function test_arquivo_informado_existente(): void
     {
-        $file = __DIR__.'/../../exemplos/xml/estrutura-lote-completo-gnre.xml';
+        $file = __DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml';
         new MyFile($file);
         $this->assertFileExists($file);
     }

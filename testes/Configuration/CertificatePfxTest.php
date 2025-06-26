@@ -24,11 +24,6 @@ use PHPUnit\Framework\TestCase;
  */
 class TestCertificatePfx extends TestCase
 {
-    public function __construct()
-    {
-        parent::__construct(static::class);
-    }
-
     public function test_passar_ao_criar_chave_privada_a_partir_do_certificado(): void
     {
         $stubFileOperation = $this->getMockBuilder(\Sped\Gnre\Configuration\CertificatePfxFileOperation::class)

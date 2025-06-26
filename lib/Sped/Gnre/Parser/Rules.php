@@ -162,7 +162,7 @@ abstract class Rules
      */
     public function getLote()
     {
-        $lote = new \Sped\Gnre\Sefaz\Lote;
+        $lote = new \Sped\Gnre\Sefaz\Lote();
         $counter = count($this->dadosArquivo);
 
         for ($i = 0; $i < $counter; $i++) {
@@ -176,7 +176,7 @@ abstract class Rules
                 $this->getNumeroDoProtocoloDoLote();
                 $this->getAmbiente();
             } elseif ($this->identificador == 1) {
-                $this->lote['lote'][$i] = new \Sped\Gnre\Sefaz\Guia;
+                $this->lote['lote'][$i] = new \Sped\Gnre\Sefaz\Guia();
 
                 $this->getSequencialGuia();
                 $this->getSituacaoGuia();

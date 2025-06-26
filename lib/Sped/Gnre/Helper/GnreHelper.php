@@ -48,7 +48,7 @@ class GnreHelper
     {
 
         $xml = self::parseNf($xmlNf);
-        $guia = new Guia;
+        $guia = new Guia();
         $guia->c04_docOrigem = $xml->NrNf;
         $guia->c28_tipoDocOrigem = $xml->TipoDoc;
         $guia->c21_cepEmitente = $xml->CEPEmpresa;
@@ -71,7 +71,7 @@ class GnreHelper
     public static function parseNf($xmlNf): stdClass
     {
         $xml = simplexml_load_string((string) $xmlNf);
-        $parsed = new stdClass;
+        $parsed = new stdClass();
 
         $parsed->CEPEmpresa = $xml->NFe->infNFe->emit->enderEmit->CEP;
         $parsed->EnderecoEmpresa = $xml->NFe->infNFe->emit->enderEmit->xLgr;
