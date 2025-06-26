@@ -11,7 +11,7 @@ use Sped\Gnre\Exception\UndefinedProperty;
  */
 class GuiaTest extends TestCase
 {
-    public function test_deve_setar_ovalor_auma_propriedade_existente_da_classe(): void
+    public function test_deve_setar_o_valor_a_uma_propriedade_existente_da_classe(): void
     {
         $gnreGuia = new \Sped\Gnre\Sefaz\Guia;
         $gnreGuia->c01_UfFavorecida = 'SP';
