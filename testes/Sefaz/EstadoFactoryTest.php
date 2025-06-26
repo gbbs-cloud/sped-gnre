@@ -10,7 +10,7 @@ use Sped\Gnre\Sefaz\EstadoFactory;
  */
 class EstadoFactoryTest extends TestCase
 {
-    public function test_should_return_an_object_when_is_given_aexisting_class(): void
+    public function test_should_return_an_object_when_is_given_a_existing_class(): void
     {
         $estado = new EstadoFactory;
 
@@ -18,7 +18,7 @@ class EstadoFactoryTest extends TestCase
         $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\BA::class, $estado->create('BA'));
     }
 
-    public function test_should_return_ac_objectwhen_aclass_does_exists(): void
+    public function test_should_return_ac_object_when_a_class_does_exists(): void
     {
         $estado = new EstadoFactory;
 
@@ -26,7 +26,7 @@ class EstadoFactoryTest extends TestCase
         $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AC::class, $estado->create('AC'));
     }
 
-    public function test_return_adefault_object(): void
+    public function test_return_a_default_object(): void
     {
         $estado = new EstadoFactory;
 
