@@ -32,6 +32,13 @@ class TestCertificatePfx extends TestCase
                 ->getMock();
 
         $stubFileOperation->expects($this->once())
+                ->method('open')
+                ->will($this->returnValue([
+                    'pkey' => 'private_key_content',
+                    'cert' => 'certificate_content',
+                ]));
+
+        $stubFileOperation->expects($this->once())
                 ->method('writeFile')
                 ->will($this->returnValue('vfs://certificadoDir/metadata/certificado_Private.pem'));
 
@@ -46,6 +53,13 @@ class TestCertificatePfx extends TestCase
         $mockFileOperation = $this->getMockBuilder(\Sped\Gnre\Configuration\CertificatePfxFileOperation::class)
                 ->disableOriginalConstructor()
                 ->getMock();
+
+        $mockFileOperation->expects($this->once())
+                ->method('open')
+                ->will($this->returnValue([
+                    'pkey' => 'private_key_content',
+                    'cert' => 'certificate_content',
+                ]));
 
         $mockFileOperation->expects($this->once())
                 ->method('writeFile')
