@@ -20,28 +20,29 @@ namespace Sped\Gnre\Render;
 /**
  * Factory utilizada para criar um objeto <b>\Smarty</b> e definir
  * algumas configurações padrões para o objeto
- * @package     gnre
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class SmartyFactory
 {
-
     /**
      * Cria um objeto smarty com o diretório padrão <b>/root/templates</b> para
      * os templates e utiliza o diretório temporário padrão
      * do sistema operacional para definir o diretório que os arquivos
      * compilados pelo smarty serão salvos
+     *
      * @return \Smarty
      */
     public function create()
     {
-        $documentRoot = getenv('DOCUMENT_ROOT') . DIRECTORY_SEPARATOR;
+        $documentRoot = getenv('DOCUMENT_ROOT').DIRECTORY_SEPARATOR;
 
-        $smarty = new \Smarty();
+        $smarty = new \Smarty;
         $smarty->caching = false;
-        $smarty->setTemplateDir($documentRoot . 'templates');
+        $smarty->setTemplateDir($documentRoot.'templates');
         $smarty->setCompileDir(sys_get_temp_dir());
 
         return $smarty;

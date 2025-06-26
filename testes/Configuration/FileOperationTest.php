@@ -18,7 +18,6 @@
 namespace Sped\Gnre\Test\Configuration;
 
 use PHPUnit\Framework\TestCase;
-use Sped\Gnre\Configuration\FileOperation;
 use Sped\Gnre\Exception\UnreachableFile;
 
 /**
@@ -27,15 +26,15 @@ use Sped\Gnre\Exception\UnreachableFile;
  */
 class FileOperationTest extends TestCase
 {
-    public function testArquivoInformadoNaoExiste(): void
+    public function test_arquivo_informado_nao_existe(): void
     {
         $this->expectException(UnreachableFile::class);
         new MyFile('/foo/bar.txt');
     }
 
-    public function testArquivoInformadoExistente(): void
+    public function test_arquivo_informado_existente(): void
     {
-        $file = __DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml';
+        $file = __DIR__.'/../../exemplos/xml/estrutura-lote-completo-gnre.xml';
         new MyFile($file);
         $this->assertFileExists($file);
     }

@@ -2,7 +2,4 @@
 
 namespace Sped\Gnre\Sefaz\Estados;
 
-class AP extends Padrao
-{
-
-}
+class AP extends Padrao {}

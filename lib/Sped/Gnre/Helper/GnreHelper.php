@@ -17,38 +17,38 @@
 
 namespace Sped\Gnre\Helper;
 
-
 use Sped\Gnre\Sefaz\Guia;
-use \stdClass;
+use stdClass;
 
 /**
  * Classe abstrata que utiliza o padrão de projeto Template Method para
  * setar as regras de leitura do retorno da SEFAZ
  *
- * @package     gnre
  * @author      Luiz Kim <luiz.kim@controleonline.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @link        http://en.wikipedia.org/wiki/Template_method_pattern Template Method Design Pattern
+ *
  * @version     1.0.0
  */
 class GnreHelper
 {
-
     protected static $xmlNf;
 
     /**
      * Método utilizado para gerar os dados principais da GNRE utilizando os dados encontrados dentro do XML
-     * 
      *
-     * @param string $dadosArquivo <p>String contendo o xml da NF de venda
-     * utilizada no SEFAZ</p>
+     *
+     * @param  string  $dadosArquivo  <p>String contendo o xml da NF de venda
+     *                                utilizada no SEFAZ</p>
+     *
      * @since 1.0.0
      */
     public static function getGuiaGnre($xmlNf): Guia
     {
 
         $xml = self::parseNf($xmlNf);
-        $guia = new Guia();
+        $guia = new Guia;
         $guia->c04_docOrigem = $xml->NrNf;
         $guia->c28_tipoDocOrigem = $xml->TipoDoc;
         $guia->c21_cepEmitente = $xml->CEPEmpresa;
@@ -68,12 +68,10 @@ class GnreHelper
         return $guia;
     }
 
-
     public static function parseNf($xmlNf): stdClass
     {
-        $xml = simplexml_load_string($xmlNf);
-        $parsed = new stdClass();
-
+        $xml = simplexml_load_string((string) $xmlNf);
+        $parsed = new stdClass;
 
         $parsed->CEPEmpresa = $xml->NFe->infNFe->emit->enderEmit->CEP;
         $parsed->EnderecoEmpresa = $xml->NFe->infNFe->emit->enderEmit->xLgr;
@@ -84,7 +82,6 @@ class GnreHelper
         $parsed->NrIEEmpresa = $xml->NFe->infNFe->emit->IE;
         $parsed->NmEmpresa = $xml->NFe->infNFe->emit->xNome;
         $parsed->NrDocumentoEmpresa = $xml->NFe->infNFe->emit->CNPJ;
-
 
         $parsed->NrDocumentoCliente = $xml->NFe->infNFe->dest->CNPJ ?: $xml->NFe->infNFe->dest->CPF;
         $parsed->NrIECliente = $xml->NFe->infNFe->dest->IE;

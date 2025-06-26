@@ -1,10 +1,8 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
-use Dompdf\Dompdf;
-
-$guia = new Sped\Gnre\Sefaz\Guia();
+$guia = new Sped\Gnre\Sefaz\Guia;
 $guia->c01_UfFavorecida = 'SP';
 $guia->c02_receita = 1000099;
 $guia->c25_detalhamentoReceita = 10101010;
@@ -42,11 +40,11 @@ $guia->ano = 2015;
 $guia->parcela = 2;
 $guia->periodo = 2014;
 
-$lote = new Sped\Gnre\Sefaz\Lote();
+$lote = new Sped\Gnre\Sefaz\Lote;
 $lote->addGuia($guia);
 
-$html = new Sped\Gnre\Render\Html();
+$html = new Sped\Gnre\Render\Html;
 $html->create($lote);
 
-$pdf = new Sped\Gnre\Render\Pdf();
+$pdf = new Sped\Gnre\Render\Pdf;
 $pdf->create($html)->stream('gnre.pdf', ['Attachment' => 0]);

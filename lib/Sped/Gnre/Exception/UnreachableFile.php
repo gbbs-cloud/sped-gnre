@@ -19,22 +19,23 @@ namespace Sped\Gnre\Exception;
 
 /**
  * Lança uma exceção caso o arquivo desejado não exista
- * @package     gnre
- * @subpackage  exception
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class UnreachableFile extends \Exception
 {
-
     /**
      * Define uma mensagem padrão caso a exceção seja lançada
-     * @param  string  $file O nome do arquivo que se deseja utilizar
+     *
+     * @param  string  $file  O nome do arquivo que se deseja utilizar
+     *
      * @since  1.0.0
      */
     public function __construct($file)
     {
-        parent::__construct('Não foi possível encontrar o arquivo ' . $file, null, null);
+        parent::__construct('Não foi possível encontrar o arquivo '.$file, null);
     }
 }

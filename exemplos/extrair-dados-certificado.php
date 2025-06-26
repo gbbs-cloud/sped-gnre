@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Sped\Gnre\Configuration\CertificatePfxFileOperation;
 
@@ -8,8 +8,8 @@ $certificadoArquivo = new CertificatePfxFileOperation('/var/www/sped-gnre/certs/
 
 $gnre = new Sped\Gnre\Configuration\CertificatePfx($certificadoArquivo, '425236');
 
-print 'Private key' . PHP_EOL;
-print $gnre->getPrivateKey();
+echo 'Private key'.PHP_EOL;
+echo $gnre->getPrivateKey();
 
-print 'Certificate .pem' . PHP_EOL;
-print $gnre->getCertificatePem();
+echo 'Certificate .pem'.PHP_EOL;
+echo $gnre->getCertificatePem();

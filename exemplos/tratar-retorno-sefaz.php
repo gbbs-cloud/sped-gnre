@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use Sped\Gnre\Parser\SefazRetorno;
 
@@ -14,7 +14,7 @@ $resultado = '020560726600011014111866530
 $parser = new SefazRetorno($resultado);
 $lote = $parser->getLote();
 
-$consulta = new Sped\Gnre\Sefaz\Consulta();
+$consulta = new Sped\Gnre\Sefaz\Consulta;
 
 header('Content-Type: text/xml');
 echo $lote->toXml();

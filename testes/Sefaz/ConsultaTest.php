@@ -9,10 +9,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ConsultaTest extends TestCase
 {
-
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoap(): void
+    public function test_deve_retornar_os_cabecalhos_para_a_requisicao_soap(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\Consulta();
+        $consulta = new \Sped\Gnre\Sefaz\Consulta;
         $headersArray = $consulta->getHeaderSoap();
 
         $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.gnre.pe.gov.br/webservice/GnreResultadoLote"';
@@ -20,9 +19,9 @@ class ConsultaTest extends TestCase
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
 
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoapAoWebserviceDeTestes(): void
+    public function test_deve_retornar_os_cabecalhos_para_a_requisicao_soap_ao_webservice_de_testes(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\Consulta();
+        $consulta = new \Sped\Gnre\Sefaz\Consulta;
         $consulta->utilizarAmbienteDeTeste(true);
 
         $headersArray = $consulta->getHeaderSoap();
@@ -32,34 +31,34 @@ class ConsultaTest extends TestCase
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
 
-    public function testDeveRetornarAacaoAserExecutadaNoSoap(): void
+    public function test_deve_retornar_a_acao_a_ser_executada_no_soap(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\Consulta();
+        $consulta = new \Sped\Gnre\Sefaz\Consulta;
 
         $this->assertEquals('https://www.gnre.pe.gov.br/gnreWS/services/GnreResultadoLote', $consulta->soapAction());
     }
 
-    public function testDeveRetornarXmlCompletoVazioParaRealizarAconsulta(): void
+    public function test_deve_retornar_xml_completo_vazio_para_realizar_a_consulta(): void
     {
-        $dadosParaConsulta = file_get_contents(__DIR__ . '/../../exemplos/xml/envelope-consultar-gnre.xml');
+        $dadosParaConsulta = file_get_contents(__DIR__.'/../../exemplos/xml/envelope-consultar-gnre.xml');
 
-        $consulta = new \Sped\Gnre\Sefaz\Consulta();
+        $consulta = new \Sped\Gnre\Sefaz\Consulta;
         $consulta->setEnvironment(12345678);
         $consulta->setRecibo(123);
 
         $this->assertXmlStringEqualsXmlString($dadosParaConsulta, $consulta->toXml());
     }
 
-    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeProducao(): void
+    public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_producao(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\Consulta();
+        $consulta = new \Sped\Gnre\Sefaz\Consulta;
 
         $this->assertEquals($consulta->soapAction(), 'https://www.gnre.pe.gov.br/gnreWS/services/GnreResultadoLote');
     }
 
-    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeTestes(): void
+    public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_testes(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\Consulta();
+        $consulta = new \Sped\Gnre\Sefaz\Consulta;
         $consulta->utilizarAmbienteDeTeste(true);
 
         $action = 'https://www.testegnre.pe.gov.br/gnreWS/services/GnreResultadoLote';

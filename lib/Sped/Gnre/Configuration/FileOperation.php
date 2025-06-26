@@ -21,17 +21,17 @@ use Sped\Gnre\Exception\UnreachableFile;
 
 /**
  * Classe abstrata que contém os métodos necessários para realizar ações em um arquivo
- * @package     gnre
- * @subpackage  configuration
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 abstract class FileOperation
 {
-
     /**
      * Caminho em que o certificado físico está alocado
+     *
      * @var string
      */
     protected $filePath;
@@ -39,13 +39,16 @@ abstract class FileOperation
     /**
      * Define o caminho absoluto de um arquivo para que a classe trabalhe
      * corretamente com seus métodos
-     * @param string $filePath caminho do arquivo a ser utilizado
-     * @throws \Sped\Gnre\Exception\UnreachableFile  Caso não seja encontrado o arquivo informado
+     *
+     * @param  string  $filePath  caminho do arquivo a ser utilizado
+     *
+     * @throws \Sped\Gnre\Exception\UnreachableFile Caso não seja encontrado o arquivo informado
+     *
      * @since  1.0.0
      */
     public function __construct($filePath)
     {
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             throw new UnreachableFile($filePath);
         }
 
@@ -54,9 +57,10 @@ abstract class FileOperation
 
     /**
      * Método utilizado para escrever em um arquivo
-     * @abstract
-     * @param string $content Conteúdo desejado para ser escrito em um arquivo
+     *
+     * @param  string  $content  Conteúdo desejado para ser escrito em um arquivo
      * @param FilePrefix Utilizado para aplicar algum prefixo ou regras em um determinado arquivo
+     *
      * @since  1.0.0
      */
     abstract public function writeFile($content, FilePrefix $filePrefix);

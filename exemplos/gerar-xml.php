@@ -1,10 +1,8 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
-use Dompdf\Dompdf;
-
-$guia = new Sped\Gnre\Sefaz\Guia();
+$guia = new Sped\Gnre\Sefaz\Guia;
 $guia->c01_UfFavorecida = 'SP';
 $guia->c02_receita = 1000099;
 $guia->c25_detalhamentoReceita = 10101010;
@@ -43,8 +41,8 @@ $guia->parcela = 2;
 $guia->periodo = 2014;
 $guia->c39_camposExtras = [['campoExtra' => ['codigo' => 666, 'tipo' => 'TXT', 'valor' => 'GNRE']], ['campoExtra' => ['codigo' => 111, 'tipo' => 'INT', 'valor' => 'GNRE2']]];
 
-$lote = new Sped\Gnre\Sefaz\Lote();
+$lote = new Sped\Gnre\Sefaz\Lote;
 $lote->addGuia($guia);
 
 header('Content-Type: text/xml');
-print $lote->toXml();
+echo $lote->toXml();

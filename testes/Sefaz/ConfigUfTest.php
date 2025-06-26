@@ -9,10 +9,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigUfTest extends TestCase
 {
-
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoap(): void
+    public function test_deve_retornar_os_cabecalhos_para_a_requisicao_soap(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
+        $consulta = new \Sped\Gnre\Sefaz\ConfigUf;
         $headersArray = $consulta->getHeaderSoap();
 
         $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.gnre.pe.gov.br/webservice/GnreConfigUF"';
@@ -20,9 +19,9 @@ class ConfigUfTest extends TestCase
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
 
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoapAoWebserviceDeTestes(): void
+    public function test_deve_retornar_os_cabecalhos_para_a_requisicao_soap_ao_webservice_de_testes(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
+        $consulta = new \Sped\Gnre\Sefaz\ConfigUf;
         $consulta->utilizarAmbienteDeTeste(true);
 
         $headersArray = $consulta->getHeaderSoap();
@@ -32,18 +31,18 @@ class ConfigUfTest extends TestCase
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
 
-    public function testDeveRetornarAacaoAserExecutadaNoSoap(): void
+    public function test_deve_retornar_a_acao_a_ser_executada_no_soap(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
+        $consulta = new \Sped\Gnre\Sefaz\ConfigUf;
 
         $this->assertEquals('https://www.gnre.pe.gov.br/gnreWS/services/GnreConfigUF', $consulta->soapAction());
     }
 
-    public function testDeveRetornarXmlCompletoVazioParaRealizarAconsulta(): void
+    public function test_deve_retornar_xml_completo_vazio_para_realizar_a_consulta(): void
     {
-        $dadosParaConsulta = file_get_contents(__DIR__ . '/../../exemplos/xml/envelope-consulta-config-uf.xml');
+        $dadosParaConsulta = file_get_contents(__DIR__.'/../../exemplos/xml/envelope-consulta-config-uf.xml');
 
-        $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
+        $consulta = new \Sped\Gnre\Sefaz\ConfigUf;
         $consulta->setEnvironment(1);
         $consulta->setEstado('PR');
         $consulta->setReceita(100099);
@@ -51,16 +50,16 @@ class ConfigUfTest extends TestCase
         $this->assertXmlStringEqualsXmlString($dadosParaConsulta, $consulta->toXml());
     }
 
-    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeProducao(): void
+    public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_producao(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
+        $consulta = new \Sped\Gnre\Sefaz\ConfigUf;
 
         $this->assertEquals($consulta->soapAction(), 'https://www.gnre.pe.gov.br/gnreWS/services/GnreConfigUF');
     }
 
-    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeTestes(): void
+    public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_testes(): void
     {
-        $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
+        $consulta = new \Sped\Gnre\Sefaz\ConfigUf;
         $consulta->utilizarAmbienteDeTeste(true);
 
         $this->assertEquals($consulta->soapAction(), 'https://www.testegnre.pe.gov.br/gnreWS/services/GnreConfigUF');

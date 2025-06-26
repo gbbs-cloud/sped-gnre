@@ -21,18 +21,17 @@ namespace Sped\Gnre\Parser;
  * Classe abstrata que utiliza o padrão de projeto Template Method para
  * setar as regras de leitura do retorno da SEFAZ
  *
- * @package     gnre
- * @subpackage  configuration
- * @abstract
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @link        http://en.wikipedia.org/wiki/Template_method_pattern Template Method Design Pattern
+ *
  * @version     1.0.0
  */
 abstract class Rules
 {
-
     const ERRO_VALIDACAO = 2;
+
     const GUIA_EMITIDA_COM_SUCESSO = 9;
 
     /**
@@ -64,8 +63,9 @@ abstract class Rules
      * Utiliza o método construtor da classe para ser enviado um conteúdo de
      * arquivo para ser extraido
      *
-     * @param string $dadosArquivo <p>String contendo o conteúdo de retorno do
-     * web service da SEFAZ</p>
+     * @param  string  $dadosArquivo  <p>String contendo o conteúdo de retorno do
+     *                                web service da SEFAZ</p>
+     *
      * @since 1.0.0
      */
     public function __construct($dadosArquivo)
@@ -162,7 +162,7 @@ abstract class Rules
      */
     public function getLote()
     {
-        $lote = new \Sped\Gnre\Sefaz\Lote();
+        $lote = new \Sped\Gnre\Sefaz\Lote;
         $counter = count($this->dadosArquivo);
 
         for ($i = 0; $i < $counter; $i++) {
@@ -176,7 +176,7 @@ abstract class Rules
                 $this->getNumeroDoProtocoloDoLote();
                 $this->getAmbiente();
             } elseif ($this->identificador == 1) {
-                $this->lote['lote'][$i] = new \Sped\Gnre\Sefaz\Guia();
+                $this->lote['lote'][$i] = new \Sped\Gnre\Sefaz\Guia;
 
                 $this->getSequencialGuia();
                 $this->getSituacaoGuia();
@@ -230,10 +230,12 @@ abstract class Rules
     /**
      * Esse método é mais utilizado pelas classes filhas onde é necessário
      * pegar uma parte do conteúdo baseado em uma string
+     *
      * @see \Sped\Gnre\Parser\SefazRetorno
-     * @param string $content
-     * @param int $positionStart
-     * @param int $length
+     *
+     * @param  string  $content
+     * @param  int  $positionStart
+     * @param  int  $length
      * @return string
      */
     public function getContent($content, $positionStart, $length)
