@@ -8,12 +8,16 @@
         "ext-gd": "*",
         "dompdf/dompdf": "^3",
         "laminas/laminas-barcode": "^2.3",
-        "laminas/laminas-servicemanager": "~3.0",
-        "nfephp-org/sped-nfe": "~5.0",
         "smarty/smarty": "~3.1"
     },
     "scripts": {
-        "test": "phpunit"
+        "test": "phpunit",
+        "quality-checks": [
+            "vendor/bin/rector process",
+            "vendor/bin/phpcbf",
+            "vendor/bin/phpcs",
+            "vendor/bin/phpstan analyse --level 0 lib/ testes/"
+        ]
     },
     "autoload": {
         "psr-4": {
@@ -24,10 +28,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "mikey179/vfsstream": "^1.6",
         "php-coveralls/php-coveralls": "^2.2",
         "phpunit/phpunit": "^9.0",
-        "rector/rector": "^1.2",
+        "rector/rector": "^2.1",
         "squizlabs/php_codesniffer": "^3.5"
     },
     "config": {

@@ -17,20 +17,17 @@
 
 namespace Sped\Gnre\Sefaz;
 
-use Sped\Gnre\Sefaz\ConsultaGnre;
-
 /**
  * Classe utilzada para gerar o envelope SOAP para ser enviado ao web service
  * da SEFAZ para realizar a operação de consulta.
- * @package     gnre
- * @subpackage  sefaz
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class Consulta extends ConsultaGnre
 {
-
     /**
      * @var bool
      */

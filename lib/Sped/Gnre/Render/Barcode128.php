@@ -19,25 +19,26 @@ namespace Sped\Gnre\Render;
 
 /**
  * Classe utilizada para gerar o código de barras no formato 128.
- * @package     gnre
- * @subpackage  render
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class Barcode128
 {
-
     /**
      * Propriedade utilizada para armazenar o código de barras
+     *
      * @var int
      */
     private $numeroCodigoBarras;
 
     /**
      * Retorna o número de código de barras definido
+     *
      * @return mixed <p>Se o código de barras for definido retorna o mesmo,
-     * caso contrário é retornado <b>null</b></p>
+     *               caso contrário é retornado <b>null</b></p>
      */
     public function getNumeroCodigoBarras()
     {
@@ -46,17 +47,20 @@ class Barcode128
 
     /**
      * Define o código de barras a ser usado pela classe
-     * @param int $numeroCodigoBarras
+     *
+     * @param  int  $numeroCodigoBarras
      * @return \Sped\Gnre\Render\Barcode128
      */
     public function setNumeroCodigoBarras($numeroCodigoBarras)
     {
         $this->numeroCodigoBarras = $numeroCodigoBarras;
+
         return $this;
     }
 
     /**
      * Gera a imagem do código de barras e o transforma em base64
+     *
      * @return string Retorna a imagem gerada no formato base64
      */
     public function getCodigoBarrasBase64()

@@ -20,24 +20,26 @@ namespace Sped\Gnre\Configuration;
 /**
  * Classe que realiza a adição de prefixos no nome do arquivo desejado
  * IMPORTANTE: A classe não realiza escrita em disco ou manipulação de arquivos
- * @package     gnre
- * @subpackage  configuration
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class FilePrefix
 {
-
     /**
      * Armazena o prefixo desejado para ser aplicado no nome do arquivo
+     *
      * @var string
      */
     private $prefix;
 
     /**
      * Define o prefixo desejado para ser aplicado no nome do arquivo
+     *
      * @param  string  $prefix  Nome do prefixo por exemplo _private, _public etc
+     *
      * @since  1.0.0
      */
     public function setPrefix($prefix)
@@ -47,8 +49,10 @@ class FilePrefix
 
     /**
      * Aplica o prefixo desejado no arquivo caso ele exista
+     *
      * @param  string  $path  O caminho completo junto com o nome do arquivo por exemplo /var/foo/arquivo.tmp
-     * @return string  O novo nome do arquivo e seu caminho completo
+     * @return string O novo nome do arquivo e seu caminho completo
+     *
      * @since  1.0.0
      */
     public function apply($path)

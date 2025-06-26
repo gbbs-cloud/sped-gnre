@@ -17,32 +17,33 @@
 
 namespace Sped\Gnre\Configuration;
 
-use Sped\Gnre\Configuration\FileOperation;
 use Sped\Gnre\Exception\CannotOpenCertificate;
 use Sped\Gnre\Exception\UnableToWriteFile;
 
 /**
  * Classe responsável por escrever novos arquivos com os dados extraidos do certificado e manipular
  * os metadados utilizados para a conexão com a sefaz
- * @package     gnre
- * @subpackage  configuration
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class CertificatePfxFileOperation extends FileOperation
 {
-
     public $fileName;
+
     /**
      * O nome da pasta em que os meta dados dos certificados são armazenados.
      * Essa pasta ficará abaixo da pasta /certs ficando então /certs/metadata
+     *
      * @var string
      */
     private $metadataFolder = 'metadata';
 
     /**
      * Caminho e o nome do arquivo completo do certificado a ser utilizado
+     *
      * @var string
      */
     private $pathToWrite;
@@ -68,16 +69,19 @@ class CertificatePfxFileOperation extends FileOperation
 
     /**
      * Abre um certificado enviado com a senha informada
-     * @param  string $password A senha necessária para abrir o certificado
-     * @return array  Com os dados extraidos do certificado
+     *
+     * @param  string  $password  A senha necessária para abrir o certificado
+     * @return array Com os dados extraidos do certificado
+     *
      * @throws CannotOpenCertificate Caso a senha do certificado for inválida
+     *
      * @since  1.0.0
      */
     public function open($password)
     {
         $key = file_get_contents($this->filePath);
         $dataCertificate = [];
-        if (!openssl_pkcs12_read($key, $dataCertificate, $password)) {
+        if (! openssl_pkcs12_read($key, $dataCertificate, $password)) {
             throw new CannotOpenCertificate($this->filePath);
         }
 
@@ -87,16 +91,19 @@ class CertificatePfxFileOperation extends FileOperation
     /**
      * Método utilizado para inserir um determinado conteúdo em um arquivo com os dados
      * extraídos do certificado
+     *
      * @param  string  $content  Conteúdo desejado a ser escrito no arquivo
-     * @throws UnableToWriteFile Caso não seja possível escrever no arquivo
      * @return string Retorna o caminho completo do arquivo em que foi escrito o conteúdo enviado
+     *
+     * @throws UnableToWriteFile Caso não seja possível escrever no arquivo
+     *
      * @since  1.0.0
      */
     public function writeFile($content, FilePrefix $filePrefix)
     {
         $pathToWrite = $filePrefix->apply($this->pathToWrite);
 
-        if (!file_put_contents($pathToWrite, $content)) {
+        if (! file_put_contents($pathToWrite, $content)) {
             throw new UnableToWriteFile($this->pathToWrite);
         }
 

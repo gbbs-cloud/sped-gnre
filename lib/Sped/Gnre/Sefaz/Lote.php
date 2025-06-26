@@ -17,22 +17,18 @@
 
 namespace Sped\Gnre\Sefaz;
 
-use Sped\Gnre\Sefaz\LoteGnre;
-use Sped\Gnre\Sefaz\EstadoFactory;
-
 /**
  * Classe que armazena uma ou mais Guias (\Sped\Gnre\Sefaz\Guia) para serem
  * transmitidas. Não é possível transmitir uma simples guia em um formato unitário, para que seja transmitida
  * com sucesso a guia deve estar dentro de um lote (\Sped\Gnre\Sefaz\Lote).
- * @package     gnre
- * @subpackage  sefaz
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class Lote extends LoteGnre
 {
-
     /**
      * @var \Sped\Gnre\Sefaz\EstadoFactory
      */
@@ -48,7 +44,7 @@ class Lote extends LoteGnre
      */
     public function getEstadoFactory()
     {
-        if (null === $this->estadoFactory) {
+        if ($this->estadoFactory === null) {
             $this->estadoFactory = new EstadoFactory();
         }
 
@@ -56,12 +52,13 @@ class Lote extends LoteGnre
     }
 
     /**
-     * @param mixed $estadoFactory
+     * @param  mixed  $estadoFactory
      * @return Lote
      */
     public function setEstadoFactory(EstadoFactory $estadoFactory)
     {
         $this->estadoFactory = $estadoFactory;
+
         return $this;
     }
 

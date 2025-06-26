@@ -24,26 +24,25 @@ use PHPUnit\Framework\TestCase;
  */
 class LoteGnreTest extends TestCase
 {
-
     private $lote;
 
-    public function setUp():void
+    protected function setUp(): void
     {
         $this->lote = new \Sped\Gnre\Sefaz\Lote();
     }
 
-    public function tearDown():void
+    protected function tearDown(): void
     {
         $this->lote = null;
     }
 
-    public function testAdicionarUmaGuiaAoLote(): void
+    public function test_adicionar_uma_guia_ao_lote(): void
     {
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
         $this->assertEquals(1, count($this->lote->getGuias()));
     }
 
-    public function testBuscarUmaGuiaEmEspecifico(): void
+    public function test_buscar_uma_guia_em_especifico(): void
     {
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());

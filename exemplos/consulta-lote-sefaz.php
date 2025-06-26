@@ -6,7 +6,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Sped\Gnre\Configuration\Setup
 {
-
     public function getBaseUrl()
     {
     }
@@ -68,10 +67,10 @@ $consulta->setRecibo(12345123);
  * 1 - produção 2 - homologação
  */
 $consulta->setEnvironment(1);
-//$consulta->utilizarAmbienteDeTeste(true); //Descomente essa linha para utilizar o ambiente de testes
+// $consulta->utilizarAmbienteDeTeste(true); //Descomente essa linha para utilizar o ambiente de testes
 
-//header('Content-Type: text/xml');
-//print $consulta->toXml(); // exibe o XML da consulta
+// header('Content-Type: text/xml');
+// print $consulta->toXml(); // exibe o XML da consulta
 
 $webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
 echo $webService->doRequest($consulta->soapAction());

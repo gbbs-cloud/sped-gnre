@@ -10,8 +10,7 @@ use Sped\Gnre\Webservice\ConnectionFactory;
  */
 class ConnectionFactoryTest extends TestCase
 {
-
-    public function testDeveRetornarUmaNovaInstanciaDeConnection(): void
+    public function test_deve_retornar_uma_nova_instancia_de_connection(): void
     {
         $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);
 

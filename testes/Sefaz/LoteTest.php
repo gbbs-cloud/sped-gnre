@@ -3,16 +3,15 @@
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
-use Sped\Gnre\Sefaz\Lote;
 use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\Lote;
 
 /**
  * @covers Sped\Gnre\Sefaz\Lote
  */
 class LoteTest extends TestCase
 {
-
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoap(): void
+    public function test_deve_retornar_os_cabecalhos_para_a_requisicao_soap(): void
     {
         $lote = new Lote();
         $headersArray = $lote->getHeaderSoap();
@@ -22,21 +21,21 @@ class LoteTest extends TestCase
         $this->assertEquals('SOAPAction: processar', $headersArray[1]);
     }
 
-    public function testDeveUtilizarOAmbienteDeProducaoAoEnviarUmLoteParaOwebService(): void
+    public function test_deve_utilizar_o_ambiente_de_producao_ao_enviar_um_lote_para_o_web_service(): void
     {
         $lote = new Lote();
 
         $this->assertEquals('https://www.gnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao', $lote->soapAction());
     }
 
-    public function testDeveRetornarAacaoAserExecutadaNoSoap(): void
+    public function test_deve_retornar_a_acao_a_ser_executada_no_soap(): void
     {
         $lote = new Lote();
 
         $this->assertEquals('https://www.gnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao', $lote->soapAction());
     }
 
-    public function testDeveRetornarOxmlDoLoteSemCamposExtrasEparaEmitenteEdestinatarioJuridicos(): void
+    public function test_deve_retornar_o_xml_do_lote_sem_campos_extras_e_para_emitente_e_destinatario_juridicos(): void
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cnpj-dest-cnpj-sem-campos-extras.xml');
 
@@ -78,7 +77,7 @@ class LoteTest extends TestCase
         $this->assertXmlStringEqualsXmlString($estruturaLote, $lote->toXml());
     }
 
-    public function testDeveRetornarOxmlDoLoteSemCamposExtrasEparaEmitenteEdestinatarioFisicos(): void
+    public function test_deve_retornar_o_xml_do_lote_sem_campos_extras_e_para_emitente_e_destinatario_fisicos(): void
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-campos-extras.xml');
 
@@ -120,7 +119,7 @@ class LoteTest extends TestCase
         $this->assertXmlStringEqualsXmlString($estruturaLote, $lote->toXml());
     }
 
-    public function testDeveRetornarOxmlDoLoteSemOcampoCepEmitenteParaEmitenteEdestinatarioFisicos(): void
+    public function test_deve_retornar_o_xml_do_lote_sem_o_campo_cep_emitente_para_emitente_e_destinatario_fisicos(): void
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-cep-emitente.xml');
 
@@ -161,7 +160,7 @@ class LoteTest extends TestCase
         $this->assertXmlStringEqualsXmlString($estruturaLote, $lote->toXml());
     }
 
-    public function testDeveRetornarOxmlDoLoteSemOcampoTelefoneEmitenteParaEmitenteEdestinatarioFisicos(): void
+    public function test_deve_retornar_o_xml_do_lote_sem_o_campo_telefone_emitente_para_emitente_e_destinatario_fisicos(): void
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-telefone-emitente.xml');
 
@@ -202,7 +201,7 @@ class LoteTest extends TestCase
         $this->assertXmlStringEqualsXmlString($estruturaLote, $lote->toXml());
     }
 
-    public function testDeveRetornarOxmlDoLoteSemOcampoInscricaoEstadualEmitenteParaEmitenteEdestinatarioFisicos(): void
+    public function test_deve_retornar_o_xml_do_lote_sem_o_campo_inscricao_estadual_emitente_para_emitente_e_destinatario_fisicos(): void
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-inscricao-estadual-emitente.xml');
 
@@ -243,7 +242,7 @@ class LoteTest extends TestCase
         $this->assertXmlStringEqualsXmlString($estruturaLote, $lote->toXml());
     }
 
-    public function testDeveRetornarOxmlDoLoteComOsCamposExtras(): void
+    public function test_deve_retornar_o_xml_do_lote_com_os_campos_extras(): void
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml');
 
@@ -287,14 +286,14 @@ class LoteTest extends TestCase
         $this->assertXmlStringEqualsXmlString($estruturaLote, $lote->toXml());
     }
 
-    public function testDeveUtilizarOAmbienteDeTestesAoEnviarUmLoteParaOwebService(): void
+    public function test_deve_utilizar_o_ambiente_de_testes_ao_enviar_um_lote_para_o_web_service(): void
     {
         $lote = new Lote();
         $lote->utilizarAmbienteDeTeste(true);
         $this->assertEquals('https://www.testegnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao', $lote->soapAction());
     }
 
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoapAoWebServiceDeteste(): void
+    public function test_deve_retornar_os_cabecalhos_para_a_requisicao_soap_ao_web_service_de_teste(): void
     {
         $lote = new Lote();
         $lote->utilizarAmbienteDeTeste(true);

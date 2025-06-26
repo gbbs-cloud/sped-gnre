@@ -7,5 +7,4 @@ namespace Sped\Gnre\Test\Parser;
  */
 class SefazRetornoTest
 {
-
 }

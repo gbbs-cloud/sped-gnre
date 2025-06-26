@@ -22,8 +22,7 @@ use Sped\Gnre\Render\SmartyFactory;
 
 class SmartyFactoryTest extends TestCase
 {
-
-    public function testDeveRetornarUmaInstanciaDoSmarty(): void
+    public function test_deve_retornar_uma_instancia_do_smarty(): void
     {
         $factory = new SmartyFactory();
 

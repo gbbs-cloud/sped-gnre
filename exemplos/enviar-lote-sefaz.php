@@ -6,7 +6,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Sped\Gnre\Configuration\Setup
 {
-
     public function getBaseUrl()
     {
     }
@@ -62,7 +61,6 @@ class MySetup extends Sped\Gnre\Configuration\Setup
 }
 
 $xml = file_get_contents('xml/estrutura-lote-completo-gnre.xml');
-
 
 $minhaConfiguracao = new MySetup();
 
