@@ -37,18 +37,18 @@ class LoteGnreTest extends TestCase
         $this->lote = null;
     }
 
-    public function testAdicionarUmaGuiaAoLote()
+    public function testAdicionarUmaGuiaAoLote(): void
     {
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
         $this->assertEquals(1, count($this->lote->getGuias()));
     }
 
-    public function testBuscarUmaGuiaEmEspecifico()
+    public function testBuscarUmaGuiaEmEspecifico(): void
     {
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
 
-        $this->assertInstanceOf('\Sped\Gnre\Sefaz\Guia', $this->lote->getGuia(0));
-        $this->assertInstanceOf('\Sped\Gnre\Sefaz\Guia', $this->lote->getGuia(1));
+        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Guia::class, $this->lote->getGuia(0));
+        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Guia::class, $this->lote->getGuia(1));
     }
 }

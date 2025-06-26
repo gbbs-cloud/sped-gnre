@@ -48,7 +48,7 @@ abstract class Rules
     /**
      * @var int
      */
-    protected $indentificador;
+    protected $identificador;
 
     /**
      * @var string
@@ -58,7 +58,7 @@ abstract class Rules
     /**
      * @var array
      */
-    protected $lote = array();
+    protected $lote = [];
 
     /**
      * Utiliza o método construtor da classe para ser enviado um conteúdo de
@@ -163,8 +163,9 @@ abstract class Rules
     public function getLote()
     {
         $lote = new \Sped\Gnre\Sefaz\Lote();
+        $counter = count($this->dadosArquivo);
 
-        for ($i = 0; $i < sizeof($this->dadosArquivo); $i++) {
+        for ($i = 0; $i < $counter; $i++) {
             $this->index = $i;
             $this->getIdentificador();
             $this->sequencialGuiaErroValidacao = null;

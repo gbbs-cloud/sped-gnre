@@ -11,13 +11,13 @@ use Sped\Gnre\Webservice\ConnectionFactory;
 class ConnectionFactoryTest extends TestCase
 {
 
-    public function testDeveRetornarUmaNovaInstanciaDeConnection()
+    public function testDeveRetornarUmaNovaInstanciaDeConnection(): void
     {
-        $setup = $this->getMockForAbstractClass('\Sped\Gnre\Configuration\Setup');
+        $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);
 
         $factory = new ConnectionFactory();
-        $connection = $factory->createConnection($setup, array(), '<env:soap>my data</env:soap>');
+        $connection = $factory->createConnection($setup, [], '<env:soap>my data</env:soap>');
 
-        $this->assertInstanceOf('\Sped\Gnre\Webservice\Connection', $connection);
+        $this->assertInstanceOf(\Sped\Gnre\Webservice\Connection::class, $connection);
     }
 }

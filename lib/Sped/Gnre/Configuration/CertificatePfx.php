@@ -35,7 +35,7 @@ class CertificatePfx
      * Atributo que armazena os dados extraidos do certificado com a função openssl_pkcs12_read
      * @var array
      */
-    private $dataCertificate = array();
+    private $dataCertificate = [];
 
     /**
      * Objecto necessário para realizar operações de criação de arquivos
@@ -46,7 +46,6 @@ class CertificatePfx
 
     /**
      * Dependências utilizadas para efetuar operação no certificado desejado
-     * @param \Sped\Gnre\Configuration\CertificatePfxFileOperation $cerficationFileOperation
      * @param string $password  senha utilizada para realizar operações com o certificado
      * @since  1.0.0
      */

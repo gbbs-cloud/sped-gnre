@@ -36,11 +36,6 @@ class GnreHelper
 
     protected static $xmlNf;
 
-
-    public function __construct($xmlNf)
-    {
-    }
-
     /**
      * Método utilizado para gerar os dados principais da GNRE utilizando os dados encontrados dentro do XML
      * 

@@ -74,10 +74,7 @@ class Lote extends LoteGnre
             'http://www.testegnre.pe.gov.br/webservice/GnreRecepcaoLote' :
             'http://www.gnre.pe.gov.br/webservice/GnreRecepcaoLote';
 
-        return array(
-            'Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"',
-            'SOAPAction: processar'
-        );
+        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: processar'];
     }
 
     /**

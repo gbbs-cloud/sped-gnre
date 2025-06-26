@@ -380,6 +380,7 @@ class Guia
         if ($this->verifyProperty($property)) {
             return $this->$property;
         }
+        return null;
     }
 
     /**
@@ -397,6 +398,7 @@ class Guia
             $this->$property = $value;
             return true;
         }
+        return null;
     }
 
     /**
@@ -407,7 +409,7 @@ class Guia
      * @throws UndefinedProperty  Caso o atributo desejada não exista na classe
      * @since  1.0.0
      */
-    private function verifyProperty($property)
+    private function verifyProperty($property): bool
     {
         if (!property_exists($this, $property)) {
             throw new UndefinedProperty($property);

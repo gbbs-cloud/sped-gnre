@@ -11,31 +11,31 @@ use Sped\Gnre\Render\Html;
 class HtmlTest extends TestCase
 {
 
-    public function testDeveRetornarUmInstanciaDoBarCode()
+    public function testDeveRetornarUmInstanciaDoBarCode(): void
     {
         $html = new Html();
-        $this->assertInstanceOf('\Sped\Gnre\Render\Barcode128', $html->getBarCode());
+        $this->assertInstanceOf(\Sped\Gnre\Render\Barcode128::class, $html->getBarCode());
     }
 
-    public function testDeveDefinirUmObjetoDeCodigoDeBarrasParaSerUtilizado()
+    public function testDeveDefinirUmObjetoDeCodigoDeBarrasParaSerUtilizado(): void
     {
         $barCode = new \Sped\Gnre\Render\Barcode128();
         $html = new Html();
 
-        $this->assertInstanceOf('\Sped\Gnre\Render\Html', $html->setBarCode($barCode));
+        $this->assertInstanceOf(\Sped\Gnre\Render\Html::class, $html->setBarCode($barCode));
         $this->assertSame($barCode, $html->getBarCode());
     }
 
-    public function testDeveRetornarNullSeNaoForCriadoOhtmlDaGuia()
+    public function testDeveRetornarNullSeNaoForCriadoOhtmlDaGuia(): void
     {
         $html = new \Sped\Gnre\Render\Html();
         $this->assertEmpty($html->getHtml());
     }
 
-    public function testNaoDeveGerarOhtmlDoLoteQuandoOloteEvazio()
+    public function testNaoDeveGerarOhtmlDoLoteQuandoOloteEvazio(): void
     {
         $html = new Html();
-        $mkcLote = $this->createMock('\Sped\Gnre\Sefaz\Lote');
+        $mkcLote = $this->createMock(\Sped\Gnre\Sefaz\Lote::class);
         $mkcLote->expects($this->once())
                 ->method('getGuias');
         $mkcLote->expects($this->never())
@@ -46,7 +46,7 @@ class HtmlTest extends TestCase
         $this->assertEmpty($html->getHtml());
     }
 
-    public function testIntegracaoRenderizaTemplateComDadosDaGuia()
+    public function testIntegracaoRenderizaTemplateComDadosDaGuia(): void
     {
         $guia = new \Sped\Gnre\Sefaz\Guia();
         $guia->c16_razaoSocialEmitente       = 'Empresa Teste LTDA';
