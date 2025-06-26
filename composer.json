@@ -29,6 +29,9 @@
         "mikey179/vfsstream": "^1.6"
     },
     "config": {
+        "platform": {
+            "php": "7.3"
+        },
         "sort-packages": true
     }
 }
