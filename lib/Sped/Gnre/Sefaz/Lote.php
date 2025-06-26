@@ -36,13 +36,10 @@ class Lote extends LoteGnre
      */
     private $ambienteDeTeste = false;
 
-    /**
-     * @return mixed
-     */
-    public function getEstadoFactory()
+    public function getEstadoFactory(): \Sped\Gnre\Sefaz\EstadoFactory
     {
-        if ($this->estadoFactory === null) {
-            $this->estadoFactory = new EstadoFactory();
+        if (! $this->estadoFactory instanceof \Sped\Gnre\Sefaz\EstadoFactory) {
+            $this->estadoFactory = new EstadoFactory;
         }
 
         return $this->estadoFactory;
@@ -67,7 +64,7 @@ class Lote extends LoteGnre
             'http://www.testegnre.pe.gov.br/webservice/GnreRecepcaoLote' :
             'http://www.gnre.pe.gov.br/webservice/GnreRecepcaoLote';
 
-        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: processar'];
+        return ['Content-Type: application/soap+xml;charset=utf-8;action="'.$action.'"', 'SOAPAction: processar'];
     }
 
     /**

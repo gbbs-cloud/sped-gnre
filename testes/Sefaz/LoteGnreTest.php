@@ -28,7 +28,7 @@ class LoteGnreTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->lote = new \Sped\Gnre\Sefaz\Lote();
+        $this->lote = new \Sped\Gnre\Sefaz\Lote;
     }
 
     protected function tearDown(): void
@@ -38,14 +38,14 @@ class LoteGnreTest extends TestCase
 
     public function test_adicionar_uma_guia_ao_lote(): void
     {
-        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
+        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia);
         $this->assertEquals(1, count($this->lote->getGuias()));
     }
 
     public function test_buscar_uma_guia_em_especifico(): void
     {
-        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
-        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
+        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia);
+        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia);
 
         $this->assertInstanceOf(\Sped\Gnre\Sefaz\Guia::class, $this->lote->getGuia(0));
         $this->assertInstanceOf(\Sped\Gnre\Sefaz\Guia::class, $this->lote->getGuia(1));

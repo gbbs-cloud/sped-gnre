@@ -42,7 +42,7 @@ class Consulta extends ConsultaGnre
             'http://www.testegnre.pe.gov.br/webservice/GnreResultadoLote' :
             'http://www.gnre.pe.gov.br/webservice/GnreResultadoLote';
 
-        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: consultar'];
+        return ['Content-Type: application/soap+xml;charset=utf-8;action="'.$action.'"', 'SOAPAction: consultar'];
     }
 
     /**

@@ -14,7 +14,7 @@ class ConnectionFactoryTest extends TestCase
     {
         $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);
 
-        $factory = new ConnectionFactory();
+        $factory = new ConnectionFactory;
         $connection = $factory->createConnection($setup, [], '<env:soap>my data</env:soap>');
 
         $this->assertInstanceOf(\Sped\Gnre\Webservice\Connection::class, $connection);

@@ -70,7 +70,7 @@ class FilePrefix
         $extension = $arrayFileName[1];
         $singleFileName = $arrayFileName[0];
 
-        $arrayPath[$nameFilePosition] = $singleFileName . $this->prefix . '.' . $extension;
+        $arrayPath[$nameFilePosition] = $singleFileName.$this->prefix.'.'.$extension;
 
         return implode('/', $arrayPath);
     }

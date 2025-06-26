@@ -34,6 +34,6 @@ class EstadoFactory
             $classe = \Sped\Gnre\Sefaz\Estados\BA::class;
         }
 
-        return new $classe();
+        return new $classe;
     }
 }

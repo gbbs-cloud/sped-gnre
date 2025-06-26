@@ -42,11 +42,13 @@ class Html
 
     /**
      * Retorna a instância do objeto atual ou cria uma caso não exista
-     *
-     * @return \Sped\Gnre\Render\Barcode128
      */
-    public function getBarCode()
+    public function getBarCode(): \Sped\Gnre\Render\Barcode128
     {
+        if (! $this->barCode instanceof Barcode128) {
+            $this->barCode = new Barcode128;
+        }
+
         return $this->barCode;
     }
 
@@ -83,9 +85,9 @@ class Html
             $barcode = $this->getBarCode()
                 ->setNumeroCodigoBarras($guia->retornoCodigoDeBarras);
 
-            $documentRoot = dirname(__FILE__, 5) . DIRECTORY_SEPARATOR;
+            $documentRoot = dirname(__FILE__, 5).DIRECTORY_SEPARATOR;
             ob_start();
-            include $documentRoot . 'templates' . DIRECTORY_SEPARATOR . 'gnre.php';
+            include $documentRoot.'templates'.DIRECTORY_SEPARATOR.'gnre.php';
             $html .= ob_get_clean();
         }
 
@@ -94,10 +96,8 @@ class Html
 
     /**
      * Retorna o conteúdo HTML gerado pela classe
-     *
-     * @return string
      */
-    public function getHtml()
+    public function getHtml(): ?string
     {
         return $this->html;
     }

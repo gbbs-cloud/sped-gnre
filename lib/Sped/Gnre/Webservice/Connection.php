@@ -57,16 +57,14 @@ class Connection
         if (! empty($ip) && $port) {
             $this->curlOptions[CURLOPT_HTTPPROXYTUNNEL] = 1;
             $this->curlOptions[CURLOPT_PROXYTYPE] = 'CURLPROXY_HTTP';
-            $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp() . ':' . $this->setup->getProxyPort();
+            $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp().':'.$this->setup->getProxyPort();
         }
     }
 
     /**
      * Retorna as opções definidas para o curl
-     *
-     * @return array
      */
-    public function getCurlOptions()
+    public function getCurlOptions(): array
     {
         return $this->curlOptions;
     }

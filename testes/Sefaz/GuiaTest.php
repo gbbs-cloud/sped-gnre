@@ -13,7 +13,7 @@ class GuiaTest extends TestCase
 {
     public function test_deve_setar_o_valor_a_uma_propriedade_existente_da_classe(): void
     {
-        $gnreGuia = new \Sped\Gnre\Sefaz\Guia();
+        $gnreGuia = new \Sped\Gnre\Sefaz\Guia;
         $gnreGuia->c01_UfFavorecida = 'SP';
 
         $this->assertEquals('SP', $gnreGuia->c01_UfFavorecida);
@@ -25,7 +25,7 @@ class GuiaTest extends TestCase
         $this->expectExceptionMessage('Não foi possível encontrar o atributo desejado na classe');
         $this->expectExceptionCode(100);
 
-        $gnreGuia = new \Sped\Gnre\Sefaz\Guia();
+        $gnreGuia = new \Sped\Gnre\Sefaz\Guia;
         $gnreGuia->teste = 'SP';
     }
 }

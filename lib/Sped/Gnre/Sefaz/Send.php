@@ -51,17 +51,15 @@ class Send
          * transmissao dos dados
          */
         private readonly Setup $setup
-    ) {
-    }
+    ) {}
 
     /**
      * Retorna o objeto de conexão com a SEFAZ
      *
-     * @return \Sped\Gnre\Webservice\ConnectionFactory
      *
      * @throws \Sped\Gnre\Exception\ConnectionFactoryUnavailable
      */
-    public function getConnectionFactory()
+    public function getConnectionFactory(): ?\Sped\Gnre\Webservice\ConnectionFactory
     {
         return $this->connectionFactory;
     }
