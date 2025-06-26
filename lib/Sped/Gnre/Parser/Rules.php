@@ -32,7 +32,6 @@ namespace Sped\Gnre\Parser;
 abstract class Rules
 {
 
-    public $identificador;
     const ERRO_VALIDACAO = 2;
     const GUIA_EMITIDA_COM_SUCESSO = 9;
 
@@ -49,7 +48,7 @@ abstract class Rules
     /**
      * @var int
      */
-    protected $indentificador;
+    protected $identificador;
 
     /**
      * @var string
