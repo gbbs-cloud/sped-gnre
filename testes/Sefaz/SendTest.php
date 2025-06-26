@@ -48,7 +48,7 @@ class SendTest extends TestCase
         $this->assertInstanceOf(\Sped\Gnre\Webservice\ConnectionFactory::class, $send->getConnectionFactory());
     }
 
-    public function test_deve_realizar_aconexao_com_asefaz(): void
+    public function test_deve_realizar_a_conexao_com_a_sefaz(): void
     {
         $connection = $this->getMockBuilder(\Sped\Gnre\Webservice\Connection::class)
             ->disableOriginalConstructor()
