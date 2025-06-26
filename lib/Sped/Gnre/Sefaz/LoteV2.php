@@ -301,35 +301,32 @@ class LoteV2 extends Lote {
     public function getCodigoDoc($uf, $difa = false) {
         $doc = '10';
         switch ($uf) {
-            case 'AC'://acre
-            case 'AL'://alagoas
-            case 'AP'://amazon
+            case 'AC':
+            case 'AL':
+            case 'AP':
             case 'BA':
             case 'CE':
             case 'DF':
             case 'ES':
             case 'GO':
-            case 'MA'://maranhao
-            case 'MT'://mato grosso
-            case 'MS'://matro grosso sol
+            case 'MA':
+            case 'MT':
+            case 'MS':
             case 'MG':
-            case 'PA'://para
-            case 'PB'://paraiba
-            case 'PR'://pernan
+            case 'PA':
+            case 'PB':
+            case 'PR':
             case 'PI':
             case 'RN':
-            case 'RO'://Rondonia
+            case 'RO':
             case 'RR':
             case 'SP':
             case 'SE':
             case 'TO' : $doc = '10'; break;
-            //amapa
             case 'AM':
             case 'RS' : $doc = '22'; break;
             case 'PE' : $doc = $difa?'24':'22'; break;
-            //piaiu
             case 'RJ':
-            //Roraima
             case 'SC' : $doc = '24'; break;
         }
         return $doc;
@@ -338,35 +335,32 @@ class LoteV2 extends Lote {
     public function getNumDoc($uf) {
         $doc = 'numero';
         switch ($uf) {
-            case 'AC'://acre
-            case 'AL'://alagoas
-            case 'AP'://amazon
+            case 'AC':
+            case 'AL':
+            case 'AP':
             case 'BA':
             case 'CE':
             case 'DF':
             case 'ES':
             case 'GO':
-            case 'MA'://maranhao
-            case 'MT'://mato grosso
-            case 'MS'://matro grosso sol
+            case 'MA':
+            case 'MT':
+            case 'MS':
             case 'MG':
-            case 'PA'://para
-            case 'PB'://paraiba
-            case 'PR'://pernan
+            case 'PA':
+            case 'PB':
+            case 'PR':
             case 'PI':
             case 'RN':
-            case 'RO'://Rondonia
+            case 'RO':
             case 'RR':
             case 'SP':
             case 'SE':
             case 'TO' : $doc = 'numero'; break;
-            //amapa
             case 'AM':
             case 'PE':
-            //piaiu
             case 'RJ':
             case 'RS':
-            //Roraima
             case 'SC' : $doc = 'chave'; break;
         }
         return $doc;
