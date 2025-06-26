@@ -19,9 +19,8 @@ namespace Sped\Gnre\Sefaz;
 
 class EstadoFactory
 {
-
     /**
-     * @param string $estado
+     * @param  string  $estado
      * @return \Sped\Gnre\Sefaz\Estados\Padrao
      */
     public function create($estado = 'BA')
@@ -31,10 +30,10 @@ class EstadoFactory
             $estado
         );
 
-        if (!class_exists($classe)) {
+        if (! class_exists($classe)) {
             $classe = \Sped\Gnre\Sefaz\Estados\BA::class;
         }
 
-        return new $classe();
+        return new $classe;
     }
 }

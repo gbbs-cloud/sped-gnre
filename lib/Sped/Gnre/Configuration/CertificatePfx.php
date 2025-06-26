@@ -17,41 +17,37 @@
 
 namespace Sped\Gnre\Configuration;
 
-use Sped\Gnre\Configuration\CertificatePfxFileOperation;
-
 /**
  * Classe responsável por extrair os dados de um certificado baseado
  * nos parâmetros passados para enviar uma consulta para a sefaz com sucesso
- * @package     gnre
- * @subpackage  configuration
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class CertificatePfx
 {
-
     /**
      * Atributo que armazena os dados extraidos do certificado com a função openssl_pkcs12_read
+     *
      * @var array
      */
     private $dataCertificate = [];
 
     /**
-     * Objecto necessário para realizar operações de criação de arquivos
-     * a partir dos dados do certificado
-     * @var \Sped\Gnre\Configuration\CertificatePfxFileOperation
-     */
-    private $cerficationFileOperation;
-
-    /**
      * Dependências utilizadas para efetuar operação no certificado desejado
-     * @param string $password  senha utilizada para realizar operações com o certificado
+     *
+     * @param  string  $password  senha utilizada para realizar operações com o certificado
+     *
      * @since  1.0.0
      */
-    public function __construct(CertificatePfxFileOperation $cerficationFileOperation, $password)
+    public function __construct(/**
+     * Objecto necessário para realizar operações de criação de arquivos
+     * a partir dos dados do certificado
+     */
+        private readonly CertificatePfxFileOperation $cerficationFileOperation, $password)
     {
-        $this->cerficationFileOperation = $cerficationFileOperation;
         $this->dataCertificate = $this->cerficationFileOperation->open($password);
     }
 
@@ -59,14 +55,18 @@ class CertificatePfx
      * Cria um arquivo na pasta definida nas configurações padrões (/certs/metadata) com a
      * chave privada do certificado. Para salvar o novo arquivo é utilizado
      * o mesmo nome do certificado e com prefixo definido no método
+     *
+     * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado
+     *
      * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
-     * @return string  Retorna uma string com o caminho e o nome do arquivo que foi criado
+     *
      * @since  1.0.0
      */
     public function getPrivateKey()
     {
-        $filePrefix = new FilePrefix();
+        $filePrefix = new FilePrefix;
         $filePrefix->setPrefix('_privKEY');
+
         return $this->cerficationFileOperation->writeFile($this->dataCertificate['pkey'], $filePrefix);
     }
 
@@ -74,14 +74,18 @@ class CertificatePfx
      * Cria um arquivo na pasta definida nas configurações padrões (/certs/metadata) com a
      * chave privada do certificado. Para salvar o novo arquivo é utilizado
      * o mesmo nome do certificado e com prefixo definido no método
-     * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
+     *
      * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado
+     *
+     * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
+     *
      * @since  1.0.0
      */
     public function getCertificatePem()
     {
-        $filePrefix = new FilePrefix();
+        $filePrefix = new FilePrefix;
         $filePrefix->setPrefix('_certKEY');
+
         return $this->cerficationFileOperation->writeFile($this->dataCertificate['cert'], $filePrefix);
     }
 }

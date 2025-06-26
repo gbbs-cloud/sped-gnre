@@ -18,32 +18,32 @@
 namespace Sped\Gnre\Render;
 
 use Dompdf\Dompdf;
-use Sped\Gnre\Render\Html;
 
 /**
  * Classe que contém a estrutura para gerar o pdf da guia de pagamento.
- * @package     gnre
- * @subpackage  pdf
+ *
  * @author      Leandro Pereira <llpereiras@gmail.com>
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class Pdf
 {
-
     /**
      * Método criado para ser possível testar a utilização do objeto
      * <b>Dompdf</b> pela classe
+     *
      * @return \Dompdf\Dompdf
      */
     protected function getDomPdf()
     {
-        return new Dompdf();
+        return new Dompdf;
     }
 
     /**
      * Gera o PDF através do HTML
+     *
      * @return \Dompdf\Dompdf
      */
     public function create(Html $html)

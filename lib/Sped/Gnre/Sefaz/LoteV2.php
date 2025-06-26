@@ -19,13 +19,14 @@ namespace Sped\Gnre\Sefaz;
 
 use DOMDocument;
 
-class LoteV2 extends Lote {
-
+class LoteV2 extends Lote
+{
     public $ambienteDeTesteV2 = false;
 
     public function setAmbienteDeTesteV2(bool $ambienteDeTesteV2): LoteV2
     {
         $this->ambienteDeTesteV2 = $ambienteDeTesteV2;
+
         return $this;
     }
 
@@ -61,7 +62,8 @@ class LoteV2 extends Lote {
         $soapEnv->appendChild($soapBody);
     }
 
-    public function toXml() {
+    public function toXml()
+    {
         $gnre = new DOMDocument('1.0', 'UTF-8');
         $gnre->formatOutput = false;
         $gnre->preserveWhiteSpace = false;
@@ -101,7 +103,6 @@ class LoteV2 extends Lote {
 
             $identificadorGuia = $gnre->createElement('identificadorGuia', '1');
 
-
             // Trata os dados dos emitente
             $razaoSocial = $gnre->createElement('razaoSocial', $gnreGuia->c16_razaoSocialEmitente);
             $endereco = $gnre->createElement('endereco', $gnreGuia->c18_enderecoEmitente);
@@ -123,7 +124,6 @@ class LoteV2 extends Lote {
                 $contribuinteEmitente->appendChild($identificacao);
             }
 
-
             if ($razaoSocial->nodeValue) {
                 $contribuinteEmitente->appendChild($razaoSocial);
             }
@@ -143,7 +143,6 @@ class LoteV2 extends Lote {
                 $contribuinteEmitente->appendChild($telefone);
             }
 
-
             // Trata os dados dos itens
 
             $receita = $gnre->createElement('receita', $gnreGuia->c02_receita);
@@ -152,23 +151,23 @@ class LoteV2 extends Lote {
             $tipoDoc->value = $gnreGuia->c28_tipoDocOrigem;
             $documentoOrigem->appendChild($tipoDoc);
             $referencia = $gnre->createElement('referencia');
-            $periodo =  $gnre->createElement('periodo', '0');
+            $periodo = $gnre->createElement('periodo', '0');
             $referencia->appendChild($periodo);
 
             $itensGNRE = $gnre->createElement('itensGNRE');
 
             $item = $gnre->createElement('item');
 
-            if ($gnreGuia->mes!=null) {
-                $mes =  $gnre->createElement('mes', $gnreGuia->mes);
+            if ($gnreGuia->mes != null) {
+                $mes = $gnre->createElement('mes', $gnreGuia->mes);
                 $referencia->appendChild($mes);
             }
-            if ($gnreGuia->ano!=null) {
-                $ano =  $gnre->createElement('ano', $gnreGuia->ano);
+            if ($gnreGuia->ano != null) {
+                $ano = $gnre->createElement('ano', $gnreGuia->ano);
                 $referencia->appendChild($ano);
             }
-            if ($gnreGuia->parcela!=null) {
-                $parcela =  $gnre->createElement('parcela', $gnreGuia->parcela);
+            if ($gnreGuia->parcela != null) {
+                $parcela = $gnre->createElement('parcela', $gnreGuia->parcela);
                 $referencia->appendChild($parcela);
             }
 
@@ -187,7 +186,6 @@ class LoteV2 extends Lote {
                 $valor21->appendChild($tipo21);
             }
 
-
             $contribuinteDestinatario = $gnre->createElement('contribuinteDestinatario');
             $identificacao = $gnre->createElement('identificacao');
 
@@ -197,21 +195,17 @@ class LoteV2 extends Lote {
                 $destinatarioContribuinteDocumento = $gnre->createElement('CPF', $gnreGuia->c35_idContribuinteDestinatario);
             }
 
-
             $identificacao->appendChild($destinatarioContribuinteDocumento);
-            if ($gnreGuia->c36_inscricaoEstadualDestinatario!='') {
+            if ($gnreGuia->c36_inscricaoEstadualDestinatario != '') {
                 $IE = $gnre->createElement('IE', $gnreGuia->c36_inscricaoEstadualDestinatario);
                 $identificacao->appendChild($IE);
             }
-
 
             $razaoSocial = $gnre->createElement('razaoSocial', $gnreGuia->c37_razaoSocialDestinatario);
             $municipio = $gnre->createElement('municipio', $gnreGuia->c38_municipioDestinatario);
             $contribuinteDestinatario->appendChild($identificacao);
             $contribuinteDestinatario->appendChild($razaoSocial);
             $contribuinteDestinatario->appendChild($municipio);
-
-
 
             if ($receita->nodeValue) {
                 $item->appendChild($receita);
@@ -243,8 +237,6 @@ class LoteV2 extends Lote {
                 $itensGNRE->appendChild($item);
             }
 
-
-
             if ($estado) {
                 $dados->appendChild($ufFavorecida);
             }
@@ -258,7 +250,6 @@ class LoteV2 extends Lote {
                 $dados->appendChild($itensGNRE);
             }
 
-
             if ($gnreGuia->c10_valorTotal) {
                 $dados->appendChild($valorGNRE);
             }
@@ -268,9 +259,6 @@ class LoteV2 extends Lote {
             }
 
             $dados->appendChild($identificadorGuia);
-
-
-
 
             $guia->appendChild($dados);
             $gnre->appendChild($loteGnre);
@@ -282,7 +270,8 @@ class LoteV2 extends Lote {
         return $gnre->saveXML();
     }
 
-    public function gerarCamposExtras($gnre, $gnreGuia) {
+    public function gerarCamposExtras($gnre, $gnreGuia)
+    {
         if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
             $c39_camposExtras = $gnre->createElement('camposExtras');
             foreach ($gnreGuia->c39_camposExtras as $campos) {
@@ -293,77 +282,34 @@ class LoteV2 extends Lote {
                 $campoExtra->appendChild($valor);
                 $c39_camposExtras->appendChild($campoExtra);
             }
+
             return $c39_camposExtras;
         }
+
         return null;
     }
 
-    public function getCodigoDoc($uf, $difa = false) {
+    public function getCodigoDoc($uf, $difa = false)
+    {
         $doc = '10';
-        switch ($uf) {
-            case 'AC':
-            case 'AL':
-            case 'AP':
-            case 'BA':
-            case 'CE':
-            case 'DF':
-            case 'ES':
-            case 'GO':
-            case 'MA':
-            case 'MT':
-            case 'MS':
-            case 'MG':
-            case 'PA':
-            case 'PB':
-            case 'PR':
-            case 'PI':
-            case 'RN':
-            case 'RO':
-            case 'RR':
-            case 'SP':
-            case 'SE':
-            case 'TO' : $doc = '10'; break;
-            case 'AM':
-            case 'RS' : $doc = '22'; break;
-            case 'PE' : $doc = $difa?'24':'22'; break;
-            case 'RJ':
-            case 'SC' : $doc = '24'; break;
-        }
-        return $doc;
+
+        return match ($uf) {
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => '10',
+            'AM', 'RS' => '22',
+            'PE' => $difa ? '24' : '22',
+            'RJ', 'SC' => '24',
+            default => $doc,
+        };
     }
 
-    public function getNumDoc($uf) {
+    public function getNumDoc($uf)
+    {
         $doc = 'numero';
-        switch ($uf) {
-            case 'AC':
-            case 'AL':
-            case 'AP':
-            case 'BA':
-            case 'CE':
-            case 'DF':
-            case 'ES':
-            case 'GO':
-            case 'MA':
-            case 'MT':
-            case 'MS':
-            case 'MG':
-            case 'PA':
-            case 'PB':
-            case 'PR':
-            case 'PI':
-            case 'RN':
-            case 'RO':
-            case 'RR':
-            case 'SP':
-            case 'SE':
-            case 'TO' : $doc = 'numero'; break;
-            case 'AM':
-            case 'PE':
-            case 'RJ':
-            case 'RS':
-            case 'SC' : $doc = 'chave'; break;
-        }
-        return $doc;
-    }
 
+        return match ($uf) {
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => 'numero',
+            'AM', 'PE', 'RJ', 'RS', 'SC' => 'chave',
+            default => $doc,
+        };
+    }
 }

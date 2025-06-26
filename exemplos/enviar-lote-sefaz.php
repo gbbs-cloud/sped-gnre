@@ -2,58 +2,33 @@
 
 namespace Exemplo;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 class MySetup extends Sped\Gnre\Configuration\Setup
 {
+    public function getBaseUrl() {}
 
-    public function getBaseUrl()
-    {
-    }
+    public function getCertificateCnpj() {}
 
-    public function getCertificateCnpj()
-    {
-    }
+    public function getCertificateDirectory() {}
 
-    public function getCertificateDirectory()
-    {
-    }
+    public function getCertificateName() {}
 
-    public function getCertificateName()
-    {
-    }
+    public function getCertificatePassword() {}
 
-    public function getCertificatePassword()
-    {
-    }
+    public function getCertificatePemFile() {}
 
-    public function getCertificatePemFile()
-    {
-    }
+    public function getEnvironment() {}
 
-    public function getEnvironment()
-    {
-    }
+    public function getPrivateKey() {}
 
-    public function getPrivateKey()
-    {
-    }
+    public function getProxyIp() {}
 
-    public function getProxyIp()
-    {
-    }
+    public function getProxyPass() {}
 
-    public function getProxyPass()
-    {
-    }
+    public function getProxyPort() {}
 
-    public function getProxyPort()
-    {
-    }
-
-    public function getProxyUser()
-    {
-    }
+    public function getProxyUser() {}
 
     public function getDebug()
     {
@@ -63,12 +38,11 @@ class MySetup extends Sped\Gnre\Configuration\Setup
 
 $xml = file_get_contents('xml/estrutura-lote-completo-gnre.xml');
 
+$minhaConfiguracao = new MySetup;
 
-$minhaConfiguracao = new MySetup();
+$guia = new Sped\Gnre\Sefaz\Guia;
 
-$guia = new Sped\Gnre\Sefaz\Guia();
-
-$lote = new Sped\Gnre\Sefaz\Lote();
+$lote = new Sped\Gnre\Sefaz\Lote;
 // $lote->utilizarAmbienteDeTeste(true); Descomente essa linha para utilizar o ambiente de testes
 
 $lote->addGuia($guia);
