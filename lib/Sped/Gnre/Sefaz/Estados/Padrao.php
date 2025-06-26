@@ -23,14 +23,16 @@ abstract class Padrao
 {
 
     /**
+     * @param \DOMDocument $gnre
+     * @param \Sped\Gnre\Sefaz\Guia $gnreGuia
      * @return mixed
      */
     public function getNodeCamposExtras(\DOMDocument $gnre, Guia $gnreGuia)
     {
-        if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
+        if (is_array($gnreGuia->c39_camposExtras) && count($gnreGuia->c39_camposExtras) > 0) {
             $c39_camposExtras = $gnre->createElement('c39_camposExtras');
 
-            foreach ($gnreGuia->c39_camposExtras as $campos) {
+            foreach ($gnreGuia->c39_camposExtras as $key => $campos) {
                 $campoExtra = $gnre->createElement('campoExtra');
                 $codigo = $gnre->createElement('codigo', $campos['campoExtra']['codigo']);
                 $tipo = $gnre->createElement('tipo', $campos['campoExtra']['tipo']);
@@ -50,6 +52,8 @@ abstract class Padrao
     }
 
     /**
+     * @param \DOMDocument $gnre
+     * @param \Sped\Gnre\Sefaz\Guia $gnreGuia
      * @return \DOMElement
      */
     public function getNodeReferencia(\DOMDocument $gnre, Guia $gnreGuia)

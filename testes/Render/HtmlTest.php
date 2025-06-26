@@ -11,37 +11,37 @@ use Sped\Gnre\Render\Html;
 class HtmlTest extends TestCase
 {
 
-    public function testDeveRetornarUmInstanciaDoBarCode(): void
+    public function testDeveRetornarUmInstanciaDoBarCode()
     {
         $html = new Html();
-        $this->assertInstanceOf(\Sped\Gnre\Render\Barcode128::class, $html->getBarCode());
+        $this->assertInstanceOf('\Sped\Gnre\Render\Barcode128', $html->getBarCode());
     }
 
-    public function testDeveRetornarUmaInstanciaDoSmartyFactory(): void
+    public function testDeveRetornarUmaInstanciaDoSmartyFactory()
     {
         $html = new Html();
-        $this->assertInstanceOf(\Sped\Gnre\Render\SmartyFactory::class, $html->getSmartyFactory());
+        $this->assertInstanceOf('\Sped\Gnre\Render\SmartyFactory', $html->getSmartyFactory());
     }
 
-    public function testDeveDefinirUmObjetoDeCodigoDeBarrasParaSerUtilizado(): void
+    public function testDeveDefinirUmObjetoDeCodigoDeBarrasParaSerUtilizado()
     {
         $barCode = new \Sped\Gnre\Render\Barcode128();
         $html = new Html();
 
-        $this->assertInstanceOf(\Sped\Gnre\Render\Html::class, $html->setBarCode($barCode));
+        $this->assertInstanceOf('\Sped\Gnre\Render\Html', $html->setBarCode($barCode));
         $this->assertSame($barCode, $html->getBarCode());
     }
 
-    public function testDeveRetornarNullSeNaoForCriadoOhtmlDaGuia(): void
+    public function testDeveRetornarNullSeNaoForCriadoOhtmlDaGuia()
     {
         $html = new \Sped\Gnre\Render\Html();
         $this->assertEmpty($html->getHtml());
     }
 
-    public function testNaoDeveGerarOhtmlDoLoteQuandoOloteEvazio(): void
+    public function testNaoDeveGerarOhtmlDoLoteQuandoOloteEvazio()
     {
         $html = new Html();
-        $mkcLote = $this->createMock(\Sped\Gnre\Sefaz\Lote::class);
+        $mkcLote = $this->createMock('\Sped\Gnre\Sefaz\Lote');
         $mkcLote->expects($this->once())
                 ->method('getGuias');
         $mkcLote->expects($this->never())
@@ -52,7 +52,7 @@ class HtmlTest extends TestCase
         $this->assertEmpty($html->getHtml());
     }
 
-    public function testDeveGerarOhtmlDoLoteQuandoPossuirGuias(): void
+    public function testDeveGerarOhtmlDoLoteQuandoPossuirGuias()
     {
         $smarty = $this->createMock('\Smarty');
         $smarty->expects($this->at(0))
@@ -68,7 +68,7 @@ class HtmlTest extends TestCase
                 ->method('fetch')
                 ->will($this->returnValue('<html></html>'));
 
-        $smartyFactory = $this->createMock(\Sped\Gnre\Render\SmartyFactory::class);
+        $smartyFactory = $this->createMock('\Sped\Gnre\Render\SmartyFactory');
         $smartyFactory->expects($this->once())
                 ->method('create')
                 ->will($this->returnValue($smarty));

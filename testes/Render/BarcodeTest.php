@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class BarcodeTest extends TestCase
 {
 
-    public function testDeveSetarUmNumeroDeCodigoDeBarras(): void
+    public function testDeveSetarUmNumeroDeCodigoDeBarras()
     {
         $barcodeGnre = new \Sped\Gnre\Render\Barcode128();
         $barcodeGnre->setNumeroCodigoBarras('91910919190191091090109109190109');
@@ -15,7 +15,7 @@ class BarcodeTest extends TestCase
         $this->assertEquals('91910919190191091090109109190109', $barcodeGnre->getNumeroCodigoBarras());
     }
 
-    public function testDeveRetornarUmNumeroDeCodigoDeBarras(): void
+    public function testDeveRetornarUmNumeroDeCodigoDeBarras()
     {
         $barcodeGnre = new \Sped\Gnre\Render\Barcode128();
         $this->assertNull($barcodeGnre->getNumeroCodigoBarras());

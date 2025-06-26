@@ -27,16 +27,16 @@ use Sped\Gnre\Exception\UnreachableFile;
  */
 class FileOperationTest extends TestCase
 {
-    public function testArquivoInformadoNaoExiste(): void
+    public function testArquivoInformadoNaoExiste()
     {
         $this->expectException(UnreachableFile::class);
-        new MyFile('/foo/bar.txt');
+        $myFile = new MyFile('/foo/bar.txt');
     }
 
-    public function testArquivoInformadoExistente(): void
+    public function testArquivoInformadoExistente()
     {
         $file = __DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml';
-        new MyFile($file);
+        $myFile = new MyFile($file);
         $this->assertFileExists($file);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
@@ -49,4 +49,4 @@ $html = new Sped\Gnre\Render\Html();
 $html->create($lote);
 
 $pdf = new Sped\Gnre\Render\Pdf();
-$pdf->create($html)->stream('gnre.pdf', ['Attachment' => 0]);
+$pdf->create($html)->stream('gnre.pdf', array('Attachment' => 0));

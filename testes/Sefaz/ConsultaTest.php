@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ConsultaTest extends TestCase
 {
 
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoap(): void
+    public function testDeveRetornarOsCabecalhosParaArequisicaoSoap()
     {
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
         $headersArray = $consulta->getHeaderSoap();
@@ -20,7 +20,7 @@ class ConsultaTest extends TestCase
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
 
-    public function testDeveRetornarOsCabecalhosParaArequisicaoSoapAoWebserviceDeTestes(): void
+    public function testDeveRetornarOsCabecalhosParaArequisicaoSoapAoWebserviceDeTestes()
     {
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
         $consulta->utilizarAmbienteDeTeste(true);
@@ -32,14 +32,14 @@ class ConsultaTest extends TestCase
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
 
-    public function testDeveRetornarAacaoAserExecutadaNoSoap(): void
+    public function testDeveRetornarAacaoAserExecutadaNoSoap()
     {
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
 
         $this->assertEquals('https://www.gnre.pe.gov.br/gnreWS/services/GnreResultadoLote', $consulta->soapAction());
     }
 
-    public function testDeveRetornarXmlCompletoVazioParaRealizarAconsulta(): void
+    public function testDeveRetornarXmlCompletoVazioParaRealizarAconsulta()
     {
         $dadosParaConsulta = file_get_contents(__DIR__ . '/../../exemplos/xml/envelope-consultar-gnre.xml');
 
@@ -50,14 +50,14 @@ class ConsultaTest extends TestCase
         $this->assertXmlStringEqualsXmlString($dadosParaConsulta, $consulta->toXml());
     }
 
-    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeProducao(): void
+    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeProducao()
     {
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
 
         $this->assertEquals($consulta->soapAction(), 'https://www.gnre.pe.gov.br/gnreWS/services/GnreResultadoLote');
     }
 
-    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeTestes(): void
+    public function testDeveRetornarAactionAserExecutadaNoWebServiceDeTestes()
     {
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
         $consulta->utilizarAmbienteDeTeste(true);

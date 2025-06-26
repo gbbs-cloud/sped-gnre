@@ -1,0 +1,77 @@
+name: Rector Level Analysis
+
+on:
+  pull_request:
+
+jobs:
+  analyze-rector-levels:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.3
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Analyze Rector Levels
+        id: analyze
+        run: |
+          #!/bin/bash
+          rector_file="rector.php"
+          
+          base_rector_config='<?php
+          declare(strict_types=1);
+          use Rector\Config\RectorConfig;
+          return RectorConfig::configure()
+              ->withPaths([ __DIR__ . "/lib", __DIR__ . "/testes" ])
+              ->withPhpSets()
+              ->withTypeCoverageLevel(0)
+              ->withDeadCodeLevel(0)
+              ->withCodeQualityLevel(0);'
+
+          level_names=("TypeCoverage" "DeadCode" "CodeQuality")
+          max_levels=(49 48 71)
+          final_levels=()
+
+          for i in {0..2}; do
+            category_name=${level_names[$i]}
+            category_max=${max_levels[$i]}
+            highest_level=0
+
+            echo "::group::Analyzing $category_name"
+
+            for level in $(seq 1 $category_max); do
+              echo "Checking $category_name level $level..."
+              
+              current_rector_config=$(echo "$base_rector_config" | sed "s/with${category_name}Level(0)/with${category_name}Level($level)/")
+              echo "$current_rector_config" > rector-run.php
+
+              ./vendor/bin/rector process --config rector-run.php --no-progress-bar || true
+              
+              if ./vendor/bin/phpunit > /dev/null 2>&1; then
+                echo "Tests PASSED for $category_name level $level"
+                highest_level=$level
+                git checkout -- lib/ testes/
+              else
+                echo "Tests FAILED for $category_name level $level"
+                git checkout -- lib/ testes/
+                break
+              fi
+            done
+            
+            final_levels+=("Highest successful level for $category_name: $highest_level")
+            echo "::endgroup::"
+          done
+
+          rm rector-run.php
+
+          echo "::set-output name=summary::$(IFS=$'\n'; echo "${final_levels[*]}")"
+
+      - name: Report Max Levels
+        run: |
+          echo "Rector Level Analysis Results:"
+          echo "${{ steps.analyze.outputs.summary }}"

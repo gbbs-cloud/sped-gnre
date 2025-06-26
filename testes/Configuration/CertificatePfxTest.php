@@ -25,9 +25,9 @@ use PHPUnit\Framework\TestCase;
 class TestCertificatePfx extends TestCase
 {
 
-    public function testPassarAoCriarChavePrivadaApartirDoCertificado(): void
+    public function testPassarAoCriarChavePrivadaApartirDoCertificado()
     {
-        $stubFileOperation = $this->getMockBuilder(\Sped\Gnre\Configuration\CertificatePfxFileOperation::class)
+        $stubFileOperation = $this->getMockBuilder('\Sped\Gnre\Configuration\CertificatePfxFileOperation')
                 ->disableOriginalConstructor()
                 ->getMock();
 
@@ -41,9 +41,9 @@ class TestCertificatePfx extends TestCase
         $this->assertEquals('vfs://certificadoDir/metadata/certificado_Private.pem', $caminhoDoArquivoCriado);
     }
 
-    public function testPassarAoCriarCertificadoPemApartirDoCertificado(): void
+    public function testPassarAoCriarCertificadoPemApartirDoCertificado()
     {
-        $mockFileOperation = $this->getMockBuilder(\Sped\Gnre\Configuration\CertificatePfxFileOperation::class)
+        $mockFileOperation = $this->getMockBuilder('\Sped\Gnre\Configuration\CertificatePfxFileOperation')
                 ->disableOriginalConstructor()
                 ->getMock();
 

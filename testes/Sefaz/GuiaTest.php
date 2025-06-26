@@ -12,7 +12,7 @@ use Sped\Gnre\Exception\UndefinedProperty;
 class GuiaTest extends TestCase
 {
 
-    public function testDeveSetarOvalorAumaPropriedadeExistenteDaClasse(): void
+    public function testDeveSetarOvalorAumaPropriedadeExistenteDaClasse()
     {
         $gnreGuia = new \Sped\Gnre\Sefaz\Guia();
         $gnreGuia->c01_UfFavorecida = 'SP';
@@ -20,7 +20,7 @@ class GuiaTest extends TestCase
         $this->assertEquals('SP', $gnreGuia->c01_UfFavorecida);
     }
 
-    public function testAcessarUmaPropriedadeQueNaoExisteNaClasse(): void
+    public function testAcessarUmaPropriedadeQueNaoExisteNaClasse()
     {
         $this->expectException(UndefinedProperty::class);
         $this->expectExceptionMessage('Não foi possível encontrar o atributo desejado na classe');

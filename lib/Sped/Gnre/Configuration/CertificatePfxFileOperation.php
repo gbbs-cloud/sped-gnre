@@ -33,7 +33,6 @@ use Sped\Gnre\Exception\UnableToWriteFile;
 class CertificatePfxFileOperation extends FileOperation
 {
 
-    public $fileName;
     /**
      * O nome da pasta em que os meta dados dos certificados são armazenados.
      * Essa pasta ficará abaixo da pasta /certs ficando então /certs/metadata
@@ -61,7 +60,7 @@ class CertificatePfxFileOperation extends FileOperation
 
         $explodePath[$total - 1] = $this->metadataFolder;
 
-        $explodePath[] = $this->fileName;
+        array_push($explodePath, $this->fileName);
 
         $this->pathToWrite = implode('/', $explodePath);
     }
@@ -76,7 +75,7 @@ class CertificatePfxFileOperation extends FileOperation
     public function open($password)
     {
         $key = file_get_contents($this->filePath);
-        $dataCertificate = [];
+        $dataCertificate = array();
         if (!openssl_pkcs12_read($key, $dataCertificate, $password)) {
             throw new CannotOpenCertificate($this->filePath);
         }
@@ -88,6 +87,7 @@ class CertificatePfxFileOperation extends FileOperation
      * Método utilizado para inserir um determinado conteúdo em um arquivo com os dados
      * extraídos do certificado
      * @param  string  $content  Conteúdo desejado a ser escrito no arquivo
+     * @param \Sped\Gnre\Configuration\FilePrefix $filePrefix
      * @throws UnableToWriteFile Caso não seja possível escrever no arquivo
      * @return string Retorna o caminho completo do arquivo em que foi escrito o conteúdo enviado
      * @since  1.0.0

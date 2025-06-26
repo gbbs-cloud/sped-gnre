@@ -2,7 +2,7 @@
 
 namespace Exemplo;
 
-require __DIR__ . '/../vendor/autoload.php';
+require '../vendor/autoload.php';
 
 class MySetup extends Sped\Gnre\Configuration\Setup
 {

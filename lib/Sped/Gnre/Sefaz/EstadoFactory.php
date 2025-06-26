@@ -32,7 +32,7 @@ class EstadoFactory
         );
 
         if (!class_exists($classe)) {
-            $classe = \Sped\Gnre\Sefaz\Estados\BA::class;
+            $classe = '\Sped\Gnre\Sefaz\Estados\BA';
         }
 
         return new $classe();

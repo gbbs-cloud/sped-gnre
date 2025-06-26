@@ -11,13 +11,13 @@ use Sped\Gnre\Sefaz\boolen;
 class ConsultaConfigUfTest extends TestCase
 {
 
-    public function testDeveDefinirAreceitaParaSerUtilizada(): void
+    public function testDeveDefinirAreceitaParaSerUtilizada()
     {
         $gnreConsulta = new MinhaConsultaConfigUf();
         $this->assertNull($gnreConsulta->setReceita(100099));
     }
 
-    public function testDeveRetornarAreceitaDefinida(): void
+    public function testDeveRetornarAreceitaDefinida()
     {
         $gnreConsulta = new MinhaConsultaConfigUf();
         $gnreConsulta->setReceita(100099);
@@ -25,13 +25,13 @@ class ConsultaConfigUfTest extends TestCase
         $this->assertEquals(100099, $gnreConsulta->getReceita());
     }
 
-    public function testDeveDefinirOestadoParaSerUtilizado(): void
+    public function testDeveDefinirOestadoParaSerUtilizado()
     {
         $gnreConsulta = new MinhaConsultaConfigUf();
         $this->assertNull($gnreConsulta->setEstado('PR'));
     }
 
-    public function testDeveRetornarOestadoDefinido(): void
+    public function testDeveRetornarOestadoDefinido()
     {
         $gnreConsulta = new MinhaConsultaConfigUf();
         $gnreConsulta->setEstado('PR');
@@ -39,13 +39,13 @@ class ConsultaConfigUfTest extends TestCase
         $this->assertEquals('PR', $gnreConsulta->getEstado());
     }
 
-    public function testDeveDefinirOambienteParaSerUtilizado(): void
+    public function testDeveDefinirOambienteParaSerUtilizado()
     {
         $gnreConsulta = new MinhaConsultaConfigUf();
         $this->assertNull($gnreConsulta->setEnvironment(1));
     }
 
-    public function testDeveRetornarOambienteDefinido(): void
+    public function testDeveRetornarOambienteDefinido()
     {
         $gnreConsulta = new MinhaConsultaConfigUf();
         $gnreConsulta->setEnvironment(1);

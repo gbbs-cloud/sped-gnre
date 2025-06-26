@@ -39,19 +39,22 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function getHeaderSoap(): array
+    public function getHeaderSoap()
     {
         $action = $this->ambienteDeTeste ?
             'http://www.testegnre.pe.gov.br/webservice/GnreResultadoLote' :
             'http://www.gnre.pe.gov.br/webservice/GnreResultadoLote';
 
-        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: consultar'];
+        return array(
+            'Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"',
+            'SOAPAction: consultar'
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function soapAction(): string
+    public function soapAction()
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreResultadoLote' :
@@ -84,7 +87,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function getSoapEnvelop($gnre, $consulta): void
+    public function getSoapEnvelop($gnre, $consulta)
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -119,7 +122,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function utilizarAmbienteDeTeste($ambiente = false): void
+    public function utilizarAmbienteDeTeste($ambiente = false)
     {
         $this->ambienteDeTeste = $ambiente;
     }

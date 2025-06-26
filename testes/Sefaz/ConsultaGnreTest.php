@@ -11,13 +11,13 @@ use Sped\Gnre\Sefaz\boolen;
 class ConsultaGnreTest extends TestCase
 {
 
-    public function testDeveDefinirOreciboParaSerUtilizado(): void
+    public function testDeveDefinirOreciboParaSerUtilizado()
     {
         $gnreConsulta = new MinhaConsultaGnre();
         $this->assertNull($gnreConsulta->setRecibo(12345));
     }
 
-    public function testDeveRetornarOreciboDefinido(): void
+    public function testDeveRetornarOreciboDefinido()
     {
         $gnreConsulta = new MinhaConsultaGnre();
         $gnreConsulta->setRecibo(123456);
@@ -25,13 +25,13 @@ class ConsultaGnreTest extends TestCase
         $this->assertEquals(123456, $gnreConsulta->getRecibo());
     }
 
-    public function testDeveDefinirOambienteParaSerUtilizado(): void
+    public function testDeveDefinirOambienteParaSerUtilizado()
     {
         $gnreConsulta = new MinhaConsultaGnre();
         $this->assertNull($gnreConsulta->setEnvironment(1));
     }
 
-    public function testDeveRetornarOambienteDefinido(): void
+    public function testDeveRetornarOambienteDefinido()
     {
         $gnreConsulta = new MinhaConsultaGnre();
         $gnreConsulta->setEnvironment(1);

@@ -11,53 +11,53 @@ use Sped\Gnre\Sefaz\EstadoFactory;
 class EstadoFactoryTest extends TestCase
 {
 
-    public function testShouldReturnAnObjectWhenIsGivenAexistingClass(): void
+    public function testShouldReturnAnObjectWhenIsGivenAexistingClass()
     {
         $estado = new EstadoFactory();
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\Padrao::class, $estado->create('BA'));
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\BA::class, $estado->create('BA'));
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\Padrao', $estado->create('BA'));
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\BA', $estado->create('BA'));
     }
 
-    public function testShouldReturnACObjectwhenAclassDoesExists(): void
+    public function testShouldReturnACObjectwhenAclassDoesExists()
     {
         $estado = new EstadoFactory();
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\Padrao::class, $estado->create('AC'));
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AC::class, $estado->create('AC'));
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\Padrao', $estado->create('AC'));
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\AC', $estado->create('AC'));
     }
 
-    public function testReturnAdefaultObject(): void
+    public function testReturnAdefaultObject()
     {
         $estado = new EstadoFactory();
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\BA::class, $estado->create('EstadoNaoExistente'));
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\BA', $estado->create('EstadoNaoExistente'));
     }
 
-    public function testShouldCreateACObjectFromFactory(): void
+    public function testShouldCreateACObjectFromFactory()
     {
         $factory = new EstadoFactory();
         $estado = $factory->create('AC');
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\Padrao::class, $estado);
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AC::class, $estado);
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\Padrao', $estado);
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\AC', $estado);
     }
 
-    public function testShouldCreateALObjectFromFactory(): void
+    public function testShouldCreateALObjectFromFactory()
     {
         $factory = new EstadoFactory();
         $estado = $factory->create('AL');
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\Padrao::class, $estado);
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AL::class, $estado);
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\Padrao', $estado);
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\AL', $estado);
     }
 
-    public function testShouldCreateAMObjectFromFactory(): void
+    public function testShouldCreateAMObjectFromFactory()
     {
         $factory = new EstadoFactory();
         $estado = $factory->create('AM');
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\Padrao::class, $estado);
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AM::class, $estado);
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\Padrao', $estado);
+        $this->assertInstanceOf('Sped\Gnre\Sefaz\Estados\AM', $estado);
     }
 }

@@ -40,7 +40,7 @@ class FilePrefix
      * @param  string  $prefix  Nome do prefixo por exemplo _private, _public etc
      * @since  1.0.0
      */
-    public function setPrefix($prefix): void
+    public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
     }
@@ -68,6 +68,8 @@ class FilePrefix
 
         $arrayPath[$nameFilePosition] = $singleFileName . $this->prefix . '.' . $extension;
 
-        return implode('/', $arrayPath);
+        $finalPath = implode('/', $arrayPath);
+
+        return $finalPath;
     }
 }

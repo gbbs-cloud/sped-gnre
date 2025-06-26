@@ -57,8 +57,9 @@ class Lote extends LoteGnre
 
     /**
      * @param mixed $estadoFactory
+     * @return Lote
      */
-    public function setEstadoFactory(EstadoFactory $estadoFactory): self
+    public function setEstadoFactory(EstadoFactory $estadoFactory)
     {
         $this->estadoFactory = $estadoFactory;
         return $this;
@@ -67,19 +68,22 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function getHeaderSoap(): array
+    public function getHeaderSoap()
     {
         $action = $this->ambienteDeTeste ?
             'http://www.testegnre.pe.gov.br/webservice/GnreRecepcaoLote' :
             'http://www.gnre.pe.gov.br/webservice/GnreRecepcaoLote';
 
-        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: processar'];
+        return array(
+            'Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"',
+            'SOAPAction: processar'
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function soapAction(): string
+    public function soapAction()
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao' :
@@ -243,7 +247,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    public function getSoapEnvelop($gnre, $loteGnre)
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -278,7 +282,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function utilizarAmbienteDeTeste($ambiente = false): void
+    public function utilizarAmbienteDeTeste($ambiente = false)
     {
         $this->ambienteDeTeste = $ambiente;
     }

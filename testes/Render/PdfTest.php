@@ -10,25 +10,25 @@ use Dompdf\Dompdf;
  */
 class PdfTest extends TestCase
 {
-    public function testDeveCriarOpdfApartirDoHtml(): void
+    public function testDeveCriarOpdfApartirDoHtml()
     {
-        $dom = $this->createMock(\Dompdf\Dompdf::class);
+        $dom = $this->createMock('\Dompdf\Dompdf');
 
-        $html = $this->createMock(\Sped\Gnre\Render\Html::class);
+        $html = $this->createMock('\Sped\Gnre\Render\Html');
 
-        $pdf = $this->createMock(\Sped\Gnre\Render\Pdf::class);
+        $pdf = $this->createMock('\Sped\Gnre\Render\Pdf');
         $pdf->expects($this->once())
                 ->method('create')
                 ->will($this->returnValue($dom));
 
         $domPdf = $pdf->create($html);
 
-        $this->assertInstanceOf(\Dompdf\Dompdf::class, $domPdf);
+        $this->assertInstanceOf('\Dompdf\Dompdf', $domPdf);
     }
 
-    public function testDeveRetornarUmaInstanciaDoDomPdf(): void
+    public function testDeveRetornarUmaInstanciaDoDomPdf()
     {
         $dom = new CoveragePdf();
-        $this->assertInstanceOf(\Dompdf\Dompdf::class, $dom->getDomPdf());
+        $this->assertInstanceOf('\Dompdf\Dompdf', $dom->getDomPdf());
     }
 }
