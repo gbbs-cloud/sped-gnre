@@ -47,22 +47,27 @@ jobs:
             for level in $(seq 1 $category_max); do
               echo "Checking $category_name level $level..."
               
-              current_rector_config=$(echo "$base_rector_config" | sed "s/with${category_name}Level(0)/with${category_name}Level($level)/")
+              current_rector_config=$(echo "$base_rector_config" | sed "s/with${category_name}Level(0)/with${category_name}Level($level)/" | sed "s/withDeadCodeLevel(0)/withDeadCodeLevel(0)/" | sed "s/withCodeQualityLevel(0)/withCodeQualityLevel(0)/")
               echo "$current_rector_config" > rector-run.php
 
+              # Apply changes for the current level. Successful changes from previous levels are kept.
               ./vendor/bin/rector process --config rector-run.php --no-progress-bar || true
               
               if ./vendor/bin/phpunit > /dev/null 2>&1; then
                 echo "Tests PASSED for $category_name level $level"
                 highest_level=$level
-                git checkout -- lib/ testes/
               else
                 echo "Tests FAILED for $category_name level $level"
+                # Revert changes from the failed level and stop for this category.
                 git checkout -- lib/ testes/
                 break
               fi
             done
             
+            # Reset the codebase to its original state before analyzing the next category.
+            echo "Resetting codebase for the next category analysis."
+            git checkout -- lib/ testes/
+
             final_levels+=("Highest successful level for $category_name: $highest_level")
             echo "::endgroup::"
           done
