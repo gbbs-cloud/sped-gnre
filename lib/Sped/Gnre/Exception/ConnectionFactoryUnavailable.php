@@ -20,21 +20,21 @@ namespace Sped\Gnre\Exception;
 /**
  * Exceção utilizada caso não for possível utilizar um objeto do tipo
  * <b>\Sped\Gnre\Webservice\ConnectionFactory</b>
- * @package     gnre
- * @subpackage  exception
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class ConnectionFactoryUnavailable extends \Exception
 {
-
     /**
      * Define uma mensagem padrão caso a exceção seja lançada
+     *
      * @since  1.0.0
      */
     public function __construct()
     {
-        parent::__construct('Unable to use a valid Sped\Gnre\Webservice\ConnectionFactory', null, null);
+        parent::__construct('Unable to use a valid Sped\Gnre\Webservice\ConnectionFactory', null);
     }
 }

@@ -19,21 +19,21 @@ namespace Sped\Gnre\Exception;
 
 /**
  * Exceção lançada caso alguma propriedade de uma determinada classe não exista
- * @package     gnre
- * @subpackage  exception
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class UndefinedProperty extends \Exception
 {
-
     /**
      * Define uma mensagem padrão caso a exceção seja lançada
+     *
      * @since  1.0.0
      */
     public function __construct()
     {
-        parent::__construct('Não foi possível encontrar o atributo desejado na classe', 100, null);
+        parent::__construct('Não foi possível encontrar o atributo desejado na classe', 100);
     }
 }

@@ -17,34 +17,34 @@
 
 namespace Sped\Gnre\Sefaz;
 
-use Sped\Gnre\Sefaz\Guia;
-use Sped\Gnre\Sefaz\ObjetoSefaz;
-
 /**
  * Classe que contém os métodos necessários para armazenar as guias em lotes
  * para serem transmitidas através do webservice da sefaz
- * @package     gnre
- * @subpackage  sefaz
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 abstract class LoteGnre implements ObjetoSefaz
 {
-
     const EMITENTE_PESSOA_JURIDICA = 1;
+
     const DESTINATARIO_PESSOA_JURIDICA = 1;
 
     /**
      * Atributo que armazenará todas as guias desejadas
+     *
      * @var array
      */
     private $guias = [];
 
     /**
      * Método utilizado para armazenar a guia desejada na classe
-     * @param \Sped\Gnre\Sefaz\Guia  $guia  Para armazenar uma guia com sucesso é necessário
-     * enviar um objeto do tipo Guia
+     *
+     * @param  \Sped\Gnre\Sefaz\Guia  $guia  Para armazenar uma guia com sucesso é necessário
+     *                                       enviar um objeto do tipo Guia
+     *
      * @since 1.0.0
      */
     public function addGuia(Guia $guia)
@@ -54,6 +54,7 @@ abstract class LoteGnre implements ObjetoSefaz
 
     /**
      * Método utilizado para retornar todas as guias existentes no lote
+     *
      * @since  1.0.0
      */
     public function getGuias(): array
@@ -63,8 +64,10 @@ abstract class LoteGnre implements ObjetoSefaz
 
     /**
      * Método utilizado para retornar uma guia específica existente no lote
-     * @param int $index
+     *
+     * @param  int  $index
      * @return Guia
+     *
      * @since  1.0.0
      */
     public function getGuia($index)

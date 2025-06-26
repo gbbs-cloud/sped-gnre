@@ -21,20 +21,20 @@ use Sped\Gnre\Configuration\Setup;
 
 /**
  * Factory utilizada para criar um objeto <b>\Sped\Gnre\Webservice\Connection</b>
- * @package     gnre
- * @subpackage  webservice
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class ConnectionFactory
 {
-
     /**
      * Cria um objeto <b>\Sped\Gnre\Webservice\Connection</b>
-     * @param \Sped\Gnre\Webservice\Setup $setup
-     * @param array $headers
-     * @param string $data
+     *
+     * @param  \Sped\Gnre\Webservice\Setup  $setup
+     * @param  array  $headers
+     * @param  string  $data
      * @return \Sped\Gnre\Webservice\Connection
      */
     public function createConnection(Setup $setup, $headers, $data)

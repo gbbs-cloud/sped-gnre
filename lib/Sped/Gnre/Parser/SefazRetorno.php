@@ -17,8 +17,6 @@
 
 namespace Sped\Gnre\Parser;
 
-use Sped\Gnre\Parser\Rules;
-
 /**
  * <p>
  * Classe utilizada para extrair os dados do web service da SEFAZ, como o retorno
@@ -26,24 +24,16 @@ use Sped\Gnre\Parser\Rules;
  * essa classe transforma o arquivo posicional em um objeto manipulável pela
  * API
  * </p>
- * @package     gnre
- * @subpackage  parser
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @see         Sped\Gnre\Parser\Rules
+ *
  * @version     1.0.0
  */
 class SefazRetorno extends Rules
 {
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($dadosArquivo)
-    {
-        parent::__construct($dadosArquivo);
-    }
-
     protected function getIdentificador()
     {
         $this->getContent($this->dadosArquivo[$this->index], 0, 1);

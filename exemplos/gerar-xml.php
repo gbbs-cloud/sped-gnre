@@ -2,8 +2,6 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Dompdf\Dompdf;
-
 $guia = new Sped\Gnre\Sefaz\Guia();
 $guia->c01_UfFavorecida = 'SP';
 $guia->c02_receita = 1000099;
@@ -47,4 +45,4 @@ $lote = new Sped\Gnre\Sefaz\Lote();
 $lote->addGuia($guia);
 
 header('Content-Type: text/xml');
-print $lote->toXml();
+echo $lote->toXml();

@@ -20,15 +20,14 @@ namespace Sped\Gnre\Sefaz;
 /**
  * Classe utilzada para gerar o envelope SOAP para ser enviado ao web service
  * da SEFAZ para realizar a operação de consulta das configurações da UF.
- * @package     gnre
- * @subpackage  sefaz
+ *
  * @author      Renan Delmonico <renandelmonico@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 class ConfigUf extends ConsultaConfigUf
 {
-
     /**
      * @var int
      */
@@ -36,6 +35,7 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna o header da requisição SOAP
+     *
      * @return array
      */
     public function getHeaderSoap()
@@ -49,6 +49,7 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna a action da requisição SOAP
+     *
      * @return string
      */
     public function soapAction()
@@ -60,6 +61,7 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna o XML que será enviado na requisição SOAP
+     *
      * @return string
      */
     public function toXml()
@@ -72,8 +74,8 @@ class ConfigUf extends ConsultaConfigUf
         $consulta->setAttribute('xmlns', 'http://www.gnre.pe.gov.br');
 
         $ambiente = $gnre->createElement('ambiente', $this->getEnvironment());
-        $estado   = $gnre->createElement('uf', $this->getEstado());
-        $receita  = $gnre->createElement('receita', $this->getReceita());
+        $estado = $gnre->createElement('uf', $this->getEstado());
+        $receita = $gnre->createElement('receita', $this->getReceita());
 
         $consulta->appendChild($ambiente);
         $consulta->appendChild($estado);
@@ -86,6 +88,7 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna o envelope que sera enviado na requisicao SOAP
+     *
      * @return string
      */
     public function getSoapEnvelop($gnre, $consulta)
@@ -114,7 +117,8 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Define se será utilizado o ambiente de testes ou não
-     * @param boolean $ambiente Ambiente
+     *
+     * @param  bool  $ambiente  Ambiente
      */
     public function utilizarAmbienteDeTeste($ambiente = false)
     {

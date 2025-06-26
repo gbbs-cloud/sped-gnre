@@ -17,24 +17,21 @@
 
 namespace Sped\Gnre\Sefaz;
 
-use Sped\Gnre\Sefaz\ObjetoSefaz;
-
 /**
  * Classe que possui os métodos fundamentais para se realizar uma consulta
  * ao webservice da sefaz
- * @package     gnre
- * @subpackage  sefaz
- * @abstract
+ *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
+ *
  * @version     1.0.0
  */
 abstract class ConsultaGnre implements ObjetoSefaz
 {
-
     /**
      * O número que representa em qual ambiente sera realizada a consulta
      * 1 - produção 2 - homologação
+     *
      * @var int
      */
     private $environment;
@@ -42,13 +39,16 @@ abstract class ConsultaGnre implements ObjetoSefaz
     /**
      * O número do recibo enviado apos um lote recebido com sucesso pelo webservice
      * da sefaz geralmente com 10 posições (1406670518)
+     *
      * @var int
      */
     private $recibo;
 
     /**
      * Retorna o número de recibo armazenado no atributo interno da classe
+     *
      * @since  1.0.0
+     *
      * @return int
      */
     public function getRecibo()
@@ -59,7 +59,9 @@ abstract class ConsultaGnre implements ObjetoSefaz
     /**
      * Define um número de recibo para ser utilizado na consulta ao
      * webservice da sefaz
+     *
      * @param  int  $recibo  Número retornado pelo webservice da sefaz após ter recebido um lote com sucesso
+     *
      * @since  1.0.0
      */
     public function setRecibo($recibo)
@@ -69,7 +71,9 @@ abstract class ConsultaGnre implements ObjetoSefaz
 
     /**
      * Retorna o valor do ambiente armazenado no atributo interno na classe
-     * @return  int
+     *
+     * @return int
+     *
      * @since   1.0.0
      */
     public function getEnvironment()
@@ -79,7 +83,9 @@ abstract class ConsultaGnre implements ObjetoSefaz
 
     /**
      * Define o ambiente desejado para realizar a consulta no webservice da sefaz
-     * @param  int  $environment O número do ambiente que se deseja consultar. 1 = produção e 2 = homologação
+     *
+     * @param  int  $environment  O número do ambiente que se deseja consultar. 1 = produção e 2 = homologação
+     *
      * @since  1.0.0
      */
     public function setEnvironment($environment)

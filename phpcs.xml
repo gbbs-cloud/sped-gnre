@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="SpedGnre">
+    <description>Custom ruleset for SpedGnre project.</description>
+
+    <!-- Use the PSR12 standard as a base -->
+    <rule ref="PSR12"/>
+
+    <!-- Exclude specific sniffs or files -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>testes/*Test.php</exclude-pattern>
+    </rule>
+
+    <!-- Specify the directories to check -->
+    <arg name="encoding" value="utf-8"/>
+    <file>lib/</file>
+    <file>testes/</file>
+
+    <!-- Show colors in console -->
+    <arg name="colors"/>
+
+    <!-- Show progress -->
+    <arg value="p"/>
+</ruleset>

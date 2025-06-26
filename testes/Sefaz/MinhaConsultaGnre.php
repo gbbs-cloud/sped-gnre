@@ -6,7 +6,6 @@ use Sped\Gnre\Sefaz\ConsultaGnre;
 
 class MinhaConsultaGnre extends ConsultaGnre
 {
-
     public function getHeaderSoap()
     {
     }

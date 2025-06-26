@@ -6,7 +6,6 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Sped\Gnre\Configuration\Setup
 {
-
     public function getBaseUrl()
     {
     }
@@ -58,7 +57,7 @@ class MySetup extends Sped\Gnre\Configuration\Setup
 
 $minhaConfiguracao = new MySetup();
 
-$config = new \Sped\Gnre\Sefaz\ConfigUf;
+$config = new \Sped\Gnre\Sefaz\ConfigUf();
 
 /**
  * Qual ambiente sera realizada a consulta

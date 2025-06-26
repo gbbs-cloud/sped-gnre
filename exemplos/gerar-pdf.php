@@ -2,8 +2,6 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Dompdf\Dompdf;
-
 $guia = new Sped\Gnre\Sefaz\Guia();
 $guia->c01_UfFavorecida = 'SP';
 $guia->c02_receita = 1000099;
