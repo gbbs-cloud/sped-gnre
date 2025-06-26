@@ -10,7 +10,7 @@ use Sped\Gnre\Render\Html;
  */
 class HtmlTest extends TestCase
 {
-    public function test_deve_retornar_um_instancia_do_bar_code(): void
+    public function test_deve_retornar_uma_instancia_do_bar_code(): void
     {
         $html = new Html;
         $this->assertInstanceOf(\Sped\Gnre\Render\Barcode128::class, $html->getBarCode());
@@ -25,13 +25,13 @@ class HtmlTest extends TestCase
         $this->assertSame($barCode, $html->getBarCode());
     }
 
-    public function test_deve_retornar_null_se_nao_for_criado_ohtml_da_guia(): void
+    public function test_deve_retornar_null_se_nao_for_criado_o_html_da_guia(): void
     {
         $html = new \Sped\Gnre\Render\Html;
         $this->assertEmpty($html->getHtml());
     }
 
-    public function test_nao_deve_gerar_ohtml_do_lote_quando_olote_evazio(): void
+    public function test_nao_deve_gerar_o_html_do_lote_quando_o_lote_e_vazio(): void
     {
         $html = new Html;
         $mkcLote = $this->createMock(\Sped\Gnre\Sefaz\Lote::class);
