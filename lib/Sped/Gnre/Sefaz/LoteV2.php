@@ -30,7 +30,7 @@ class LoteV2 extends Lote
         return $this;
     }
 
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    public function getSoapEnvelop($gnre, $loteGnre)
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -62,7 +62,7 @@ class LoteV2 extends Lote
         $soapEnv->appendChild($soapBody);
     }
 
-    public function toXml(): string|false
+    public function toXml()
     {
         $gnre = new DOMDocument('1.0', 'UTF-8');
         $gnre->formatOutput = false;
@@ -289,7 +289,7 @@ class LoteV2 extends Lote
         return null;
     }
 
-    public function getCodigoDoc($uf, $difa = false): string
+    public function getCodigoDoc($uf, $difa = false)
     {
         $doc = '10';
 
@@ -302,7 +302,7 @@ class LoteV2 extends Lote
         };
     }
 
-    public function getNumDoc($uf): string
+    public function getNumDoc($uf)
     {
         $doc = 'numero';
 

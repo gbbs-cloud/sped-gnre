@@ -64,7 +64,7 @@ abstract class ConsultaGnre implements ObjetoSefaz
      *
      * @since  1.0.0
      */
-    public function setRecibo($recibo): void
+    public function setRecibo($recibo)
     {
         $this->recibo = $recibo;
     }
@@ -88,7 +88,7 @@ abstract class ConsultaGnre implements ObjetoSefaz
      *
      * @since  1.0.0
      */
-    public function setEnvironment($environment): void
+    public function setEnvironment($environment)
     {
         $this->environment = $environment;
     }

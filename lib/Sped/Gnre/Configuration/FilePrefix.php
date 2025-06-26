@@ -42,7 +42,7 @@ class FilePrefix
      *
      * @since  1.0.0
      */
-    public function setPrefix($prefix): void
+    public function setPrefix($prefix)
     {
         $this->prefix = $prefix;
     }

@@ -33,8 +33,10 @@ class Pdf
     /**
      * Método criado para ser possível testar a utilização do objeto
      * <b>Dompdf</b> pela classe
+     *
+     * @return \Dompdf\Dompdf
      */
-    protected function getDomPdf(): \Dompdf\Dompdf
+    protected function getDomPdf()
     {
         return new Dompdf;
     }

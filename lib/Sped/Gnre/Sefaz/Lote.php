@@ -29,16 +29,22 @@ namespace Sped\Gnre\Sefaz;
  */
 class Lote extends LoteGnre
 {
-    private ?\Sped\Gnre\Sefaz\EstadoFactory $estadoFactory = null;
+    /**
+     * @var \Sped\Gnre\Sefaz\EstadoFactory
+     */
+    private $estadoFactory;
 
     /**
      * @var bool
      */
     private $ambienteDeTeste = false;
 
-    public function getEstadoFactory(): \Sped\Gnre\Sefaz\EstadoFactory
+    /**
+     * @return mixed
+     */
+    public function getEstadoFactory()
     {
-        if (! $this->estadoFactory instanceof \Sped\Gnre\Sefaz\EstadoFactory) {
+        if ($this->estadoFactory === null) {
             $this->estadoFactory = new EstadoFactory;
         }
 
@@ -47,8 +53,9 @@ class Lote extends LoteGnre
 
     /**
      * @param  mixed  $estadoFactory
+     * @return Lote
      */
-    public function setEstadoFactory(EstadoFactory $estadoFactory): static
+    public function setEstadoFactory(EstadoFactory $estadoFactory)
     {
         $this->estadoFactory = $estadoFactory;
 
@@ -58,7 +65,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function getHeaderSoap(): array
+    public function getHeaderSoap()
     {
         $action = $this->ambienteDeTeste ?
             'http://www.testegnre.pe.gov.br/webservice/GnreRecepcaoLote' :
@@ -70,7 +77,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function soapAction(): string
+    public function soapAction()
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao' :
@@ -80,7 +87,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function toXml(): string|false
+    public function toXml()
     {
         $gnre = new \DOMDocument('1.0', 'UTF-8');
         $gnre->formatOutput = false;
@@ -234,7 +241,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    public function getSoapEnvelop($gnre, $loteGnre)
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -269,7 +276,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function utilizarAmbienteDeTeste($ambiente = false): void
+    public function utilizarAmbienteDeTeste($ambiente = false)
     {
         $this->ambienteDeTeste = $ambiente;
     }

@@ -18,6 +18,7 @@
 namespace Sped\Gnre\Sefaz;
 
 use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Exception\ConnectionFactoryUnavailable;
 use Sped\Gnre\Webservice\ConnectionFactory;
 
 /**
@@ -34,8 +35,10 @@ class Send
 {
     /**
      * Propriedade utilizada para armazenar o objecto de conexão com a SEFAZ
+     *
+     * @var \Sped\Gnre\Webservice\ConnectionFactory
      */
-    private ?\Sped\Gnre\Webservice\ConnectionFactory $connectionFactory = null;
+    private $connectionFactory;
 
     /**
      * Armazena as configurações padrões em um atributo interno da classe para ser utilizado
@@ -56,18 +59,25 @@ class Send
     /**
      * Retorna o objeto de conexão com a SEFAZ
      *
+     * @return \Sped\Gnre\Webservice\ConnectionFactory
      *
      * @throws \Sped\Gnre\Exception\ConnectionFactoryUnavailable
      */
-    public function getConnectionFactory(): ?\Sped\Gnre\Webservice\ConnectionFactory
+    public function getConnectionFactory()
     {
+        if (! $this->connectionFactory instanceof ConnectionFactory) {
+            throw new ConnectionFactoryUnavailable;
+        }
+
         return $this->connectionFactory;
     }
 
     /**
      * Define um objeto de comunicação com a SEFAZ
+     *
+     * @return \Sped\Gnre\Sefaz\Send
      */
-    public function setConnectionFactory(ConnectionFactory $connectionFactory): static
+    public function setConnectionFactory(ConnectionFactory $connectionFactory)
     {
         $this->connectionFactory = $connectionFactory;
 
@@ -82,7 +92,7 @@ class Send
      *
      * @since  1.0.0
      */
-    public function sefaz(ObjetoSefaz $objetoSefaz): string
+    public function sefaz(ObjetoSefaz $objetoSefaz)
     {
         $data = $objetoSefaz->toXml();
         $header = $objetoSefaz->getHeaderSoap();

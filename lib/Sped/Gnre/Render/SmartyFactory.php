@@ -33,8 +33,10 @@ class SmartyFactory
      * os templates e utiliza o diretório temporário padrão
      * do sistema operacional para definir o diretório que os arquivos
      * compilados pelo smarty serão salvos
+     *
+     * @return \Smarty
      */
-    public function create(): \Smarty
+    public function create()
     {
         $documentRoot = getenv('DOCUMENT_ROOT').DIRECTORY_SEPARATOR;
 
