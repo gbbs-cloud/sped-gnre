@@ -9,13 +9,13 @@ use PHPUnit\Framework\TestCase;
  */
 class ConsultaConfigUfTest extends TestCase
 {
-    public function test_deve_definir_areceita_para_ser_utilizada(): void
+    public function test_deve_definir_a_receita_para_ser_utilizada(): void
     {
         $gnreConsulta = new MinhaConsultaConfigUf;
         $this->assertNull($gnreConsulta->setReceita(100099));
     }
 
-    public function test_deve_retornar_areceita_definida(): void
+    public function test_deve_retornar_a_receita_definida(): void
     {
         $gnreConsulta = new MinhaConsultaConfigUf;
         $gnreConsulta->setReceita(100099);
@@ -23,13 +23,13 @@ class ConsultaConfigUfTest extends TestCase
         $this->assertEquals(100099, $gnreConsulta->getReceita());
     }
 
-    public function test_deve_definir_oestado_para_ser_utilizado(): void
+    public function test_deve_definir_o_estado_para_ser_utilizado(): void
     {
         $gnreConsulta = new MinhaConsultaConfigUf;
         $this->assertNull($gnreConsulta->setEstado('PR'));
     }
 
-    public function test_deve_retornar_oestado_definido(): void
+    public function test_deve_retornar_o_estado_definido(): void
     {
         $gnreConsulta = new MinhaConsultaConfigUf;
         $gnreConsulta->setEstado('PR');
@@ -37,13 +37,13 @@ class ConsultaConfigUfTest extends TestCase
         $this->assertEquals('PR', $gnreConsulta->getEstado());
     }
 
-    public function test_deve_definir_oambiente_para_ser_utilizado(): void
+    public function test_deve_definir_o_ambiente_para_ser_utilizado(): void
     {
         $gnreConsulta = new MinhaConsultaConfigUf;
         $this->assertNull($gnreConsulta->setEnvironment(1));
     }
 
-    public function test_deve_retornar_oambiente_definido(): void
+    public function test_deve_retornar_o_ambiente_definido(): void
     {
         $gnreConsulta = new MinhaConsultaConfigUf;
         $gnreConsulta->setEnvironment(1);
