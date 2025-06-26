@@ -75,7 +75,6 @@ class Send
 
     /**
      * Define um objeto de comunicação com a SEFAZ
-     * @param \Sped\Gnre\Webservice\ConnectionFactory $connectionFactory
      * @return \Sped\Gnre\Sefaz\Send
      */
     public function setConnectionFactory(ConnectionFactory $connectionFactory)

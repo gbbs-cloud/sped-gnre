@@ -25,20 +25,20 @@ use PHPUnit\Framework\TestCase;
 class FilePrefixTest extends TestCase
 {
 
-    public function testPassarAoAplicarUmPrefixoEmUmArquivo()
+    public function testPassarAoAplicarUmPrefixoEmUmArquivo(): void
     {
         $prefix = new \Sped\Gnre\Configuration\FilePrefix();
         $prefix->setPrefix('meuPref');
         $this->assertEquals('/var/www/filemeuPref.doc', $prefix->apply('/var/www/file.doc'));
     }
 
-    public function testPassarSemAdicionarPrefixoEmUmArquivo()
+    public function testPassarSemAdicionarPrefixoEmUmArquivo(): void
     {
         $prefix = new \Sped\Gnre\Configuration\FilePrefix();
         $this->assertEquals('/path/to/foo.doc', $prefix->apply('/path/to/foo.doc'));
     }
 
-    public function testPassarAoEnviarUmCaminhoDeArquivoVazio()
+    public function testPassarAoEnviarUmCaminhoDeArquivoVazio(): void
     {
         $prefix = new \Sped\Gnre\Configuration\FilePrefix();
         $this->assertEmpty($prefix->apply(''));

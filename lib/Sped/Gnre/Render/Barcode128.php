@@ -64,11 +64,7 @@ class Barcode128
         ob_start();
 
         $text = $this->getNumeroCodigoBarras();
-        $options = array(
-            'text' => (string) $text,
-            'imageType' => 'jpeg',
-            'drawText' => false
-        );
+        $options = ['text' => (string) $text, 'imageType' => 'jpeg', 'drawText' => false];
 
         $barcode = new \Laminas\Barcode\Object\Code128();
         $barcode->setOptions($options);

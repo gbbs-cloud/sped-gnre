@@ -44,7 +44,6 @@ class Pdf
 
     /**
      * Gera o PDF através do HTML
-     * @param \Sped\Gnre\Render\Html $html
      * @return \Dompdf\Dompdf
      */
     public function create(Html $html)

@@ -66,7 +66,6 @@ class Html
     /**
      * Define um objeto <b>\Sped\Gnre\Render\Barcode128</b> para ser utilizado
      * internamente pela classe
-     * @param \Sped\Gnre\Render\Barcode128 $barCode
      * @return \Sped\Gnre\Render\Html
      */
     public function setBarCode(Barcode128 $barCode)
@@ -96,7 +95,6 @@ class Html
 
     /**
      * Utiliza o lote como parâmetro para transforma-lo em uma guia HTML
-     * @param \Sped\Gnre\Sefaz\Lote $lote
      * @link https://github.com/marabesi/gnrephp/blob/dev-pdf/exemplos/guia.jpg <p>
      * Exemplo de como é transformado o objeto <b>\Sped\Gnre\Sefaz\Lote</b> após ser
      * utilizado por esse método</p>
@@ -104,16 +102,13 @@ class Html
      */
     public function create(Lote $lote)
     {
-        $guiaViaInfo = array(
-            1 => '1ª via Banco',
-            2 => '2ª via Contrinuinte',
-            3 => '3ª via Contribuinte/Fisco'
-        );
+        $guiaViaInfo = [1 => '1ª via Banco', 2 => '2ª via Contrinuinte', 3 => '3ª via Contribuinte/Fisco'];
 
         $guias = $lote->getGuias();
         $html = '';
+        $counter = count($guias);
 
-        for ($index = 0; $index < count($guias); $index++) {
+        for ($index = 0; $index < $counter; $index++) {
             $guia = $lote->getGuia($index);
 
             $barcode = $this->getBarCode()
@@ -125,7 +120,7 @@ class Html
             $smarty->assign('barcode', $barcode);
             $smarty->assign('guia', $guia);
 
-            $documentRoot = dirname(dirname(dirname(dirname(dirname(__FILE__))))) .  DIRECTORY_SEPARATOR ;
+            $documentRoot = dirname(__FILE__, 5) .  DIRECTORY_SEPARATOR ;
 
             $html .= $smarty->fetch($documentRoot . 'templates' . DIRECTORY_SEPARATOR . 'gnre.tpl');
         }
