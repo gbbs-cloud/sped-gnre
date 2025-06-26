@@ -61,7 +61,7 @@ abstract class ConsultaConfigUf implements ObjetoSefaz
      * Define a UF que deve ser consultada
      * @param string $uf UF
      */
-    public function setEstado($estado)
+    public function setEstado($estado): void
     {
         $this->estado = $estado;
     }
@@ -79,7 +79,7 @@ abstract class ConsultaConfigUf implements ObjetoSefaz
      * Define a receita que deve ser consultada
      * @param int $receita Código da receita
      */
-    public function setReceita($receita)
+    public function setReceita($receita): void
     {
         $this->receita = $receita;
     }
@@ -97,7 +97,7 @@ abstract class ConsultaConfigUf implements ObjetoSefaz
      * Define em qual ambiente deve ser consultado
      * @param  int  $environment  O número do ambiente que se deseja consultar. 1 = produção - 2 = homologação
      */
-    public function setEnvironment($environment)
+    public function setEnvironment($environment): void
     {
         $this->environment = $environment;
     }

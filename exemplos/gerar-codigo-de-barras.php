@@ -1,11 +1,11 @@
 <?php
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 ob_start();
 
 $text = '91910919190191091090109109190109';
 
-$options = array('text' => (string) $text, 'barHeight' => 40, 'barWidth' => 100, 'imageType' => 'jpeg');
+$options = ['text' => $text, 'barHeight' => 40, 'barWidth' => 100, 'imageType' => 'jpeg'];
 $barcode = new \Laminas\Barcode\Object\Code128();
 $barcode->setOptions($options);
 

@@ -1,6 +1,6 @@
 <?php
 
-require '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
@@ -41,22 +41,7 @@ $guia->mes = '05';
 $guia->ano = 2015;
 $guia->parcela = 2;
 $guia->periodo = 2014;
-$guia->c39_camposExtras = array(
-    array(
-        'campoExtra' => array(
-            'codigo' => 666,
-            'tipo' => 'TXT',
-            'valor' => 'GNRE'
-        )
-    ),
-    array(
-        'campoExtra' => array(
-            'codigo' => 111,
-            'tipo' => 'INT',
-            'valor' => 'GNRE2'
-        )
-    ),
-);
+$guia->c39_camposExtras = [['campoExtra' => ['codigo' => 666, 'tipo' => 'TXT', 'valor' => 'GNRE']], ['campoExtra' => ['codigo' => 111, 'tipo' => 'INT', 'valor' => 'GNRE2']]];
 
 $lote = new Sped\Gnre\Sefaz\Lote();
 $lote->addGuia($guia);

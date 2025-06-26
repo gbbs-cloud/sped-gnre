@@ -35,9 +35,8 @@ class ConnectionFactory
      * @param \Sped\Gnre\Webservice\Setup $setup
      * @param array $headers
      * @param string $data
-     * @return \Sped\Gnre\Webservice\Connection
      */
-    public function createConnection(Setup $setup, $headers, $data)
+    public function createConnection(Setup $setup, $headers, $data): \Sped\Gnre\Webservice\Connection
     {
         return new Connection($setup, $headers, $data);
     }

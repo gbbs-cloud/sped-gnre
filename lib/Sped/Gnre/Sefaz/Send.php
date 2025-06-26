@@ -75,10 +75,8 @@ class Send
 
     /**
      * Define um objeto de comunicação com a SEFAZ
-     * @param \Sped\Gnre\Webservice\ConnectionFactory $connectionFactory
-     * @return \Sped\Gnre\Sefaz\Send
      */
-    public function setConnectionFactory(ConnectionFactory $connectionFactory)
+    public function setConnectionFactory(ConnectionFactory $connectionFactory): self
     {
         $this->connectionFactory = $connectionFactory;
         return $this;
@@ -90,7 +88,7 @@ class Send
      * @return string|boolean Caso a conexão seja feita com sucesso retorna um xml válido caso contrário retorna false
      * @since  1.0.0
      */
-    public function sefaz(ObjetoSefaz $objetoSefaz)
+    public function sefaz(ObjetoSefaz $objetoSefaz): string
     {
         $data = $objetoSefaz->toXml();
         $header = $objetoSefaz->getHeaderSoap();

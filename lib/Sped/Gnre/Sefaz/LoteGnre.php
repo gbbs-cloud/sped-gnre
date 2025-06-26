@@ -39,7 +39,7 @@ abstract class LoteGnre implements ObjetoSefaz
      * Atributo que armazenará todas as guias desejadas
      * @var array
      */
-    private $guias = array();
+    private $guias = [];
 
     /**
      * Método utilizado para armazenar a guia desejada na classe
@@ -47,14 +47,13 @@ abstract class LoteGnre implements ObjetoSefaz
      * enviar um objeto do tipo Guia
      * @since 1.0.0
      */
-    public function addGuia(Guia $guia)
+    public function addGuia(Guia $guia): void
     {
         $this->guias[] = $guia;
     }
 
     /**
      * Método utilizado para retornar todas as guias existentes no lote
-     * @return array
      * @since  1.0.0
      */
     public function getGuias(): array

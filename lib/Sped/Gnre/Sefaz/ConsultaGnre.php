@@ -62,7 +62,7 @@ abstract class ConsultaGnre implements ObjetoSefaz
      * @param  int  $recibo  Número retornado pelo webservice da sefaz após ter recebido um lote com sucesso
      * @since  1.0.0
      */
-    public function setRecibo($recibo)
+    public function setRecibo($recibo): void
     {
         $this->recibo = $recibo;
     }
@@ -82,7 +82,7 @@ abstract class ConsultaGnre implements ObjetoSefaz
      * @param  int  $environment O número do ambiente que se deseja consultar. 1 = produção e 2 = homologação
      * @since  1.0.0
      */
-    public function setEnvironment($environment)
+    public function setEnvironment($environment): void
     {
         $this->environment = $environment;
     }

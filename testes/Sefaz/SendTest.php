@@ -18,11 +18,11 @@ class SendTest extends TestCase
 
     public function setUp():void
     {
-        $this->setup = $this->createMock('\Sped\Gnre\Configuration\Setup');
-        $this->objetoSefaz = $this->createMock('\Sped\Gnre\Sefaz\ObjetoSefaz');
+        $this->setup = $this->createMock(\Sped\Gnre\Configuration\Setup::class);
+        $this->objetoSefaz = $this->createMock(\Sped\Gnre\Sefaz\ObjetoSefaz::class);
     }
 
-    public function testDeveLancarExcecaoAoNaoSetarUmaConnectionFactoryParaSerUsada()
+    public function testDeveLancarExcecaoAoNaoSetarUmaConnectionFactoryParaSerUsada(): void
     {
         $this->expectException(ConnectionFactoryUnavailable::class);
 
@@ -30,34 +30,34 @@ class SendTest extends TestCase
         $send->sefaz($this->objetoSefaz);
     }
 
-    public function testDeveSetarUmaConnectionFactoryParaSerUsada()
+    public function testDeveSetarUmaConnectionFactoryParaSerUsada(): void
     {
-        $connectionFactory = $this->createMock('\Sped\Gnre\Webservice\ConnectionFactory');
+        $connectionFactory = $this->createMock(\Sped\Gnre\Webservice\ConnectionFactory::class);
 
         $send = new Send($this->setup);
-        $this->assertInstanceOf('\Sped\Gnre\Sefaz\Send', $send->setConnectionFactory($connectionFactory));
+        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Send::class, $send->setConnectionFactory($connectionFactory));
     }
 
-    public function testDeveRetornarUmaConnectionFactory()
+    public function testDeveRetornarUmaConnectionFactory(): void
     {
-        $connectionFactory = $this->createMock('\Sped\Gnre\Webservice\ConnectionFactory');
+        $connectionFactory = $this->createMock(\Sped\Gnre\Webservice\ConnectionFactory::class);
 
         $send = new Send($this->setup);
         $send->setConnectionFactory($connectionFactory);
 
-        $this->assertInstanceOf('\Sped\Gnre\Webservice\ConnectionFactory', $send->getConnectionFactory());
+        $this->assertInstanceOf(\Sped\Gnre\Webservice\ConnectionFactory::class, $send->getConnectionFactory());
     }
 
-    public function testDeveRealizarAconexaoComAsefaz()
+    public function testDeveRealizarAconexaoComAsefaz(): void
     {
-        $connection = $this->getMockBuilder('\Sped\Gnre\Webservice\Connection')
+        $connection = $this->getMockBuilder(\Sped\Gnre\Webservice\Connection::class)
                 ->disableOriginalConstructor()
                 ->getMock();
         $connection->expects($this->once())
                 ->method('doRequest')
                 ->will($this->returnValue(true));
 
-        $connectionFactory = $this->createMock('\Sped\Gnre\Webservice\ConnectionFactory');
+        $connectionFactory = $this->createMock(\Sped\Gnre\Webservice\ConnectionFactory::class);
         $connectionFactory->expects($this->once())
                 ->method('createConnection')
                 ->will($this->returnValue($connection));
@@ -67,16 +67,16 @@ class SendTest extends TestCase
         $send->sefaz($this->objetoSefaz);
     }
 
-    public function testDeveExibirDebug()
+    public function testDeveExibirDebug(): void
     {
-        $connection = $this->getMockBuilder('\Sped\Gnre\Webservice\Connection')
+        $connection = $this->getMockBuilder(\Sped\Gnre\Webservice\Connection::class)
             ->disableOriginalConstructor()
             ->getMock();
         $connection->expects($this->once())
             ->method('doRequest')
             ->will($this->returnValue(true));
 
-        $connectionFactory = $this->createMock('\Sped\Gnre\Webservice\ConnectionFactory');
+        $connectionFactory = $this->createMock(\Sped\Gnre\Webservice\ConnectionFactory::class);
         $connectionFactory->expects($this->once())
             ->method('createConnection')
             ->will($this->returnValue($connection));
