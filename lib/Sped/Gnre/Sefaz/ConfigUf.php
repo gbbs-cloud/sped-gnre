@@ -49,9 +49,8 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna a action da requisição SOAP
-     * @return string
      */
-    public function soapAction()
+    public function soapAction(): string
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreConfigUF' :

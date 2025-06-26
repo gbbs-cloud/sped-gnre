@@ -115,7 +115,7 @@ class Connection
      * @since  1.0.0
      * @return string|boolean Caso a requisição não seja feita com sucesso false, caso contrário um XML formatado
      */
-    public function doRequest($url)
+    public function doRequest($url): string
     {
         $curl = curl_init($url);
         curl_setopt_array($curl, $this->curlOptions);
