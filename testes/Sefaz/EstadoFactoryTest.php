@@ -51,6 +51,9 @@ class EstadoFactoryTest extends TestCase
         $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AL::class, $estado);
     }
 
+    /**
+     * @test
+     */
     public function test_should_create_am_object_from_factory(): void
     {
         $factory = new EstadoFactory();

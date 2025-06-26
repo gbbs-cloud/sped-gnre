@@ -48,14 +48,14 @@ class FilePrefix
     }
 
     /**
-     * Aplica o prefixo desejado no arquivo caso ele exista
+     * Aplica o prefixo desejado no arquivo caso ele exista.
      *
-     * @param  string  $path  O caminho completo junto com o nome do arquivo por exemplo /var/foo/arquivo.tmp
-     * @return string O novo nome do arquivo e seu caminho completo
+     * @param  string  $path  O caminho completo junto com o nome do arquivo, por exemplo /var/foo/arquivo.tmp.
+     * @return string O novo nome do arquivo e seu caminho completo.
      *
      * @since  1.0.0
      */
-    public function apply($path)
+    public function apply($path): string
     {
         if (empty($this->prefix)) {
             return $path;
@@ -70,7 +70,7 @@ class FilePrefix
         $extension = $arrayFileName[1];
         $singleFileName = $arrayFileName[0];
 
-        $arrayPath[$nameFilePosition] = $singleFileName . $this->prefix . '.' . $extension;
+        $arrayPath[$nameFilePosition] = $singleFileName.$this->prefix.'.'.$extension;
 
         return implode('/', $arrayPath);
     }

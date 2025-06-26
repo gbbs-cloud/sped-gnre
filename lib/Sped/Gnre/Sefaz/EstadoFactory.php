@@ -21,7 +21,7 @@ class EstadoFactory
 {
     /**
      * @param  string  $estado
-     * @return \Sped\Gnre\Sefaz\Estados\Padrao
+     * @return \Sped\Gnre\Sefaz\Estados\Padrao Uma instância da classe do estado correspondente.
      */
     public function create($estado = 'BA')
     {

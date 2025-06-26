@@ -10,6 +10,11 @@
         <exclude-pattern>testes/*Test.php</exclude-pattern>
     </rule>
 
+    <!-- Ignore operator spacing errors -->
+    <rule ref="PSR12.Operators.OperatorSpacing">
+        <severity>0</severity>
+    </rule>
+
     <!-- Specify the directories to check -->
     <arg name="encoding" value="utf-8"/>
     <file>lib/</file>

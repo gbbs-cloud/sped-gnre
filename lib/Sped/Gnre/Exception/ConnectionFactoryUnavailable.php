@@ -35,6 +35,6 @@ class ConnectionFactoryUnavailable extends \Exception
      */
     public function __construct()
     {
-        parent::__construct('Unable to use a valid Sped\Gnre\Webservice\ConnectionFactory', null);
+        parent::__construct('Unable to use a valid Sped\Gnre\Webservice\ConnectionFactory', 0);
     }
 }

@@ -14,7 +14,8 @@ class ConsultaTest extends TestCase
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
         $headersArray = $consulta->getHeaderSoap();
 
-        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.gnre.pe.gov.br/webservice/GnreResultadoLote"';
+        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="'.
+            'http://www.gnre.pe.gov.br/webservice/GnreResultadoLote"';
         $this->assertEquals($header, $headersArray[0]);
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
@@ -26,7 +27,8 @@ class ConsultaTest extends TestCase
 
         $headersArray = $consulta->getHeaderSoap();
 
-        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.testegnre.pe.gov.br/webservice/GnreResultadoLote"';
+        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="'.
+            'http://www.testegnre.pe.gov.br/webservice/GnreResultadoLote"';
         $this->assertEquals($header, $headersArray[0]);
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
@@ -40,13 +42,13 @@ class ConsultaTest extends TestCase
 
     public function test_deve_retornar_xml_completo_vazio_para_realizar_a_consulta(): void
     {
-        $dadosParaConsulta = file_get_contents(__DIR__ . '/../../exemplos/xml/envelope-consultar-gnre.xml');
+        $dadosParaConsulta = file_get_contents(__DIR__.'/../../exemplos/xml/envelope-consultar-gnre.xml');
 
         $consulta = new \Sped\Gnre\Sefaz\Consulta();
         $consulta->setEnvironment(12345678);
         $consulta->setRecibo(123);
 
-        $this->assertXmlStringEqualsXmlString($dadosParaConsulta, $consulta->toXml());
+        $this->assertXmlStringEqualsXmlString((string) $dadosParaConsulta, (string) $consulta->toXml());
     }
 
     public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_producao(): void
@@ -56,6 +58,9 @@ class ConsultaTest extends TestCase
         $this->assertEquals($consulta->soapAction(), 'https://www.gnre.pe.gov.br/gnreWS/services/GnreResultadoLote');
     }
 
+    /**
+     * @test
+     */
     public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_testes(): void
     {
         $consulta = new \Sped\Gnre\Sefaz\Consulta();

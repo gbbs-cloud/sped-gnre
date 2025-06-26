@@ -42,7 +42,7 @@ class ConfigUf extends ConsultaConfigUf
             'http://www.testegnre.pe.gov.br/webservice/GnreConfigUF' :
             'http://www.gnre.pe.gov.br/webservice/GnreConfigUF';
 
-        return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: consultar'];
+        return ['Content-Type: application/soap+xml;charset=utf-8;action="'.$action.'"', 'SOAPAction: consultar'];
     }
 
     /**
@@ -110,9 +110,9 @@ class ConfigUf extends ConsultaConfigUf
     }
 
     /**
-     * Define se será utilizado o ambiente de testes ou não
+     * Define se será utilizado o ambiente de testes ou não.
      *
-     * @param  bool  $ambiente  Ambiente
+     * @param  bool  $ambiente  Ambiente de testes (true para usar, false para não usar).
      */
     public function utilizarAmbienteDeTeste($ambiente = false): void
     {

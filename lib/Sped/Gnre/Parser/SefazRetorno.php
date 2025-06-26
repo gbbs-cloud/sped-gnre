@@ -35,6 +35,11 @@ namespace Sped\Gnre\Parser;
 class SefazRetorno extends Rules
 {
     /**
+     * @var string
+     */
+    public $identificador;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct($dadosArquivo)
@@ -313,7 +318,7 @@ class SefazRetorno extends Rules
     {
     }
 
-    protected function aplicarParser()
+    protected function aplicarParser(): array
     {
         return $this->lote;
     }

@@ -67,6 +67,9 @@ class SendTest extends TestCase
         $send->sefaz($this->objetoSefaz);
     }
 
+    /**
+     * @test
+     */
     public function test_deve_exibir_debug(): void
     {
         $connection = $this->getMockBuilder(\Sped\Gnre\Webservice\Connection::class)

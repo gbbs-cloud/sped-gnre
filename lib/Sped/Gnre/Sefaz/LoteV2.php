@@ -21,7 +21,7 @@ use DOMDocument;
 
 class LoteV2 extends Lote
 {
-    public $ambienteDeTesteV2 = false;
+    public bool $ambienteDeTesteV2 = false;
 
     public function setAmbienteDeTesteV2(bool $ambienteDeTesteV2): LoteV2
     {
@@ -30,7 +30,7 @@ class LoteV2 extends Lote
         return $this;
     }
 
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    public function getSoapEnvelop(\DOMDocument $gnre, \DOMNode $loteGnre): void
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -88,6 +88,12 @@ class LoteV2 extends Lote
             $dadosVersao = $gnre->createAttribute('versao');
             $dadosVersao->value = '2.00';
             $dados->appendChild($dadosVersao);
+
+            $ufFavorecida = null;
+            $valorGNRE = null;
+            $dataPagamento = null;
+            $valor11 = null;
+            $valor21 = null;
 
             if ($estado) {
                 $ufFavorecida = $gnre->createElement('ufFavorecida', $estado);
@@ -171,6 +177,8 @@ class LoteV2 extends Lote
                 $referencia->appendChild($parcela);
             }
 
+            $dataVencimento = null;
+
             if ($gnreGuia->c14_dataVencimento) {
                 $dataVencimento = $gnre->createElement('dataVencimento', $gnreGuia->c14_dataVencimento);
             }
@@ -190,12 +198,12 @@ class LoteV2 extends Lote
             $identificacao = $gnre->createElement('identificacao');
 
             if ($gnreGuia->c34_tipoIdentificacaoDestinatario == parent::DESTINATARIO_PESSOA_JURIDICA) {
-                $destinatarioContribuinteDocumento = $gnre->createElement('CNPJ', $gnreGuia->c35_idContribuinteDestinatario);
+                $destinatarioContrinuinteDoc = $gnre->createElement('CNPJ', $gnreGuia->c35_idContribuinteDestinatario);
             } else {
-                $destinatarioContribuinteDocumento = $gnre->createElement('CPF', $gnreGuia->c35_idContribuinteDestinatario);
+                $destinatarioContrinuinteDoc = $gnre->createElement('CPF', $gnreGuia->c35_idContribuinteDestinatario);
             }
 
-            $identificacao->appendChild($destinatarioContribuinteDocumento);
+            $identificacao->appendChild($destinatarioContrinuinteDoc);
             if ($gnreGuia->c36_inscricaoEstadualDestinatario != '') {
                 $IE = $gnre->createElement('IE', $gnreGuia->c36_inscricaoEstadualDestinatario);
                 $identificacao->appendChild($IE);
@@ -270,14 +278,14 @@ class LoteV2 extends Lote
         return $gnre->saveXML();
     }
 
-    public function gerarCamposExtras($gnre, $gnreGuia)
+    public function gerarCamposExtras(\DOMDocument $gnre, Guia $gnreGuia): ?\DOMElement
     {
         if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
             $c39_camposExtras = $gnre->createElement('camposExtras');
             foreach ($gnreGuia->c39_camposExtras as $campos) {
                 $campoExtra = $gnre->createElement('campoExtra');
-                $codigo = $gnre->createElement('codigo', $campos['campoExtra']['codigo']);
-                $valor = $gnre->createElement('valor', $campos['campoExtra']['valor']);
+                $codigo = $gnre->createElement('codigo', (string) ($campos['campoExtra']['codigo'] ?? ''));
+                $valor = $gnre->createElement('valor', (string) ($campos['campoExtra']['valor'] ?? ''));
                 $campoExtra->appendChild($codigo);
                 $campoExtra->appendChild($valor);
                 $c39_camposExtras->appendChild($campoExtra);
@@ -289,12 +297,14 @@ class LoteV2 extends Lote
         return null;
     }
 
-    public function getCodigoDoc($uf, $difa = false): string
+    public function getCodigoDoc(string $uf, bool $difa = false): string
     {
         $doc = '10';
 
         return match ($uf) {
-            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => '10',
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT',
+            'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP',
+            'SE', 'TO' => '10',
             'AM', 'RS' => '22',
             'PE' => $difa ? '24' : '22',
             'RJ', 'SC' => '24',
@@ -302,12 +312,19 @@ class LoteV2 extends Lote
         };
     }
 
+    /**
+     * Retorna o número do documento para a UF especificada.
+     *
+     * @param  string  $uf  A sigla da UF.
+     */
     public function getNumDoc($uf): string
     {
         $doc = 'numero';
 
         return match ($uf) {
-            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => 'numero',
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT',
+            'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP',
+            'SE', 'TO' => 'numero',
             'AM', 'PE', 'RJ', 'RS', 'SC' => 'chave',
             default => $doc,
         };

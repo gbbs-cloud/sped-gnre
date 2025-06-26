@@ -84,7 +84,7 @@ abstract class ConsultaGnre implements ObjetoSefaz
     /**
      * Define o ambiente desejado para realizar a consulta no webservice da sefaz
      *
-     * @param  int  $environment  O número do ambiente que se deseja consultar. 1 = produção e 2 = homologação
+     * @param  int  $environment  O número do ambiente que se deseja consultar. 1 = produção e 2 = homologação.
      *
      * @since  1.0.0
      */

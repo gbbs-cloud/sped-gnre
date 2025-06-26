@@ -49,7 +49,20 @@ class Connection
      */
     public function __construct(private readonly Setup $setup, $headers, $data)
     {
-        $this->curlOptions = [CURLOPT_PORT => 443, CURLOPT_HEADER => 1, CURLOPT_SSLVERSION => 3, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSLCERT => $this->setup->getCertificatePemFile(), CURLOPT_SSLKEY => $this->setup->getPrivateKey(), CURLOPT_POST => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_POSTFIELDS => $data, CURLOPT_HTTPHEADER => $headers, CURLOPT_VERBOSE => $this->setup->getDebug()];
+        $this->curlOptions = [
+            CURLOPT_PORT => 443,
+            CURLOPT_HEADER => 1,
+            CURLOPT_SSLVERSION => 3,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_SSLCERT => $this->setup->getCertificatePemFile(),
+            CURLOPT_SSLKEY => $this->setup->getPrivateKey(),
+            CURLOPT_POST => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_VERBOSE => $this->setup->getDebug(),
+        ];
 
         $ip = $this->setup->getProxyIp();
         $port = $this->setup->getProxyPort();
@@ -57,7 +70,7 @@ class Connection
         if (! empty($ip) && $port) {
             $this->curlOptions[CURLOPT_HTTPPROXYTUNNEL] = 1;
             $this->curlOptions[CURLOPT_PROXYTYPE] = 'CURLPROXY_HTTP';
-            $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp() . ':' . $this->setup->getProxyPort();
+            $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp().':'.$this->setup->getProxyPort();
         }
     }
 
@@ -71,24 +84,9 @@ class Connection
 
     /**
      * Com esse método é possível adicionar novas opções ou alterar o valor das
-     * opções exitentes antes de realizar a requisição para o web service,
-     * exemplo de utilização com apenas uma opção:
-     * <pre>
-     * $connection->addCurlOption(
-     * array(
-     *       CURLOPT_PORT => 123
-     *  )
-     * );
-     * </pre>
-     * Exemplo de utilização com mais de uma opção :
-     * <pre>
-     * $connection->addCurlOption(
-     * array(
-     *       CURLOPT_SSLVERSION => 6,
-     *       CURLOPT_SSL_VERIFYPEER => 1
-     *  )
-     * );
-     * </pre>
+     * opções existentes antes de realizar a requisição para o web service.
+     *
+     * @param  array  $option  Opções a serem adicionadas ou alteradas.
      */
     public function addCurlOption(array $option): static
     {
@@ -102,11 +100,10 @@ class Connection
     /**
      * Realiza a requisição ao webservice desejado através do curl() do php
      *
-     * @param  string  $url  String com a URL que será enviada a requisição
+     * @param  string  $url  String com a URL que será enviada a requisição.
+     * @return string Caso a requisição seja feita com sucesso, retorna um XML formatado.
      *
      * @since  1.0.0
-     *
-     * @return string|bool Caso a requisição não seja feita com sucesso false, caso contrário um XML formatado
      */
     public function doRequest($url): string
     {

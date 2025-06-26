@@ -25,7 +25,7 @@ class MinhaConsultaConfigUf extends ConsultaConfigUf
     {
     }
 
-    public function utilizarAmbienteDeTeste($ambiente = false)
+    public function utilizarAmbienteDeTeste($ambiente = false): void
     {
     }
 }

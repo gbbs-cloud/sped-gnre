@@ -1,10 +1,12 @@
 <?php
 
-namespace Exemplo;
+require __DIR__.'/../vendor/autoload.php';
 
-require __DIR__ . '/../vendor/autoload.php';
+use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Sefaz\Consulta;
+use Sped\Gnre\Webservice\Connection;
 
-class MySetup extends Sped\Gnre\Configuration\Setup
+class MySetup extends Setup
 {
     public function getBaseUrl()
     {
@@ -57,9 +59,7 @@ class MySetup extends Sped\Gnre\Configuration\Setup
 
 $minhaConfiguracao = new MySetup();
 
-$guia = new Sped\Gnre\Sefaz\Guia();
-
-$consulta = new Sped\Gnre\Sefaz\Consulta();
+$consulta = new Consulta();
 $consulta->setRecibo(12345123);
 
 /**
@@ -72,5 +72,5 @@ $consulta->setEnvironment(1);
 // header('Content-Type: text/xml');
 // print $consulta->toXml(); // exibe o XML da consulta
 
-$webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
+$webService = new Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
 echo $webService->doRequest($consulta->soapAction());

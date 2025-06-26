@@ -32,8 +32,7 @@ class ConnectionFactory
     /**
      * Cria um objeto <b>\Sped\Gnre\Webservice\Connection</b>
      *
-     * @param  \Sped\Gnre\Webservice\Setup  $setup
-     * @param  array  $headers
+     * @param  array<string>  $headers
      * @param  string  $data
      */
     public function createConnection(Setup $setup, $headers, $data): \Sped\Gnre\Webservice\Connection

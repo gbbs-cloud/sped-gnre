@@ -103,7 +103,7 @@ abstract class ConsultaConfigUf implements ObjetoSefaz
     /**
      * Define em qual ambiente deve ser consultado
      *
-     * @param  int  $environment  O número do ambiente que se deseja consultar. 1 = produção - 2 = homologação
+     * @param  int  $environment  O número do ambiente que se deseja consultar. 1 = produção - 2 = homologação.
      */
     public function setEnvironment($environment): void
     {

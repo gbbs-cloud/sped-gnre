@@ -83,8 +83,8 @@ class Send
     /**
      * Obtém os dados necessários e realiza a conexão com o webservice da sefaz
      *
-     * @param  $objetoSefaz  Uma classe que implemente a interface ObjectoSefaz
-     * @return string|bool Caso a conexão seja feita com sucesso retorna um xml válido caso contrário retorna false
+     * @param  ObjetoSefaz  $objetoSefaz  Uma classe que implemente a interface ObjectoSefaz
+     * @return string Caso a conexão seja feita com sucesso retorna um xml válido.
      *
      * @since  1.0.0
      */
@@ -97,6 +97,9 @@ class Send
             echo $data;
         }
 
+        if (! $this->connectionFactory instanceof \Sped\Gnre\Webservice\ConnectionFactory) {
+            throw new \Sped\Gnre\Exception\ConnectionFactoryUnavailable();
+        }
         $connection = $this->getConnectionFactory()->createConnection($this->setup, $header, $data);
 
         return $connection->doRequest($objetoSefaz->soapAction());

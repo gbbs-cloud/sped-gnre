@@ -64,11 +64,10 @@ abstract class LoteGnre implements ObjetoSefaz
      * Método utilizado para retornar uma guia específica existente no lote
      *
      * @param  int  $index
-     * @return Guia
      *
      * @since  1.0.0
      */
-    public function getGuia($index)
+    public function getGuia($index): Guia
     {
         return $this->guias[$index];
     }
