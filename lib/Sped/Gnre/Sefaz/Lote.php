@@ -80,7 +80,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function soapAction(): string
+    public function soapAction()
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao' :

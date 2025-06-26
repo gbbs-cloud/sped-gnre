@@ -51,7 +51,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function soapAction(): string
+    public function soapAction()
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreResultadoLote' :

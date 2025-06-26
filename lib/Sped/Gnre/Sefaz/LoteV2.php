@@ -298,7 +298,7 @@ class LoteV2 extends Lote {
         return null;
     }
 
-    public function getCodigoDoc($uf, $difa = false): string {
+    public function getCodigoDoc($uf, $difa = false) {
         $doc = '10';
         switch ($uf) {
             case 'AC':
@@ -332,7 +332,7 @@ class LoteV2 extends Lote {
         return $doc;
     }
 
-    public function getNumDoc($uf): string {
+    public function getNumDoc($uf) {
         $doc = 'numero';
         switch ($uf) {
             case 'AC':

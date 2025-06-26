@@ -59,7 +59,7 @@ class Barcode128
      * Gera a imagem do código de barras e o transforma em base64
      * @return string Retorna a imagem gerada no formato base64
      */
-    public function getCodigoBarrasBase64(): string
+    public function getCodigoBarrasBase64()
     {
         ob_start();
 
