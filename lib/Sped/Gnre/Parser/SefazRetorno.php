@@ -37,10 +37,6 @@ class SefazRetorno extends Rules
 {
 
     /**
-     * @var string
-     */
-    public $identificador;
-    /**
      * {@inheritdoc}
      */
     public function __construct($dadosArquivo)
