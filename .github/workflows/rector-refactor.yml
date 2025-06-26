@@ -23,6 +23,7 @@ jobs:
           #!/bin/bash
           rector_file="rector.php"
           
+          # Base Rector configuration with all levels at 0
           base_rector_config='<?php
           declare(strict_types=1);
           use Rector\Config\RectorConfig;
@@ -44,16 +45,40 @@ jobs:
 
             echo "::group::Analyzing $category_name"
 
+            # Reset codebase for each new category analysis
+            git checkout -- lib/ testes/
+
             for level in $(seq 1 $category_max); do
               echo "Checking $category_name level $level..."
               
-              current_rector_config=$(echo "$base_rector_config" | sed "s/with${category_name}Level(0)/with${category_name}Level($level)/" | sed "s/withDeadCodeLevel(0)/withDeadCodeLevel(0)/" | sed "s/withCodeQualityLevel(0)/withCodeQualityLevel(0)/")
+              # Generate rector-run.php for the current level of the current category
+              current_rector_config=$(echo "$base_rector_config" | sed "s/with${category_name}Level(0)/with${category_name}Level($level)/")
               echo "$current_rector_config" > rector-run.php
 
-              # Apply changes for the current level. Successful changes from previous levels are kept.
-              ./vendor/bin/rector process --config rector-run.php --no-progress-bar || true
-              
-              if ./vendor/bin/phpunit > /dev/null 2>&1; then
+              # Run Rector and capture its output and exit code
+              set +e # Temporarily disable exit on error
+              rector_output=$(./vendor/bin/rector process --config rector-run.php --no-progress-bar 2>&1)
+              rector_exit_code=$?
+              set -e # Re-enable exit on error
+
+              tests_passed=false
+              if [ $rector_exit_code -eq 0 ]; then
+                echo "Rector made no changes for $category_name level $level. Skipping tests."
+                tests_passed=true
+              elif [ $rector_exit_code -eq 1 ]; then
+                echo "Rector applied changes for $category_name level $level. Running tests..."
+                if ./vendor/bin/phpunit > /dev/null 2>&1; then
+                  tests_passed=true
+                else
+                  tests_passed=false
+                fi
+              else
+                echo "Rector encountered an error (exit code $rector_exit_code) for $category_name level $level."
+                echo "$rector_output" # Print Rector's error output
+                tests_passed=false # Treat Rector errors as test failures
+              fi
+
+              if $tests_passed; then
                 echo "Tests PASSED for $category_name level $level"
                 highest_level=$level
               else
@@ -64,10 +89,6 @@ jobs:
               fi
             done
             
-            # Reset the codebase to its original state before analyzing the next category.
-            echo "Resetting codebase for the next category analysis."
-            git checkout -- lib/ testes/
-
             final_levels+=("Highest successful level for $category_name: $highest_level")
             echo "::endgroup::"
           done
