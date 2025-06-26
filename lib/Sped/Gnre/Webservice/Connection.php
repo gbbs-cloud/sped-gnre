@@ -36,7 +36,7 @@ class Connection
      * Armazena todas as opções desejadas para serem incluídas no curl()
      * @var array
      */
-    private $curlOptions = array();
+    private $curlOptions = [];
 
     /**
      * @var \Sped\Gnre\Configuration\Setup
@@ -56,21 +56,7 @@ class Connection
     {
         $this->setup = $setup;
 
-        $this->curlOptions = array(
-            CURLOPT_PORT => 443,
-            CURLOPT_VERBOSE => 1,
-            CURLOPT_HEADER => 1,
-            CURLOPT_SSLVERSION => 3,
-            CURLOPT_SSL_VERIFYHOST => 0,
-            CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_SSLCERT => $setup->getCertificatePemFile(),
-            CURLOPT_SSLKEY => $setup->getPrivateKey(),
-            CURLOPT_POST => 1,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_POSTFIELDS => $data,
-            CURLOPT_HTTPHEADER => $headers,
-            CURLOPT_VERBOSE => $setup->getDebug(),
-        );
+        $this->curlOptions = [CURLOPT_PORT => 443, CURLOPT_HEADER => 1, CURLOPT_SSLVERSION => 3, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSLCERT => $setup->getCertificatePemFile(), CURLOPT_SSLKEY => $setup->getPrivateKey(), CURLOPT_POST => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_POSTFIELDS => $data, CURLOPT_HTTPHEADER => $headers, CURLOPT_VERBOSE => $setup->getDebug()];
 
         $ip = $setup->getProxyIp();
         $port = $setup->getProxyPort();
@@ -112,7 +98,6 @@ class Connection
      * );
      * </pre>
      *
-     * @param array $option
      * @return \Sped\Gnre\Webservice\Connection
      */
     public function addCurlOption(array $option)
@@ -144,7 +129,7 @@ class Connection
             print_r(curl_getinfo($curl));
         }
 
-        if ($xml === false || $xml === '') {
+        if ($xml === '') {
             $xml = curl_error($curl);
         }
 

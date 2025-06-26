@@ -37,6 +37,10 @@ class SefazRetorno extends Rules
 {
 
     /**
+     * @var string
+     */
+    public $identificador;
+    /**
      * {@inheritdoc}
      */
     public function __construct($dadosArquivo)
@@ -263,19 +267,10 @@ class SefazRetorno extends Rules
 
     protected function getIdentificadorGuia()
     {
-        $tratamento = array(
-            'posicao' => 1087,
-            'tamanho' => 10
-        );
     }
 
     protected function getSequencialGuiaErroValidacao()
     {
-        $tratamento = array(
-            'posicao' => 1,
-            'tamanho' => 4
-        );
-
         $this->sequencialGuiaErroValidacao = $this->getContent($this->dadosArquivo[$this->index], 1, 4);
     }
 
@@ -314,26 +309,14 @@ class SefazRetorno extends Rules
 
     protected function getNumeroProtocolo()
     {
-        $tratamento = array(
-            'posicao' => 1,
-            'tamanho' => 10
-        );
     }
 
     protected function getTotalGuias()
     {
-        $tratamento = array(
-            'posicao' => 11,
-            'tamanho' => 4
-        );
     }
 
     protected function getHashDeValidacao()
     {
-        $tratamento = array(
-            'posicao' => 15,
-            'tamanho' => 64
-        );
     }
 
     protected function aplicarParser()

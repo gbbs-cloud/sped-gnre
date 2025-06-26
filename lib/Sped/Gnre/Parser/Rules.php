@@ -32,6 +32,7 @@ namespace Sped\Gnre\Parser;
 abstract class Rules
 {
 
+    public $identificador;
     const ERRO_VALIDACAO = 2;
     const GUIA_EMITIDA_COM_SUCESSO = 9;
 
@@ -58,7 +59,7 @@ abstract class Rules
     /**
      * @var array
      */
-    protected $lote = array();
+    protected $lote = [];
 
     /**
      * Utiliza o método construtor da classe para ser enviado um conteúdo de
@@ -163,8 +164,9 @@ abstract class Rules
     public function getLote()
     {
         $lote = new \Sped\Gnre\Sefaz\Lote();
+        $counter = count($this->dadosArquivo);
 
-        for ($i = 0; $i < sizeof($this->dadosArquivo); $i++) {
+        for ($i = 0; $i < $counter; $i++) {
             $this->index = $i;
             $this->getIdentificador();
             $this->sequencialGuiaErroValidacao = null;
