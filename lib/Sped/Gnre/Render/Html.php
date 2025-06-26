@@ -32,29 +32,18 @@ class Html
 {
     /**
      * Conteúdo HTML gerado pela classe
-     *
-     * @var string
      */
-    private $html;
+    private ?string $html = null;
 
     /**
      * Objeto utilizado para gerar o código de barras
-     *
-     * @var \Sped\Gnre\Render\Barcode128
      */
-    private $barCode;
-
-    /**
-     * @var type
-     */
-    private $smartyFactory;
+    private ?\Sped\Gnre\Render\Barcode128 $barCode = null;
 
     /**
      * Retorna a instância do objeto atual ou cria uma caso não exista
-     *
-     * @return \Sped\Gnre\Render\Barcode128
      */
-    public function getBarCode()
+    public function getBarCode(): \Sped\Gnre\Render\Barcode128
     {
         if (! $this->barCode instanceof Barcode128) {
             $this->barCode = new Barcode128;
@@ -66,35 +55,12 @@ class Html
     /**
      * Define um objeto <b>\Sped\Gnre\Render\Barcode128</b> para ser utilizado
      * internamente pela classe
-     *
-     * @return \Sped\Gnre\Render\Html
      */
-    public function setBarCode(Barcode128 $barCode)
+    public function setBarCode(Barcode128 $barCode): static
     {
         $this->barCode = $barCode;
 
         return $this;
-    }
-
-    public function setSmartyFactory(\Sped\Gnre\Render\SmartyFactory $smartyFactory)
-    {
-        $this->smartyFactory = $smartyFactory;
-
-        return $this;
-    }
-
-    /**
-     * Retorna uma factory para ser possível utilizar o Smarty
-     *
-     * @return Sped\Gnre\Render\SmartyFactory
-     */
-    public function getSmartyFactory()
-    {
-        if ($this->smartyFactory === null) {
-            $this->smartyFactory = new SmartyFactory;
-        }
-
-        return $this->smartyFactory;
     }
 
     /**
@@ -105,9 +71,13 @@ class Html
      * utilizado por esse método</p>
      * @since 1.0.0
      */
-    public function create(Lote $lote)
+    public function create(Lote $lote): void
     {
-        $guiaViaInfo = [1 => '1ª via Banco', 2 => '2ª via Contrinuinte', 3 => '3ª via Contribuinte/Fisco'];
+        $guiaViaInfo = [
+            1 => '1ª via Banco',
+            2 => '2ª via Contrinuinte',
+            3 => '3ª via Contribuinte/Fisco',
+        ];
 
         $guias = $lote->getGuias();
         $html = '';
@@ -119,15 +89,10 @@ class Html
             $barcode = $this->getBarCode()
                 ->setNumeroCodigoBarras($guia->retornoCodigoDeBarras);
 
-            $smarty = $this->getSmartyFactory()
-                ->create();
-            $smarty->assign('guiaViaInfo', $guiaViaInfo);
-            $smarty->assign('barcode', $barcode);
-            $smarty->assign('guia', $guia);
-
             $documentRoot = dirname(__FILE__, 5).DIRECTORY_SEPARATOR;
-
-            $html .= $smarty->fetch($documentRoot.'templates'.DIRECTORY_SEPARATOR.'gnre.tpl');
+            ob_start();
+            include $documentRoot.'templates'.DIRECTORY_SEPARATOR.'gnre.php';
+            $html .= ob_get_clean();
         }
 
         $this->html = $html;
@@ -135,10 +100,8 @@ class Html
 
     /**
      * Retorna o conteúdo HTML gerado pela classe
-     *
-     * @return string
      */
-    public function getHtml()
+    public function getHtml(): ?string
     {
         return $this->html;
     }

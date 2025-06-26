@@ -31,22 +31,21 @@ use Sped\Gnre\Exception\UnableToWriteFile;
  */
 class CertificatePfxFileOperation extends FileOperation
 {
+    /**
+     * @var string
+     */
     public $fileName;
 
     /**
      * O nome da pasta em que os meta dados dos certificados são armazenados.
      * Essa pasta ficará abaixo da pasta /certs ficando então /certs/metadata
-     *
-     * @var string
      */
-    private $metadataFolder = 'metadata';
+    private string $metadataFolder = 'metadata';
 
     /**
      * Caminho e o nome do arquivo completo do certificado a ser utilizado
-     *
-     * @var string
      */
-    private $pathToWrite;
+    private readonly string $pathToWrite;
 
     /**
      * {@inheritdoc}

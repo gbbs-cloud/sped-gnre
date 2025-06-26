@@ -44,6 +44,8 @@ $lote = new Sped\Gnre\Sefaz\Lote;
 $lote->addGuia($guia);
 
 $html = new Sped\Gnre\Render\Html;
+$barcode = new Sped\Gnre\Render\Barcode128;
+$html->setBarCode($barcode);
 $html->create($lote);
 
 $pdf = new Sped\Gnre\Render\Pdf;

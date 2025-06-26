@@ -55,7 +55,7 @@ class SendTest extends TestCase
             ->getMock();
         $connection->expects($this->once())
             ->method('doRequest')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue('<xml/>'));
 
         $connectionFactory = $this->createMock(\Sped\Gnre\Webservice\ConnectionFactory::class);
         $connectionFactory->expects($this->once())
@@ -74,7 +74,7 @@ class SendTest extends TestCase
             ->getMock();
         $connection->expects($this->once())
             ->method('doRequest')
-            ->will($this->returnValue(true));
+            ->will($this->returnValue('<xml/>'));
 
         $connectionFactory = $this->createMock(\Sped\Gnre\Webservice\ConnectionFactory::class);
         $connectionFactory->expects($this->once())

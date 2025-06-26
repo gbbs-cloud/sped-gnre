@@ -43,11 +43,12 @@ class CertificatePfx
      * @since  1.0.0
      */
     public function __construct(/**
-     * Objecto necessário para realizar operações de criação de arquivos
-     * a partir dos dados do certificado
-     */
-        private readonly CertificatePfxFileOperation $cerficationFileOperation, $password)
-    {
+         * Objecto necessário para realizar operações de criação de arquivos
+         * a partir dos dados do certificado
+         */
+        private readonly CertificatePfxFileOperation $cerficationFileOperation,
+        $password
+    ) {
         $this->dataCertificate = $this->cerficationFileOperation->open($password);
     }
 
