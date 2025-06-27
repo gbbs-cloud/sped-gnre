@@ -178,66 +178,57 @@
                                 <td colspan="3" class="nobottom">Nº de Controle</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop"><?php echo $guia->retornoNumeroDeControle; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop"><?php echo $guia->retornoNumeroDeControle; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Data de Vencimento</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop"><?php echo $guia->c14_dataVencimento; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop"><?php echo $guia->c14_dataVencimento; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Nº do Documento de Origem</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop"><?php echo $guia->c04_docOrigem; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop"><?php echo $guia->c04_docOrigem; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="nobottom">Período de Referência</td>
                                 <td class="nobottom" align="left">Nº Parcela</td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="notop" align="right"><?php echo $guia->mes; ?>/<?php echo $guia->ano; ?>
-                                </td>
+                                <td colspan="2" class="notop" align="right"><?php echo $guia->mes; ?>/<?php echo $guia->ano; ?></td>
                                 <td class="notop" align="right"><?php echo $guia->parcela; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Valor Principal</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->c06_valorPrincipal; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->c06_valorPrincipal; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Atualização Monetária</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->retornoAtualizacaoMonetaria; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->retornoAtualizacaoMonetaria; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Juros</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->retornoJuros; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->retornoJuros; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Multa</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->retornoMulta; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop">R$ <?php echo $guia->retornoMulta; ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Total a Recolher</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop"><?php echo $guia->c10_valorTotal; ?>
-                                </td>
+                                <td colspan="3" align="right" class="notop"><?php echo $guia->c10_valorTotal; ?></td>
                             </tr>
                             <tr>
                                 <td class="noborder" colspan="3" style="text-align:right;"><?php echo $via; ?></td>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -21,7 +23,7 @@ use DOMDocument;
 
 class LoteV2 extends Lote
 {
-    public $ambienteDeTesteV2 = false;
+    public bool $ambienteDeTesteV2 = false;
 
     public function setAmbienteDeTesteV2(bool $ambienteDeTesteV2): LoteV2
     {
@@ -30,7 +32,7 @@ class LoteV2 extends Lote
         return $this;
     }
 
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    public function getSoapEnvelop(\DOMDocument $gnre, \DOMNode $loteGnre): void
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -88,6 +90,12 @@ class LoteV2 extends Lote
             $dadosVersao = $gnre->createAttribute('versao');
             $dadosVersao->value = '2.00';
             $dados->appendChild($dadosVersao);
+
+            $ufFavorecida = null;
+            $valorGNRE = null;
+            $dataPagamento = null;
+            $valor11 = null;
+            $valor21 = null;
 
             if ($estado) {
                 $ufFavorecida = $gnre->createElement('ufFavorecida', $estado);
@@ -170,6 +178,8 @@ class LoteV2 extends Lote
                 $parcela = $gnre->createElement('parcela', $gnreGuia->parcela);
                 $referencia->appendChild($parcela);
             }
+
+            $dataVencimento = null;
 
             if ($gnreGuia->c14_dataVencimento) {
                 $dataVencimento = $gnre->createElement('dataVencimento', $gnreGuia->c14_dataVencimento);
@@ -270,14 +280,14 @@ class LoteV2 extends Lote
         return $gnre->saveXML();
     }
 
-    public function gerarCamposExtras($gnre, $gnreGuia)
+    public function gerarCamposExtras(\DOMDocument $gnre, Guia $gnreGuia): ?\DOMElement
     {
         if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
             $c39_camposExtras = $gnre->createElement('camposExtras');
             foreach ($gnreGuia->c39_camposExtras as $campos) {
                 $campoExtra = $gnre->createElement('campoExtra');
-                $codigo = $gnre->createElement('codigo', $campos['campoExtra']['codigo']);
-                $valor = $gnre->createElement('valor', $campos['campoExtra']['valor']);
+                $codigo = $gnre->createElement('codigo', (string) ($campos['campoExtra']['codigo'] ?? ''));
+                $valor = $gnre->createElement('valor', (string) ($campos['campoExtra']['valor'] ?? ''));
                 $campoExtra->appendChild($codigo);
                 $campoExtra->appendChild($valor);
                 $c39_camposExtras->appendChild($campoExtra);
@@ -289,7 +299,7 @@ class LoteV2 extends Lote
         return null;
     }
 
-    public function getCodigoDoc($uf, $difa = false): string
+    public function getCodigoDoc(string $uf, bool $difa = false): string
     {
         $doc = '10';
 
@@ -303,6 +313,11 @@ class LoteV2 extends Lote
         };
     }
 
+    /**
+     * Retorna o número do documento para a UF especificada.
+     *
+     * @param  string  $uf  A sigla da UF.
+     */
     public function getNumDoc($uf): string
     {
         $doc = 'numero';

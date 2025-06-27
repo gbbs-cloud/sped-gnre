@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -93,58 +95,59 @@ class Lote extends LoteGnre
         $guia = $gnre->createElement('guias');
 
         foreach ($this->getGuias() as $gnreGuia) {
-            $estado = $gnreGuia->c01_UfFavorecida;
+            $estado = $gnreGuia->getC01UfFavorecida();
 
             $guiaEstado = $this->getEstadoFactory()->create($estado);
 
             $dados = $gnre->createElement('TDadosGNRE');
             $c1 = $gnre->createElement('c01_UfFavorecida', $estado);
-            $c2 = $gnre->createElement('c02_receita', $gnreGuia->c02_receita);
-            $c25 = $gnre->createElement('c25_detalhamentoReceita', $gnreGuia->c25_detalhamentoReceita);
-            $c26 = $gnre->createElement('c26_produto', $gnreGuia->c26_produto);
-            $c27 = $gnre->createElement('c27_tipoIdentificacaoEmitente', $gnreGuia->c27_tipoIdentificacaoEmitente);
+            $c2 = $gnre->createElement('c02_receita', (string) $gnreGuia->getC02Receita());
+            $c25 = $gnre->createElement('c25_detalhamentoReceita', (string) $gnreGuia->getC25DetalhamentoReceita());
+            $c26 = $gnre->createElement('c26_produto', (string) $gnreGuia->getC26Produto());
+            $c27 = $gnre->createElement('c27_tipoIdentificacaoEmitente', (string) $gnreGuia->getC27TipoIdentificacaoEmitente());
 
             $c03 = $gnre->createElement('c03_idContribuinteEmitente');
 
-            if ($gnreGuia->c27_tipoIdentificacaoEmitente == parent::EMITENTE_PESSOA_JURIDICA) {
-                $emitenteContribuinteDocumento = $gnre->createElement('CNPJ', $gnreGuia->c03_idContribuinteEmitente);
+            if ($gnreGuia->getC27TipoIdentificacaoEmitente() == parent::EMITENTE_PESSOA_JURIDICA) {
+                $emitenteContribuinteDocumento = $gnre->createElement('CNPJ', $gnreGuia->getC03IdContribuinteEmitente());
             } else {
-                $emitenteContribuinteDocumento = $gnre->createElement('CPF', $gnreGuia->c03_idContribuinteEmitente);
+                $emitenteContribuinteDocumento = $gnre->createElement('CPF', $gnreGuia->getC03IdContribuinteEmitente());
             }
 
             $c03->appendChild($emitenteContribuinteDocumento);
 
-            $c28 = $gnre->createElement('c28_tipoDocOrigem', $gnreGuia->c28_tipoDocOrigem);
-            $c04 = $gnre->createElement('c04_docOrigem', $gnreGuia->c04_docOrigem);
-            if ($gnreGuia->c06_valorPrincipal) {
-                $c06 = $gnre->createElement('c06_valorPrincipal', $gnreGuia->c06_valorPrincipal);
+            $c28 = $gnre->createElement('c28_tipoDocOrigem', (string) $gnreGuia->getC28TipoDocOrigem());
+            $c04 = $gnre->createElement('c04_docOrigem', $gnreGuia->getC04DocOrigem());
+            if ($gnreGuia->getC06ValorPrincipal()) {
+                $c06 = $gnre->createElement('c06_valorPrincipal', (string) $gnreGuia->getC06ValorPrincipal());
             }
-            if ($gnreGuia->c10_valorTotal) {
-                $c10 = $gnre->createElement('c10_valorTotal', $gnreGuia->c10_valorTotal);
+            if ($gnreGuia->getC10ValorTotal()) {
+                $c10 = $gnre->createElement('c10_valorTotal', (string) $gnreGuia->getC10ValorTotal());
             }
-            $c14 = $gnre->createElement('c14_dataVencimento', $gnreGuia->c14_dataVencimento);
-            $c15 = $gnre->createElement('c15_convenio', $gnreGuia->c15_convenio);
-            $c16 = $gnre->createElement('c16_razaoSocialEmitente', $gnreGuia->c16_razaoSocialEmitente);
-            if ($gnreGuia->c17_inscricaoEstadualEmitente) {
-                $c17 = $gnre->createElement('c17_inscricaoEstadualEmitente', $gnreGuia->c17_inscricaoEstadualEmitente);
+            $c14 = $gnre->createElement('c14_dataVencimento', $gnreGuia->getC14DataVencimento());
+            $c15 = $gnre->createElement('c15_convenio', (string) $gnreGuia->getC15Convenio());
+            $c16 = $gnre->createElement('c16_razaoSocialEmitente', $gnreGuia->getC16RazaoSocialEmitente());
+            $c17 = null;
+            if ($gnreGuia->getC17InscricaoEstadualEmitente()) {
+                $c17 = $gnre->createElement('c17_inscricaoEstadualEmitente', $gnreGuia->getC17InscricaoEstadualEmitente());
             }
-            $c18 = $gnre->createElement('c18_enderecoEmitente', $gnreGuia->c18_enderecoEmitente);
-            $c19 = $gnre->createElement('c19_municipioEmitente', $gnreGuia->c19_municipioEmitente);
-            $c20 = $gnre->createElement('c20_ufEnderecoEmitente', $gnreGuia->c20_ufEnderecoEmitente);
-            if ($gnreGuia->c21_cepEmitente) {
-                $c21 = $gnre->createElement('c21_cepEmitente', $gnreGuia->c21_cepEmitente);
+            $c18 = $gnre->createElement('c18_enderecoEmitente', $gnreGuia->getC18EnderecoEmitente());
+            $c19 = $gnre->createElement('c19_municipioEmitente', (string) $gnreGuia->getC19MunicipioEmitente());
+            $c20 = $gnre->createElement('c20_ufEnderecoEmitente', $gnreGuia->getC20UfEnderecoEmitente());
+            if ($gnreGuia->getC21CepEmitente()) {
+                $c21 = $gnre->createElement('c21_cepEmitente', $gnreGuia->getC21CepEmitente());
             }
-            if ($gnreGuia->c22_telefoneEmitente) {
-                $c22 = $gnre->createElement('c22_telefoneEmitente', $gnreGuia->c22_telefoneEmitente);
+            if ($gnreGuia->getC22TelefoneEmitente()) {
+                $c22 = $gnre->createElement('c22_telefoneEmitente', $gnreGuia->getC22TelefoneEmitente());
             }
 
-            $c34_tipoIdentificacaoDestinatario = $gnreGuia->c34_tipoIdentificacaoDestinatario;
-            $c34 = $gnre->createElement('c34_tipoIdentificacaoDestinatario', $c34_tipoIdentificacaoDestinatario);
+            $c34_tipoIdentificacaoDestinatario = $gnreGuia->getC34TipoIdentificacaoDestinatario();
+            $c34 = $gnre->createElement('c34_tipoIdentificacaoDestinatario', (string) $c34_tipoIdentificacaoDestinatario);
 
             $c35 = $gnre->createElement('c35_idContribuinteDestinatario');
 
-            $c35_idContribuinteDestinatario = $gnreGuia->c35_idContribuinteDestinatario;
-            if ($gnreGuia->c34_tipoIdentificacaoDestinatario == parent::DESTINATARIO_PESSOA_JURIDICA) {
+            $c35_idContribuinteDestinatario = $gnreGuia->getC35IdContribuinteDestinatario();
+            if ($gnreGuia->getC34TipoIdentificacaoDestinatario() == parent::DESTINATARIO_PESSOA_JURIDICA) {
                 $destinatarioContribuinteDocumento = $gnre->createElement('CNPJ', $c35_idContribuinteDestinatario);
             } else {
                 $destinatarioContribuinteDocumento = $gnre->createElement('CPF', $c35_idContribuinteDestinatario);
@@ -152,20 +155,18 @@ class Lote extends LoteGnre
 
             $c35->appendChild($destinatarioContribuinteDocumento);
 
-            $c36_inscricaoEstadualDestinatario = $gnreGuia->c36_inscricaoEstadualDestinatario;
-            $c36 = $gnre->createElement('c36_inscricaoEstadualDestinatario', $c36_inscricaoEstadualDestinatario);
-            $c37 = $gnre->createElement('c37_razaoSocialDestinatario', $gnreGuia->c37_razaoSocialDestinatario);
-            $c38 = $gnre->createElement('c38_municipioDestinatario', $gnreGuia->c38_municipioDestinatario);
-            $c33 = $gnre->createElement('c33_dataPagamento', $gnreGuia->c33_dataPagamento);
+            $c36_inscricaoEstadualDestinatario = $gnreGuia->getC36InscricaoEstadualDestinatario();
+            $c36 = $gnre->createElement('c36_inscricaoEstadualDestinatario', (string) $c36_inscricaoEstadualDestinatario);
+            $c37 = $gnre->createElement('c37_razaoSocialDestinatario', $gnreGuia->getC37RazaoSocialDestinatario());
+            $c38 = $gnre->createElement('c38_municipioDestinatario', (string) $gnreGuia->getC38MunicipioDestinatario());
+            $c33 = $gnre->createElement('c33_dataPagamento', $gnreGuia->getC33DataPagamento());
 
             $dados->appendChild($c1);
             $dados->appendChild($c2);
-            if ($gnreGuia->c25_detalhamentoReceita) {
+            if ($gnreGuia->getC25DetalhamentoReceita()) {
                 $dados->appendChild($c25);
             }
-            if ($gnreGuia->c26_produto) {
-                $dados->appendChild($c26);
-            }
+            $dados->appendChild($c26);
             $dados->appendChild($c27);
             $dados->appendChild($c03);
             $dados->appendChild($c28);
@@ -177,11 +178,11 @@ class Lote extends LoteGnre
                 $dados->appendChild($c10);
             }
             $dados->appendChild($c14);
-            if ($gnreGuia->c15_convenio) {
+            if ($gnreGuia->getC15Convenio()) {
                 $dados->appendChild($c15);
             }
             $dados->appendChild($c16);
-            if ($gnreGuia->c17_inscricaoEstadualEmitente) {
+            if ($gnreGuia->getC17InscricaoEstadualEmitente()) {
                 $dados->appendChild($c17);
             }
             $dados->appendChild($c18);
@@ -199,13 +200,13 @@ class Lote extends LoteGnre
             if ($c35_idContribuinteDestinatario) {
                 $dados->appendChild($c35);
             }
-            if ($gnreGuia->c36_inscricaoEstadualDestinatario) {
+            if ($gnreGuia->getC36InscricaoEstadualDestinatario()) {
                 $dados->appendChild($c36);
             }
-            if ($gnreGuia->c37_razaoSocialDestinatario) {
+            if ($gnreGuia->getC37RazaoSocialDestinatario()) {
                 $dados->appendChild($c37);
             }
-            if ($gnreGuia->c38_municipioDestinatario) {
+            if ($gnreGuia->getC38MunicipioDestinatario()) {
                 $dados->appendChild($c38);
             }
             $dados->appendChild($c33);
@@ -238,7 +239,7 @@ class Lote extends LoteGnre
     /**
      * {@inheritdoc}
      */
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    public function getSoapEnvelop(\DOMDocument $gnre, \DOMNode $loteGnre): void
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -272,6 +273,11 @@ class Lote extends LoteGnre
 
     /**
      * {@inheritdoc}
+     */
+    /**
+     * {@inheritdoc}
+     *
+     * @param  bool  $ambiente
      */
     public function utilizarAmbienteDeTeste($ambiente = false): void
     {

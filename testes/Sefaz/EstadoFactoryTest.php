@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
@@ -51,6 +53,9 @@ class EstadoFactoryTest extends TestCase
         $this->assertInstanceOf(\Sped\Gnre\Sefaz\Estados\AL::class, $estado);
     }
 
+    /**
+     * @test
+     */
     public function test_should_create_am_object_from_factory(): void
     {
         $factory = new EstadoFactory();
