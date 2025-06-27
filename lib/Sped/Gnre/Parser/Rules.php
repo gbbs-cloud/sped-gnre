@@ -30,9 +30,9 @@ namespace Sped\Gnre\Parser;
  */
 abstract class Rules
 {
-    const ERRO_VALIDACAO = 2;
+    public const ERRO_VALIDACAO = 2;
 
-    const GUIA_EMITIDA_COM_SUCESSO = 9;
+    public const GUIA_EMITIDA_COM_SUCESSO = 9;
 
     /**
      * @var string
@@ -146,6 +146,8 @@ abstract class Rules
     abstract protected function getIdentificadorDoSolicitante();
 
     abstract protected function getNumeroDoProtocoloDoLote();
+
+    abstract protected function getSequencialGuiaErroValidacao();
 
     abstract protected function getAmbiente();
 

@@ -6,16 +6,19 @@ use Sped\Gnre\Sefaz\ConsultaGnre;
 
 class MinhaConsultaGnre extends ConsultaGnre
 {
-    public function getHeaderSoap()
+    public function getHeaderSoap(): array
     {
+        return [];
     }
 
-    public function soapAction()
+    public function soapAction(): string
     {
+        return '';
     }
 
-    public function toXml()
+    public function toXml(): string
     {
+        return '';
     }
 
     public function getSoapEnvelop($noRaiz, $conteudoEnvelope)
