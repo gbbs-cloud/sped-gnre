@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -47,10 +49,7 @@ class CertificatePfxFileOperation extends FileOperation
      */
     private readonly string $pathToWrite;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($filePath)
+    public function __construct(string $filePath)
     {
         parent::__construct($filePath);
 
@@ -70,7 +69,7 @@ class CertificatePfxFileOperation extends FileOperation
      * Abre um certificado enviado com a senha informada
      *
      * @param  string  $password  A senha necessária para abrir o certificado
-     * @return array Com os dados extraidos do certificado
+     * @return array<string, string> Com os dados extraidos do certificado
      *
      * @throws CannotOpenCertificate Caso a senha do certificado for inválida
      *
@@ -98,7 +97,19 @@ class CertificatePfxFileOperation extends FileOperation
      *
      * @since  1.0.0
      */
-    public function writeFile($content, FilePrefix $filePrefix)
+    /**
+     * Método utilizado para inserir um determinado conteúdo em um arquivo com os dados
+     * extraídos do certificado
+     *
+     * @param  string  $content  Conteúdo desejado a ser escrito no arquivo
+     * @param  FilePrefix  $filePrefix  - Utilizado para aplicar algum prefixo ou regras em um determinado arquivo
+     * @return string Retorna o caminho completo do arquivo em que foi escrito o conteúdo enviado
+     *
+     * @throws UnableToWriteFile Caso não seja possível escrever no arquivo
+     *
+     * @since  1.0.0
+     */
+    public function writeFile($content, FilePrefix $filePrefix): string
     {
         $pathToWrite = $filePrefix->apply($this->pathToWrite);
 

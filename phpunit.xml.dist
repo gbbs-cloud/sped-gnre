@@ -31,7 +31,12 @@
   </coverage>
   <testsuites>
     <testsuite name="GNREPHP">
-      <directory suffix="Test.php">./testes</directory>
+      <directory suffix=".php">./testes</directory>
     </testsuite>
   </testsuites>
+  <groups>
+    <exclude>
+      <group>ignore</group>
+    </exclude>
+  </groups>
 </phpunit>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -30,6 +32,8 @@ namespace Sped\Gnre\Parser;
  */
 abstract class Rules
 {
+    public $identificador;
+
     public const ERRO_VALIDACAO = 2;
 
     public const GUIA_EMITIDA_COM_SUCESSO = 9;
@@ -47,7 +51,7 @@ abstract class Rules
     /**
      * @var int
      */
-    protected $identificador;
+    protected $indentificador;
 
     /**
      * @var string
@@ -147,8 +151,6 @@ abstract class Rules
 
     abstract protected function getNumeroDoProtocoloDoLote();
 
-    abstract protected function getSequencialGuiaErroValidacao();
-
     abstract protected function getAmbiente();
 
     abstract protected function getNomeCampo();
@@ -156,6 +158,8 @@ abstract class Rules
     abstract protected function getCodigoMotivoRejeicao();
 
     abstract protected function getDescricaoMotivoRejeicao();
+
+    abstract protected function getSequencialGuiaErroValidacao();
 
     abstract protected function aplicarParser();
 
@@ -231,16 +235,15 @@ abstract class Rules
 
     /**
      * Esse método é mais utilizado pelas classes filhas onde é necessário
-     * pegar uma parte do conteúdo baseado em uma string
+     * pegar uma parte do conteúdo baseado em uma string.
      *
      * @see \Sped\Gnre\Parser\SefazRetorno
      *
      * @param  string  $content
      * @param  int  $positionStart
      * @param  int  $length
-     * @return string
      */
-    public function getContent($content, $positionStart, $length)
+    public function getContent($content, $positionStart, $length): string
     {
         return substr($content, $positionStart, $length);
     }
