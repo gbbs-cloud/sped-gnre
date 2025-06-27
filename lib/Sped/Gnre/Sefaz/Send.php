@@ -18,6 +18,7 @@
 namespace Sped\Gnre\Sefaz;
 
 use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Exception\ConnectionFactoryUnavailable;
 use Sped\Gnre\Webservice\ConnectionFactory;
 
 /**
@@ -59,8 +60,12 @@ class Send
      *
      * @throws \Sped\Gnre\Exception\ConnectionFactoryUnavailable
      */
-    public function getConnectionFactory(): ?\Sped\Gnre\Webservice\ConnectionFactory
+    public function getConnectionFactory(): \Sped\Gnre\Webservice\ConnectionFactory
     {
+        if (! $this->connectionFactory instanceof ConnectionFactory) {
+            throw new ConnectionFactoryUnavailable;
+        }
+
         return $this->connectionFactory;
     }
 
