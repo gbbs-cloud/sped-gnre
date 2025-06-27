@@ -35,10 +35,8 @@ class Send
 {
     /**
      * Propriedade utilizada para armazenar o objecto de conexão com a SEFAZ
-     *
-     * @var \Sped\Gnre\Webservice\ConnectionFactory
      */
-    private $connectionFactory;
+    private ?\Sped\Gnre\Webservice\ConnectionFactory $connectionFactory = null;
 
     /**
      * Armazena as configurações padrões em um atributo interno da classe para ser utilizado
@@ -60,11 +58,10 @@ class Send
     /**
      * Retorna o objeto de conexão com a SEFAZ
      *
-     * @return \Sped\Gnre\Webservice\ConnectionFactory
      *
      * @throws \Sped\Gnre\Exception\ConnectionFactoryUnavailable
      */
-    public function getConnectionFactory()
+    public function getConnectionFactory(): \Sped\Gnre\Webservice\ConnectionFactory
     {
         if (! $this->connectionFactory instanceof ConnectionFactory) {
             throw new ConnectionFactoryUnavailable();
@@ -75,10 +72,8 @@ class Send
 
     /**
      * Define um objeto de comunicação com a SEFAZ
-     *
-     * @return \Sped\Gnre\Sefaz\Send
      */
-    public function setConnectionFactory(ConnectionFactory $connectionFactory)
+    public function setConnectionFactory(ConnectionFactory $connectionFactory): static
     {
         $this->connectionFactory = $connectionFactory;
 
@@ -93,7 +88,7 @@ class Send
      *
      * @since  1.0.0
      */
-    public function sefaz(ObjetoSefaz $objetoSefaz)
+    public function sefaz(ObjetoSefaz $objetoSefaz): string
     {
         $data = $objetoSefaz->toXml();
         $header = $objetoSefaz->getHeaderSoap();

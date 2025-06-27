@@ -7,8 +7,7 @@
         "ext-dom": "*",
         "ext-gd": "*",
         "dompdf/dompdf": "^3",
-        "laminas/laminas-barcode": "^2.3",
-        "smarty/smarty": "~3.1"
+        "laminas/laminas-barcode": "^2.3"
     },
     "scripts": {
         "test": "phpunit",

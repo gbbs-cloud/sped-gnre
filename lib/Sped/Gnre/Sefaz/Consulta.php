@@ -36,7 +36,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function getHeaderSoap()
+    public function getHeaderSoap(): array
     {
         $action = $this->ambienteDeTeste ?
             'http://www.testegnre.pe.gov.br/webservice/GnreResultadoLote' :
@@ -48,7 +48,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function soapAction()
+    public function soapAction(): string
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreResultadoLote' :
@@ -58,7 +58,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function toXml()
+    public function toXml(): string|false
     {
         $gnre = new \DOMDocument('1.0', 'UTF-8');
         $gnre->formatOutput = false;
@@ -81,7 +81,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function getSoapEnvelop($gnre, $consulta)
+    public function getSoapEnvelop($gnre, $consulta): void
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
@@ -116,7 +116,7 @@ class Consulta extends ConsultaGnre
     /**
      * {@inheritdoc}
      */
-    public function utilizarAmbienteDeTeste($ambiente = false)
+    public function utilizarAmbienteDeTeste($ambiente = false): void
     {
         $this->ambienteDeTeste = $ambiente;
     }

@@ -49,9 +49,8 @@ class Barcode128
      * Define o código de barras a ser usado pela classe
      *
      * @param  int  $numeroCodigoBarras
-     * @return \Sped\Gnre\Render\Barcode128
      */
-    public function setNumeroCodigoBarras($numeroCodigoBarras)
+    public function setNumeroCodigoBarras($numeroCodigoBarras): static
     {
         $this->numeroCodigoBarras = $numeroCodigoBarras;
 
@@ -63,7 +62,7 @@ class Barcode128
      *
      * @return string Retorna a imagem gerada no formato base64
      */
-    public function getCodigoBarrasBase64()
+    public function getCodigoBarrasBase64(): string
     {
         ob_start();
 
