@@ -5,3 +5,6 @@ coverage/
 local/
 nbproject
 .phpunit.result.cache
+gnre.pdf
+phpDocumentor.phar
+.phpdoc/

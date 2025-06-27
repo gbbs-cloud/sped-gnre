@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
@@ -10,6 +12,9 @@ use Sped\Gnre\Webservice\ConnectionFactory;
  */
 class ConnectionFactoryTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function test_deve_retornar_uma_nova_instancia_de_connection(): void
     {
         $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);

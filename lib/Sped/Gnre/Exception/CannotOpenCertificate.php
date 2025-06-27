@@ -15,6 +15,8 @@
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Exception;
 
 /**
@@ -38,7 +40,7 @@ class CannotOpenCertificate extends \Exception
     {
         parent::__construct(
             'Não foi possível abrir o certificado ' . $certificate . ' verifique a senha informada',
-            null
+            0
         );
     }
 }

@@ -1,13 +1,12 @@
 <?php
 
-namespace Exemplo;
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use Sped\Gnre\Configuration\Setup;
 use Sped\Gnre\Sefaz\Consulta;
-use Sped\Gnre\Sefaz\Guia;
 use Sped\Gnre\Webservice\Connection;
-
-require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Setup
 {
@@ -33,8 +32,6 @@ class MySetup extends Setup
 }
 
 $minhaConfiguracao = new MySetup();
-
-$guia = new Guia();
 
 $consulta = new Consulta();
 $consulta->setRecibo(12345123);

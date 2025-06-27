@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -32,6 +34,9 @@ class FileOperationTest extends TestCase
         new MyFile('/foo/bar.txt');
     }
 
+    /**
+     * @test
+     */
     public function test_arquivo_informado_existente(): void
     {
         $file = __DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml';

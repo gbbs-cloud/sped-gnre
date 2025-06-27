@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -34,6 +36,11 @@ namespace Sped\Gnre\Parser;
  */
 class SefazRetorno extends Rules
 {
+    /**
+     * @var string
+     */
+    public $identificador;
+
     /**
      * {@inheritdoc}
      */
@@ -313,7 +320,7 @@ class SefazRetorno extends Rules
     {
     }
 
-    protected function aplicarParser()
+    protected function aplicarParser(): array
     {
         return $this->lote;
     }

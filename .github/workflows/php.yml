@@ -22,6 +22,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 8.1
+        extensions: xdebug # Install xdebug for code coverage
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -41,5 +42,11 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    - name: Run test suite
-      run: composer run-script test
+    - name: Run test suite and generate coverage
+      run: vendor/bin/phpunit --coverage-clover coverage.xml
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-coverage-report
+        path: coverage.xml

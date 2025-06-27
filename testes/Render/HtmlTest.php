@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Render;
 
 use PHPUnit\Framework\TestCase;
@@ -31,6 +33,9 @@ class HtmlTest extends TestCase
         $this->assertEmpty($html->getHtml());
     }
 
+    /**
+     * @test
+     */
     public function test_nao_deve_gerar_o_html_do_lote_quando_o_lote_e_vazio(): void
     {
         $html = new Html();

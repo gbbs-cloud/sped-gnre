@@ -33,7 +33,7 @@ use stdClass;
  */
 class GnreHelper
 {
-    protected static $xmlNf;
+    protected static ?\SimpleXMLElement $xmlNf = null;
 
     /**
      * Método utilizado para gerar os dados principais da GNRE utilizando os dados encontrados dentro do XML
@@ -44,7 +44,7 @@ class GnreHelper
      *
      * @since 1.0.0
      */
-    public static function getGuiaGnre($xmlNf): Guia
+    public static function getGuiaGnre(string $xmlNf): Guia
     {
 
         $xml = self::parseNf($xmlNf);
@@ -68,6 +68,9 @@ class GnreHelper
         return $guia;
     }
 
+    /**
+     * @param  string  $xmlNf
+     */
     public static function parseNf($xmlNf): stdClass
     {
         $xml = simplexml_load_string((string) $xmlNf);
