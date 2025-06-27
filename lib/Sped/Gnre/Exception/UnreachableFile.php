@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -36,6 +38,6 @@ class UnreachableFile extends \Exception
      */
     public function __construct($file)
     {
-        parent::__construct('Não foi possível encontrar o arquivo ' . $file, null);
+        parent::__construct('Não foi possível encontrar o arquivo ' . $file, 0);
     }
 }

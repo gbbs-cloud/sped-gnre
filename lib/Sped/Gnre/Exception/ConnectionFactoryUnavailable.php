@@ -15,6 +15,8 @@
  * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Exception;
 
 /**
@@ -35,6 +37,6 @@ class ConnectionFactoryUnavailable extends \Exception
      */
     public function __construct()
     {
-        parent::__construct('Unable to use a valid Sped\Gnre\Webservice\ConnectionFactory', null);
+        parent::__construct('Unable to use a valid Sped\Gnre\Webservice\ConnectionFactory', 0);
     }
 }

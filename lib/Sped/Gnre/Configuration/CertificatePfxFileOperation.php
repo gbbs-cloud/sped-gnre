@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -47,10 +49,7 @@ class CertificatePfxFileOperation extends FileOperation
      */
     private readonly string $pathToWrite;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct($filePath)
+    public function __construct(string $filePath)
     {
         parent::__construct($filePath);
 
@@ -70,7 +69,7 @@ class CertificatePfxFileOperation extends FileOperation
      * Abre um certificado enviado com a senha informada
      *
      * @param  string  $password  A senha necessária para abrir o certificado
-     * @return array Com os dados extraidos do certificado
+     * @return array<string, string> Com os dados extraidos do certificado
      *
      * @throws CannotOpenCertificate Caso a senha do certificado for inválida
      *

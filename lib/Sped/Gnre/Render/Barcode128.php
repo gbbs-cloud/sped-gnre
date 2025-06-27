@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -29,10 +31,8 @@ class Barcode128
 {
     /**
      * Propriedade utilizada para armazenar o código de barras
-     *
-     * @var int
      */
-    private $numeroCodigoBarras;
+    private ?string $numeroCodigoBarras = null;
 
     /**
      * Retorna o número de código de barras definido
@@ -40,17 +40,15 @@ class Barcode128
      * @return mixed <p>Se o código de barras for definido retorna o mesmo,
      *               caso contrário é retornado <b>null</b></p>
      */
-    public function getNumeroCodigoBarras()
+    public function getNumeroCodigoBarras(): ?string
     {
         return $this->numeroCodigoBarras;
     }
 
     /**
      * Define o código de barras a ser usado pela classe
-     *
-     * @param  int  $numeroCodigoBarras
      */
-    public function setNumeroCodigoBarras($numeroCodigoBarras): static
+    public function setNumeroCodigoBarras(?string $numeroCodigoBarras): static
     {
         $this->numeroCodigoBarras = $numeroCodigoBarras;
 
@@ -60,14 +58,18 @@ class Barcode128
     /**
      * Gera a imagem do código de barras e o transforma em base64
      *
-     * @return string Retorna a imagem gerada no formato base64
+     * @return string Retorna a imagem gerada no formato base64.
      */
     public function getCodigoBarrasBase64(): string
     {
         ob_start();
 
         $text = $this->getNumeroCodigoBarras();
-        $options = ['text' => (string) $text, 'imageType' => 'jpeg', 'drawText' => false];
+        $options = [
+            'text' => $text,
+            'imageType' => 'jpeg',
+            'drawText' => false,
+        ];
 
         $barcode = new \Laminas\Barcode\Object\Code128();
         $barcode->setOptions($options);
@@ -76,11 +78,11 @@ class Barcode128
 
         $imageResource = $barcodeOBj->draw();
 
-        imagejpeg($imageResource);
+        imagejpeg($imageResource, null, 100);
 
         $contents = ob_get_contents();
         ob_end_clean();
 
-        return base64_encode($contents);
+        return base64_encode((string) $contents);
     }
 }

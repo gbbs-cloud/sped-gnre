@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -30,10 +32,13 @@ class CertificatePfx
 {
     /**
      * Atributo que armazena os dados extraidos do certificado com a função openssl_pkcs12_read
-     *
-     * @var array
      */
-    private $dataCertificate = [];
+    /**
+     * Atributo que armazena os dados extraidos do certificado com a função openssl_pkcs12_read
+     *
+     * @var array<string, string>
+     */
+    private array $dataCertificate = [];
 
     /**
      * Dependências utilizadas para efetuar operação no certificado desejado
@@ -59,11 +64,11 @@ class CertificatePfx
      *
      * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado
      *
-     * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
+     * @throws \Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
      *
      * @since  1.0.0
      */
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
         $filePrefix = new FilePrefix();
         $filePrefix->setPrefix('_privKEY');
@@ -74,15 +79,15 @@ class CertificatePfx
     /**
      * Cria um arquivo na pasta definida nas configurações padrões (/certs/metadata) com a
      * chave privada do certificado. Para salvar o novo arquivo é utilizado
-     * o mesmo nome do certificado e com prefixo definido no método
+     * o mesmo nome do certificado e com prefixo definido no método.
      *
-     * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado
+     * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado.
      *
-     * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
+     * @throws \Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita.
      *
      * @since  1.0.0
      */
-    public function getCertificatePem()
+    public function getCertificatePem(): string
     {
         $filePrefix = new FilePrefix();
         $filePrefix->setPrefix('_certKEY');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Render;
 
 use PHPUnit\Framework\TestCase;
@@ -14,6 +16,9 @@ class BarcodeTest extends TestCase
         $this->assertEquals('91910919190191091090109109190109', $barcodeGnre->getNumeroCodigoBarras());
     }
 
+    /**
+     * @test
+     */
     public function test_deve_retornar_um_numero_de_codigo_de_barras(): void
     {
         $barcodeGnre = new \Sped\Gnre\Render\Barcode128();

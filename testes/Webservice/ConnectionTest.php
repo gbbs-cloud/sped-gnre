@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
@@ -43,7 +45,9 @@ class ConnectionTest extends TestCase
 
         $this->assertEquals($this->curlOptions, $connection->getCurlOptions());
 
-        $connection->addCurlOption([CURLOPT_PORT => 123]);
+        $connection->addCurlOption([
+            CURLOPT_PORT => 123,
+        ]);
 
         $this->curlOptions[CURLOPT_PORT] = 123;
 
@@ -68,6 +72,9 @@ class ConnectionTest extends TestCase
         $this->assertEquals($this->curlOptions, $connection->getCurlOptions());
     }
 
+    /**
+     * @test
+     */
     public function test_deve_criar_um_objeto_connection_com_proxy(): void
     {
         $this->curlOptions[CURLOPT_HTTPPROXYTUNNEL] = 1;

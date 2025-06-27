@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $guia = new Sped\Gnre\Sefaz\Guia();
@@ -47,4 +49,5 @@ $html = new Sped\Gnre\Render\Html();
 $html->create($lote);
 
 $pdf = new Sped\Gnre\Render\Pdf();
-$pdf->create($html)->stream('gnre.pdf', ['Attachment' => 0]);
+$output = $pdf->create($html)->output();
+file_put_contents('/home/jotave/dev/sped-gnre/gnre.pdf', $output);

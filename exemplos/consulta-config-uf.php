@@ -1,12 +1,12 @@
 <?php
 
-namespace Exemplo;
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use Sped\Gnre\Configuration\Setup;
 use Sped\Gnre\Sefaz\ConfigUf;
 use Sped\Gnre\Webservice\Connection;
-
-require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Setup
 {

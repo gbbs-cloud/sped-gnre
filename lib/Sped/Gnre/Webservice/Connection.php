@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -84,24 +86,9 @@ class Connection
 
     /**
      * Com esse método é possível adicionar novas opções ou alterar o valor das
-     * opções exitentes antes de realizar a requisição para o web service,
-     * exemplo de utilização com apenas uma opção:
-     * <pre>
-     * $connection->addCurlOption(
-     * array(
-     *       CURLOPT_PORT => 123
-     *  )
-     * );
-     * </pre>
-     * Exemplo de utilização com mais de uma opção :
-     * <pre>
-     * $connection->addCurlOption(
-     * array(
-     *       CURLOPT_SSLVERSION => 6,
-     *       CURLOPT_SSL_VERIFYPEER => 1
-     *  )
-     * );
-     * </pre>
+     * opções existentes antes de realizar a requisição para o web service.
+     *
+     * @param  array  $option  Opções a serem adicionadas ou alteradas.
      */
     public function addCurlOption(array $option): static
     {
@@ -115,11 +102,10 @@ class Connection
     /**
      * Realiza a requisição ao webservice desejado através do curl() do php
      *
-     * @param  string  $url  String com a URL que será enviada a requisição
+     * @param  string  $url  String com a URL que será enviada a requisição.
+     * @return string Caso a requisição seja feita com sucesso, retorna um XML formatado.
      *
      * @since  1.0.0
-     *
-     * @return string|bool Caso a requisição não seja feita com sucesso false, caso contrário um XML formatado
      */
     public function doRequest($url): string
     {
