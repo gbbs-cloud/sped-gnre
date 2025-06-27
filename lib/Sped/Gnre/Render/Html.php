@@ -32,24 +32,18 @@ class Html
 {
     /**
      * Conteúdo HTML gerado pela classe
-     *
-     * @var string
      */
-    private $html;
+    private ?string $html = null;
 
     /**
      * Objeto utilizado para gerar o código de barras
-     *
-     * @var \Sped\Gnre\Render\Barcode128
      */
-    private $barCode;
+    private ?\Sped\Gnre\Render\Barcode128 $barCode = null;
 
     /**
      * Retorna a instância do objeto atual ou cria uma caso não exista
-     *
-     * @return \Sped\Gnre\Render\Barcode128
      */
-    public function getBarCode()
+    public function getBarCode(): \Sped\Gnre\Render\Barcode128
     {
         if (! $this->barCode instanceof Barcode128) {
             $this->barCode = new Barcode128();
@@ -61,10 +55,8 @@ class Html
     /**
      * Define um objeto <b>\Sped\Gnre\Render\Barcode128</b> para ser utilizado
      * internamente pela classe
-     *
-     * @return \Sped\Gnre\Render\Html
      */
-    public function setBarCode(Barcode128 $barCode)
+    public function setBarCode(Barcode128 $barCode): static
     {
         $this->barCode = $barCode;
 
@@ -79,7 +71,7 @@ class Html
      * utilizado por esse método</p>
      * @since 1.0.0
      */
-    public function create(Lote $lote)
+    public function create(Lote $lote): void
     {
         $guiaViaInfo = [1 => '1ª via Banco', 2 => '2ª via Contrinuinte', 3 => '3ª via Contribuinte/Fisco'];
 
@@ -106,10 +98,8 @@ class Html
 
     /**
      * Retorna o conteúdo HTML gerado pela classe
-     *
-     * @return string
      */
-    public function getHtml()
+    public function getHtml(): ?string
     {
         return $this->html;
     }

@@ -20,10 +20,9 @@ namespace Sped\Gnre\Sefaz;
 class EstadoFactory
 {
     /**
-     * @param  string  $estado
      * @return \Sped\Gnre\Sefaz\Estados\Padrao
      */
-    public function create($estado = 'BA')
+    public function create(string $estado = 'BA')
     {
         $classe = sprintf(
             '\Sped\Gnre\Sefaz\Estados\%s',

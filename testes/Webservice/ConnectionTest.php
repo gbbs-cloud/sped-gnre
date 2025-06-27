@@ -10,7 +10,7 @@ use Sped\Gnre\Webservice\Connection;
  */
 class ConnectionTest extends TestCase
 {
-    private $curlOptions;
+    private array $curlOptions;
 
     protected function setUp(): void
     {

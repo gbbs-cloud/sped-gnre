@@ -420,7 +420,7 @@ class Guia
      *
      * @since  1.0.0
      */
-    public function __get($property)
+    public function __get(string $property): mixed
     {
         if ($this->verifyProperty($property)) {
             return $this->$property;
@@ -441,7 +441,7 @@ class Guia
      *
      * @since  1.0.0
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value)
     {
         if ($this->verifyProperty($property)) {
             $this->$property = $value;
@@ -463,7 +463,7 @@ class Guia
      *
      * @since  1.0.0
      */
-    private function verifyProperty($property): bool
+    private function verifyProperty(string $property): bool
     {
         if (! property_exists($this, $property)) {
             throw new UndefinedProperty($property);

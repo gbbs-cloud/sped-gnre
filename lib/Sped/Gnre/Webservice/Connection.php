@@ -33,10 +33,8 @@ class Connection
 {
     /**
      * Armazena todas as opções desejadas para serem incluídas no curl()
-     *
-     * @var array
      */
-    private $curlOptions = [];
+    private array $curlOptions;
 
     /**
      * Inicia os parâmetros com o curl para se comunicar com o  webservice da SEFAZ.
@@ -65,10 +63,8 @@ class Connection
 
     /**
      * Retorna as opções definidas para o curl
-     *
-     * @return array
      */
-    public function getCurlOptions()
+    public function getCurlOptions(): array
     {
         return $this->curlOptions;
     }
@@ -93,10 +89,8 @@ class Connection
      *  )
      * );
      * </pre>
-     *
-     * @return \Sped\Gnre\Webservice\Connection
      */
-    public function addCurlOption(array $option)
+    public function addCurlOption(array $option): static
     {
         foreach ($option as $key => $value) {
             $this->curlOptions[$key] = $value;
@@ -114,7 +108,7 @@ class Connection
      *
      * @return string|bool Caso a requisição não seja feita com sucesso false, caso contrário um XML formatado
      */
-    public function doRequest($url)
+    public function doRequest($url): string
     {
         $curl = curl_init($url);
         curl_setopt_array($curl, $this->curlOptions);

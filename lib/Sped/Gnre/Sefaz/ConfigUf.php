@@ -35,10 +35,8 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna o header da requisição SOAP
-     *
-     * @return array
      */
-    public function getHeaderSoap()
+    public function getHeaderSoap(): array
     {
         $action = $this->ambienteDeTeste ?
             'http://www.testegnre.pe.gov.br/webservice/GnreConfigUF' :
@@ -49,10 +47,8 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna a action da requisição SOAP
-     *
-     * @return string
      */
-    public function soapAction()
+    public function soapAction(): string
     {
         return $this->ambienteDeTeste ?
             'https://www.testegnre.pe.gov.br/gnreWS/services/GnreConfigUF' :
@@ -64,7 +60,7 @@ class ConfigUf extends ConsultaConfigUf
      *
      * @return string
      */
-    public function toXml()
+    public function toXml(): string|false
     {
         $gnre = new \DOMDocument('1.0', 'UTF-8');
         $gnre->formatOutput = false;
@@ -88,10 +84,8 @@ class ConfigUf extends ConsultaConfigUf
 
     /**
      * Retorna o envelope que sera enviado na requisicao SOAP
-     *
-     * @return string
      */
-    public function getSoapEnvelop($gnre, $consulta)
+    public function getSoapEnvelop($gnre, $consulta): void
     {
         $soapEnv = $gnre->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:soap12', 'http://www.w3.org/2003/05/soap-envelope');
@@ -120,7 +114,7 @@ class ConfigUf extends ConsultaConfigUf
      *
      * @param  bool  $ambiente  Ambiente
      */
-    public function utilizarAmbienteDeTeste($ambiente = false)
+    public function utilizarAmbienteDeTeste($ambiente = false): void
     {
         $this->ambienteDeTeste = $ambiente;
     }

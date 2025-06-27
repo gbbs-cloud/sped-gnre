@@ -24,7 +24,7 @@ use PHPUnit\Framework\TestCase;
  */
 class LoteGnreTest extends TestCase
 {
-    private $lote;
+    private ?\Sped\Gnre\Sefaz\Lote $lote = null;
 
     protected function setUp(): void
     {

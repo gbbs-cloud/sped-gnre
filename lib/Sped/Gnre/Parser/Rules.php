@@ -37,7 +37,7 @@ abstract class Rules
     /**
      * @var string
      */
-    protected $dadosArquivo;
+    protected array $dadosArquivo;
 
     /**
      * @var int
