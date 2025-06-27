@@ -14,7 +14,8 @@ class ConfigUfTest extends TestCase
         $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
         $headersArray = $consulta->getHeaderSoap();
 
-        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.gnre.pe.gov.br/webservice/GnreConfigUF"';
+        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="'.
+            'http://www.gnre.pe.gov.br/webservice/GnreConfigUF"';
         $this->assertEquals($header, $headersArray[0]);
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
@@ -26,7 +27,8 @@ class ConfigUfTest extends TestCase
 
         $headersArray = $consulta->getHeaderSoap();
 
-        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.testegnre.pe.gov.br/webservice/GnreConfigUF"';
+        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="'.
+            'http://www.testegnre.pe.gov.br/webservice/GnreConfigUF"';
         $this->assertEquals($header, $headersArray[0]);
         $this->assertEquals('SOAPAction: consultar', $headersArray[1]);
     }
@@ -40,14 +42,14 @@ class ConfigUfTest extends TestCase
 
     public function test_deve_retornar_xml_completo_vazio_para_realizar_a_consulta(): void
     {
-        $dadosParaConsulta = file_get_contents(__DIR__ . '/../../exemplos/xml/envelope-consulta-config-uf.xml');
+        $dadosParaConsulta = file_get_contents(__DIR__.'/../../exemplos/xml/envelope-consulta-config-uf.xml');
 
         $consulta = new \Sped\Gnre\Sefaz\ConfigUf();
         $consulta->setEnvironment(1);
         $consulta->setEstado('PR');
         $consulta->setReceita(100099);
 
-        $this->assertXmlStringEqualsXmlString($dadosParaConsulta, $consulta->toXml());
+        $this->assertXmlStringEqualsXmlString((string) $dadosParaConsulta, (string) $consulta->toXml());
     }
 
     public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_producao(): void
@@ -57,6 +59,9 @@ class ConfigUfTest extends TestCase
         $this->assertEquals($consulta->soapAction(), 'https://www.gnre.pe.gov.br/gnreWS/services/GnreConfigUF');
     }
 
+    /**
+     * @test
+     */
     public function test_deve_retornar_a_action_a_ser_executada_no_web_service_de_testes(): void
     {
         $consulta = new \Sped\Gnre\Sefaz\ConfigUf();

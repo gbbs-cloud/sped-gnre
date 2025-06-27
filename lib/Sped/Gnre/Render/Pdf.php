@@ -40,11 +40,9 @@ class Pdf
     }
 
     /**
-     * Gera o PDF através do HTML
-     *
-     * @return \Dompdf\Dompdf
+     * Gera o PDF através do HTML.
      */
-    public function create(Html $html)
+    public function create(Html $html): \Dompdf\Dompdf
     {
         $dompdf = $this->getDomPdf();
         $dompdf->load_html($html->getHtml());

@@ -153,10 +153,8 @@ abstract class Setup
 
     /**
      * Método utilizado para retornar o modo de debug
-     *
-     * @return bool
      */
-    public function getDebug()
+    public function getDebug(): bool
     {
         return $this->debug;
     }

@@ -37,8 +37,8 @@ class CannotOpenCertificate extends \Exception
     public function __construct($certificate)
     {
         parent::__construct(
-            'Não foi possível abrir o certificado ' . $certificate . ' verifique a senha informada',
-            null
+            'Não foi possível abrir o certificado '.$certificate.' verifique a senha informada',
+            0
         );
     }
 }

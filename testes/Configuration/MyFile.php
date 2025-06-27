@@ -6,7 +6,7 @@ use Sped\Gnre\Configuration\FileOperation;
 
 class MyFile extends FileOperation
 {
-    public function writeFile($content, \Sped\Gnre\Configuration\FilePrefix $filePrefix)
+    public function writeFile($content, \Sped\Gnre\Configuration\FilePrefix $filePrefix): string
     {
         return null;
     }

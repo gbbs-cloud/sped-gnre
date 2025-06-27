@@ -38,12 +38,17 @@ class LoteGnreTest extends TestCase
 
     public function test_adicionar_uma_guia_ao_lote(): void
     {
+        $this->assertNotNull($this->lote);
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
         $this->assertEquals(1, count($this->lote->getGuias()));
     }
 
+    /**
+     * @test
+     */
     public function test_buscar_uma_guia_em_especifico(): void
     {
+        $this->assertNotNull($this->lote);
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
         $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
 

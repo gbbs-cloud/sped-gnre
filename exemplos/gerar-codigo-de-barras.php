@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 ob_start();
 
@@ -23,6 +23,6 @@ $barcodeGnre->setNumeroCodigoBarras('91910919190191091090109109190109');
 
 ?>
 
-<img src="<?php echo 'data:image/jpeg;base64,' . $barcodeGnre->getCodigoBarrasBase64(); ?>"/>
-<img src="<?php echo 'data:image/jpeg;base64,' . base64_encode($contents); ?>"/>
+<img src="<?php echo 'data:image/jpeg;base64,'.$barcodeGnre->getCodigoBarrasBase64(); ?>"/>
+<img src="<?php echo 'data:image/jpeg;base64,'.base64_encode($contents); ?>"/>
 

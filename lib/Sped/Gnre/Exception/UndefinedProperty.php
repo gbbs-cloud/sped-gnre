@@ -32,8 +32,8 @@ class UndefinedProperty extends \Exception
      *
      * @since  1.0.0
      */
-    public function __construct()
+    public function __construct(string $property)
     {
-        parent::__construct('Não foi possível encontrar o atributo desejado na classe', 100);
+        parent::__construct('Não foi possível encontrar o atributo desejado na classe '.$property, 100);
     }
 }

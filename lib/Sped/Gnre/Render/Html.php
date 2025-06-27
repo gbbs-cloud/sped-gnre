@@ -85,9 +85,9 @@ class Html
             $barcode = $this->getBarCode()
                 ->setNumeroCodigoBarras($guia->retornoCodigoDeBarras);
 
-            $documentRoot = dirname(__FILE__, 5) . DIRECTORY_SEPARATOR;
+            $documentRoot = dirname(__FILE__, 5).DIRECTORY_SEPARATOR;
             ob_start();
-            include $documentRoot . 'templates' . DIRECTORY_SEPARATOR . 'gnre.php';
+            include $documentRoot.'templates'.DIRECTORY_SEPARATOR.'gnre.php';
             $html .= ob_get_clean();
         }
 
@@ -95,7 +95,7 @@ class Html
     }
 
     /**
-     * Retorna o conteúdo HTML gerado pela classe
+     * Retorna o conteúdo HTML gerado pela classe.
      */
     public function getHtml(): ?string
     {

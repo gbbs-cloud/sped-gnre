@@ -37,6 +37,9 @@ class FilePrefixTest extends TestCase
         $this->assertEquals('/path/to/foo.doc', $prefix->apply('/path/to/foo.doc'));
     }
 
+    /**
+     * @test
+     */
     public function test_passar_ao_enviar_um_caminho_de_arquivo_vazio(): void
     {
         $prefix = new \Sped\Gnre\Configuration\FilePrefix();

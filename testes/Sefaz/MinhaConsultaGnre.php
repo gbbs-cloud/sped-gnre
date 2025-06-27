@@ -25,7 +25,7 @@ class MinhaConsultaGnre extends ConsultaGnre
     {
     }
 
-    public function utilizarAmbienteDeTeste($ambiente = false)
+    public function utilizarAmbienteDeTeste($ambiente = false): void
     {
     }
 }

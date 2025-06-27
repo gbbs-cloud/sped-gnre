@@ -58,10 +58,10 @@ abstract class FileOperation
     /**
      * Método utilizado para escrever em um arquivo
      *
-     * @param  string  $content  Conteúdo desejado para ser escrito em um arquivo
-     * @param FilePrefix Utilizado para aplicar algum prefixo ou regras em um determinado arquivo
+     * @param  string  $content  Conteúdo desejado para ser escrito em um arquivo.
+     * @param  FilePrefix  $filePrefix  Utilizado para aplicar algum prefixo ou regras em um determinado arquivo.
      *
      * @since  1.0.0
      */
-    abstract public function writeFile($content, FilePrefix $filePrefix);
+    abstract public function writeFile($content, FilePrefix $filePrefix): string;
 }
