@@ -52,6 +52,16 @@ Para executar a aplicação usando Docker, siga estes passos:
 
 A documentação foi extraída da wiki do projeto original e pode ser encontrada na pasta `docs` deste repositório.
 
+- [O que é GNRE?](./docs/o-que-e-gnre.md)
+- [Instalando](./docs/instalando.md)
+- [Extraindo dados do certificado](./docs/extraindo-dados-certificado.md)
+- [Utilizando dados do certificado extraído](./docs/usando-dados-certificado-extraido.md)
+- [Utilizando proxy](./docs/usando-proxy.md)
+- [Preenchendo a guia GNRE](./docs/preenchendo-guia-gnre.md)
+- [Gerando o XML da GNRE](./docs/gerando-xml-gnre.md)
+- [Enviando um lote de GNRE para a SEFAZ](./docs/enviando-lote-gnre.md)
+- [Consultando a GNRE](./docs/consultando-gnre.md)
+
 ## Estados Atendidos
 ### Estados que utilizam o serviço do Portal GNRE (www.gnre.pe.gov.br)
 * Acre (AC)
@@ -87,11 +97,3 @@ A documentação foi extraída da wiki do projeto original e pode ser encontrada
 ## Exemplos
 
 Exemplos de como utilizar a API podem ser encontrados na pasta `exemplos`.
-
-## Contribuindo
-
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou um pull request.
-
-## Licença
-
-Este projeto é licenciado sob a licença GPLv3.
