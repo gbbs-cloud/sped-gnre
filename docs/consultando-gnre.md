@@ -29,7 +29,7 @@ $consulta->toXml();
 O código a cima irá gerar o seguinte XML :
 
 ```xml
-<soap12:Header>
+    <soap12:Header>
         <gnreCabecMsg xmlns="http://www.gnre.pe.gov.br/wsdl/consultar">
             <versaoDados>1.00</versaoDados>
         </gnreCabecMsg>
