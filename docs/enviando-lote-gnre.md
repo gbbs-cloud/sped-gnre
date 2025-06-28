@@ -15,7 +15,7 @@ Antes de enviar algum lote para a SEFAZ você deve primeiramente seguir esses pa
 
 1) Para realizar a comunicação corretamente com a SEFAZ devemos primeiro de tudo criar uma guia GNRE (Os dados adicionados na guia não são reais)
 
-```
+```php
 $guia = new \Gnre\Sefaz\Guia();
 $guia = new Gnre\Sefaz\Guia();
 $guia->c01_UfFavorecida = 'SP';
@@ -54,23 +54,23 @@ $guia->parcela = 2;
 $guia->periodo = 2014;
 ```
 2) E agora devemos adicionar a guia em um lote
-```
+```php
 $lote = new \Gnre\Sefaz\Lote();
 $lote->addGuia($guia);
 ```
 3) Finalmente podemos criar nossa classe que irá converter o objeto lote em um XML
-```
+```php
 $webService = new Gnre\Webservice\Connection($minhaConfiguracao, $headers, $data);
 ```
 Aqui devemos nos atentar para os parâmetros $headers e $data, $headers são os cabeçalhos enviados pelo SOAP para efetuar a requisição com sucesso e $data é o envelope SOAP enteiramente em XML.
 Não é preciso se preocupar com esses parâmetros pois a API já fornece eles para você, veja:
-```
+```php
 $webService = new Gnre\Webservice\Connection($minhaConfiguracao, $lote->getHeaderSoap(), $lote->toXml());
 ```
 Basicamente o que devemos fazer é chamar os métodos correspondentes no nosso objeto \Gnre\Sefaz\Lote e o trabalho será feito
 
 4) Finalmente podemos fazer a conexão, que basicamente segue o mesmo princípio ao instanciar a classe Connection
-```
+```php
 $respostaSefaz = $webService->doRequest($lote->soapAction());
 ```
 Passamos também como parâmetro qual ação deverá ser executada pelo web service e mais uma vez a classe \Gnre\Sefaz\Lote nos ajuda a completar essa tarefa.
