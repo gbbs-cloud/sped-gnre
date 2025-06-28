@@ -6,19 +6,27 @@ Toda a guia do GNRE deve ser enviada para a SEFAZ dentro de um lote para isso a 
 
 1) Crie um lote
 
-`$lote = new Gnre\Sefaz\Lote();`
+```php
+$lote = new Gnre\Sefaz\Lote();
+```
 
 2) Crie uma guia para ser enviada
 
-`$guia1 = new Gnre\Sefaz\Guia();`
+```php
+$guia1 = new Gnre\Sefaz\Guia();
+```
 
 3) Para cada guia gerada adicione no lote
 
-`$lote->addGuia($guia1);`
+```php
+$lote->addGuia($guia1);
+```
 
 4) E finalmente o XML pode ser gerado chamando o método toXml() no lote
 
-`$lote->toXml();`
+```php
+$lote->toXml();
+```
 
 O código acima irá gerar o seguinte XML :
 

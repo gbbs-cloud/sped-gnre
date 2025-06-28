@@ -4,23 +4,32 @@ Após a emissão da GNRE para a SEFAZ é possível consulta-la através do núme
 
 1) Vamos criar um objeto indicando que queremos realizar uma consulta
 
-`$consulta = new Gnre\Sefaz\Consulta();`
+```php
+$consulta = new Gnre\Sefaz\Consulta();
+```
 
 2) É necessário também indicar qual o ambiente será realizado a consulta. Número 1 representa produção e 2 representa homologação
 
-`$consulta->setEnvironment(1);`
+```php
+$consulta->setEnvironment(1);
+```
 
 3) O último parâmetro requerido aqui é o número do lote que iremos consultar
 
-`$consulta->setRecibo(99999999);`
+```php
+$consulta->setRecibo(99999999);
+```
 
 4) Finalmente temos o XML pronto para ser enviado
 
-`$consulta->toXml();`
+```php
+$consulta->toXml();
+```
 
 O código a cima irá gerar o seguinte XML :
 
-```<soap12:Header>
+```xml
+<soap12:Header>
         <gnreCabecMsg xmlns="http://www.gnre.pe.gov.br/wsdl/consultar">
             <versaoDados>1.00</versaoDados>
         </gnreCabecMsg>
@@ -40,7 +49,7 @@ Para realizar a consulta, nós precisamos:
 
 - Incluir no objeto lote nossa guia a ser consultada, veja abaixo.
 
-```
+```php
 $setup = new MinhaConfiguracao();
 
 $conn = new Gnre\Webservice\Connection($setup,array(), array());
