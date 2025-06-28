@@ -21,7 +21,7 @@ Adicione a dependência no seu `composer.json`:
 ```json
 {
     "require": {
-        "gbbs-cloud/sped-gnre": "dev-master"
+        "ckreativ/sped-gnre": "dev-master"
     }
 }
 ```
