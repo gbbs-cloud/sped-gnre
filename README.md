@@ -20,9 +20,15 @@ Adicione a dependência no seu `composer.json`:
 
 ```json
 {
-    "require": {
-        "forven-sistemas/sped-gnre": "dev-master"
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/gbbs-cloud/sped-gnre"
     }
+  ],
+  "require": {
+    "nfephp-org/sped-gnre": "dev-master",
+  },
 }
 ```
 
