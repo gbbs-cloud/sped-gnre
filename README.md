@@ -58,6 +58,10 @@ A documentação foi extraída da wiki do projeto original e pode ser encontrada
 - [Enviando um lote de GNRE para a SEFAZ](./docs/enviando-lote-gnre.md)
 - [Consultando a GNRE](./docs/consultando-gnre.md)
 
+## Referência da API
+
+A referência da API gerada com phpDocumentor pode ser encontrada em [https://gbbs-cloud.github.io/sped-gnre/](https://gbbs-cloud.github.io/sped-gnre/).
+
 ## Exemplos
 
 Exemplos de como utilizar a API podem ser encontrados na pasta `exemplos`.
