@@ -66,16 +66,14 @@
 	</xs:group>
 	<xs:group name="resultadoGuia">
 		<xs:sequence>
-			<xs:element name="linhaDigitavel" maxOccurs="1"
-				minOccurs="0">
+			<xs:element name="linhaDigitavel" maxOccurs="1"	minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:pattern value="\d{48}"></xs:pattern>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="codigoBarras" maxOccurs="1"
-				minOccurs="0">
+			<xs:element name="codigoBarras" maxOccurs="1" minOccurs="0">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:pattern value="\d{44}"></xs:pattern>
@@ -91,6 +89,86 @@
 						<xs:whiteSpace value="preserve" />
 						<xs:maxLength value="512"></xs:maxLength>
 						<xs:minLength value="100"></xs:minLength>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element minOccurs="0" name="dataEmissao" type="TData">
+				<xs:annotation>
+					<xs:documentation>
+						Data de emissão da guia. (Formato AAAA-MM-DD)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element minOccurs="0" name="horaEmissao"
+				type="xs:time">
+				<xs:annotation>
+					<xs:documentation>
+						Hora de emissão da guia. (Formato HH:MM:SS)
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dadosPagamento" maxOccurs="1" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element minOccurs="0" name="data" type="TDataHora">
+							<xs:annotation>
+								<xs:documentation>
+									Data do pagamento da guia no banco.
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element minOccurs="0" name="autenticacao">
+							<xs:annotation>
+								<xs:documentation>
+									Autenticação bancária do pagamento da guia.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:maxLength value="23" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="0" name="banco">
+							<xs:annotation>
+								<xs:documentation>
+									Código do Banco onde foi paga a	guia.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve" />
+									<xs:pattern value="[0-9]{3}" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element minOccurs="0" name="agencia">
+							<xs:annotation>
+								<xs:documentation>
+									Código da Agência bancária onde foi paga a guia.
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction
+									base="xs:string">
+									<xs:whiteSpace
+										value="preserve" />
+									<xs:pattern
+										value="[0-9]{4,5}" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="idConsulta" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Texto livre para ser utilizado como identificador da consulta no lote</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="TString">
+						<xs:maxLength value="10"></xs:maxLength>
+						<xs:pattern value="[0-9]{1,10}"></xs:pattern>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -143,7 +221,7 @@
     			<xs:element name="numeroRecibo" minOccurs="0">
     				<xs:simpleType>
     					<xs:restriction base="xs:string">
-    						<xs:pattern value="[0-9]{14}"></xs:pattern>
+    						<xs:pattern value="[0-9]{10}"></xs:pattern>
     					</xs:restriction>
     				</xs:simpleType>
     			</xs:element>
@@ -202,8 +280,7 @@
 													ref="dadosGnre_1.00" />
 											</xs:sequence>
                                             <xs:sequence>
-												<xs:group
-													ref="dadosGnre_2.00" />
+												<xs:group ref="dadosGnre_2.00" />
 												<xs:element minOccurs="0" name="dataLimitePagamento"
 													type="TData">
 													<xs:annotation>
@@ -255,11 +332,9 @@
 												</xs:element>
 											</xs:sequence>
 										</xs:choice>
-										<xs:group
-											ref="resultadoGuia" />
+										<xs:group ref="resultadoGuia" />
 									</xs:sequence>
-									<xs:attribute
-										name="versao" use="required">
+									<xs:attribute name="versao" use="required">
 										<xs:simpleType>
 											<xs:restriction
 												base="xs:string">
@@ -272,27 +347,6 @@
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:attribute>
-								</xs:complexType>
-							</xs:element>
-							<xs:element name="pdfGuias" minOccurs="0" maxOccurs="1"></xs:element>
-							<xs:element name="arquivoPagamento" minOccurs="0" maxOccurs="1"></xs:element>
-							<xs:element name="noticias" minOccurs="0" maxOccurs="1">
-								<xs:complexType>
-									<xs:sequence>
-										<xs:element name="noticia" minOccurs="0" maxOccurs="unbounded">
-											<xs:complexType>
-												<xs:sequence>
-													<xs:element name="dhPublicacao" type="TDataHora" maxOccurs="1" minOccurs="1">
-						                                <xs:annotation>
-						                                	<xs:documentation>Data e Hora da publicacao da noticia</xs:documentation>
-						                                </xs:annotation>			                                
-													</xs:element>
-													<xs:element name="titulo" minOccurs="1" maxOccurs="1" type="xs:string" />
-													<xs:element name="texto" minOccurs="1" maxOccurs="1" type="xs:string" />			
-												</xs:sequence>
-											</xs:complexType>
-										</xs:element>
-									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
