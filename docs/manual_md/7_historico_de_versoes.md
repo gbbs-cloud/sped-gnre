@@ -1,0 +1,1 @@
+A seguir serão descritas as versões do manual.
