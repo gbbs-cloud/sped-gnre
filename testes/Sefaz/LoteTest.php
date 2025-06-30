@@ -16,9 +16,9 @@ class LoteTest extends TestCase
         $lote = new Lote();
         $headersArray = $lote->getHeaderSoap();
 
-        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="https://www.gnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao/processar"';
+        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.gnre.pe.gov.br/webservice/GnreRecepcaoLote"';
         $this->assertEquals($header, $headersArray[0]);
-        $this->assertCount(1, $headersArray);
+        $this->assertEquals('SOAPAction: processar', $headersArray[1]);
     }
 
     public function test_deve_utilizar_o_ambiente_de_producao_ao_enviar_um_lote_para_o_web_service(): void
@@ -300,8 +300,8 @@ class LoteTest extends TestCase
 
         $headersArray = $lote->getHeaderSoap();
 
-        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="https://www.testegnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao/processar"';
+        $header = 'Content-Type: application/soap+xml;charset=utf-8;action="http://www.testegnre.pe.gov.br/webservice/GnreRecepcaoLote"';
         $this->assertEquals($header, $headersArray[0]);
-        $this->assertCount(1, $headersArray);
+        $this->assertEquals('SOAPAction: processar', $headersArray[1]);
     }
 }
