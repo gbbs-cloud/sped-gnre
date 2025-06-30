@@ -1,182 +1,73 @@
-[![Build status (PHP Composer)](https://github.com/nfephp-org/sped-gnre/actions/workflows/php.yml/badge.svg)](https://github.com/nfephp-org/sped-gnre/actions/workflows/php.yml)
-[![Coverage Status](https://coveralls.io/repos/marabesi/gnrephp/badge.svg)](https://coveralls.io/r/nfephp-org/sped-gnre)
-[![Total Downloads](https://poser.pugx.org/marabesi/gnre/downloads)](https://packagist.org/packages/nfephp-org/sped-gnre)
-[![Latest Stable Version](https://poser.pugx.org/marabesi/gnre/v/stable)](https://packagist.org/packages/nfephp-org/sped-gnre)
-[![Latest Unstable Version](https://poser.pugx.org/marabesi/gnre/v/unstable.png)](https://packagist.org/packages/nfephp-org/sped-gnre)
-[![License](https://poser.pugx.org/marabesi/gnre/license)](https://packagist.org/packages/nfephp-org/sped-gnre)
+# GNRE PHP
 
-Atenção!!
-=================
-Caso encontre algum estado que possua uma regra especial para gerar uma GNRE por favor informar abrindo uma **issue**.
-Dessa forma podemos manter a API atualizada e ajudar a todos que utlizam a GNRE PHP
+[![Build status (PHP Composer)](https://github.com/gbbs-cloud/sped-gnre/actions/workflows/php.yml/badge.svg)](https://github.com/gbbs-cloud/sped-gnre/actions/workflows/php.yml)
 
-Atenção 2!!
-=================
-Se você possui um certificado da certisign e está com o erro "Bad request" veja a solução encontrada pelo [renandelmonico](https://github.com/renandelmonico) utilizando
-as classes da sped-common nesse [link](https://groups.google.com/d/msg/gnrephp/kbNWB3aEBbs/0g067FKlBgAJ)
+API para a emissão de guias GNRE para a SEFAZ.
 
-Os certificados da certisign possuem algum problema em que não é possível extrair a cadeia de certificação, portanto é necessário fazer o download da cadeia manualmente nesse [link](https://www.certisign.com.br/duvidas-suporte/downloads/hierarquias/icp-brasil/ac-instituto-fenacon-rfb) (Hierarquia V5).
+Este é um fork do projeto original [nfephp-org/sped-gnre](https://github.com/nfephp-org/sped-gnre), com o objetivo de modernizar o código e remover dependências antigas.
 
-Após o download é necessário extrair usando o openssl, copiar o conteúdo gerado pelos 3 certificados e colar em um novo arquivo .pem.
+## Requisitos
 
-```sh
-openssl x509 -inform der -in ARQUIVO.cer -pubkey -noout > ARQUIVO.pem
-```
+* PHP 8.1+
+* Extensões PHP:
+    * DOMDocument
+    * cURL
+    * GD (Utilizada para renderizar o código de barras)
 
-Depois de realizar o processo acima, é necessário utilizar o método addCurlOption da classe Sped\Gnre\Webservice\Connection para alterar algumas configurações e informar manualmente a cadeia de certificação.
+## Instalação
 
-```php
-$webService->addCurlOption([
-    CURLOPT_SSL_VERIFYHOST => 2,
-    CURLOPT_SSL_VERIFYPEER => 1,
-    CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1,
-    CURLOPT_CAINFO => 'ARQUIVO.pem'
-]);
-```
+Adicione a dependência no seu `composer.json`:
 
-Versões suportadas
-=================
-
-|PHP| GNRE|
-|---|-----|
-| PHP 5.6 | 0.1.4 |
-| HHVM | 0.1.4 |
-| PHP 7.0 | 0.1.5 |
-| PHP 8.1 | 0.1.7 (or current version) |
-
-
-Antes de usar a API
-=================
-
-- Verifique se seu certificado digital não foi expedido através da [certisign](https://www.certisign.com.br), pois existe um problema na cadeia do certificado que impossibilita a emissão de guias GNRE. Certificados expedidos através do [SERASA](https://serasa.certificadodigital.com.br/) funcionam normalmente para a emissão (até agora nenhum erro foi relatado).
-
-- É permitido utilizar o mesmo certificado utilizado para emitir NF-e.
-
-- É necessário entrar em contato com a SEFAZ de cada estado pedindo liberação do serviço de emissão de GNRE.
-
-- Leita todos os tópicos no FAQ oficial em http://www.gnre.pe.gov.br/gnre/portal/faq.jsp. Os tópicos abordados são muito úteis para quem está começando nesse serviço.
-
-GNRE PHP
-=================
-
-Objetivo
------
- API possibilita a comunicação com a SEFAZ para a emissão da nota GNRE (Guia Nacional de Recolhimento de Tributos Estaduais).
- A API GNRE tem como maior inspiração a API NFEPHP que você pode encontrar através do link https://github.com/nfephp
-
-Dependências
--------
-* [Apache](http://httpd.apache.org/) / [Nginx](http://nginx.org/)
-* [PHP 5.3+](http://php.net)
-* Extensões PHP
- * [DOMDocument](http://br2.php.net/manual/en/domdocument.construct.php)
- * [cURL](http://br2.php.net/manual/book.curl.php)
- * [GD (Utilizada para renderizar o código de barras)] (http://php.net/manual/pt_BR/book.image.php)
-
-------
-
-Road-map
------
-
-Atualmente estamos utilizando o trello para gerenciar o que será implementado nas próximas versões e melhorias na API, esse road map poe ser acessado em https://trello.com/b/kNP1tvsi/gnre-api-github
-
-------
-
-Informações úteis
------
-
-|Descrição|Endereço|
-|---------|--------|
-|Grupo de discussão | https://groups.google.com/forum/#!forum/gnrephp|
-|Site oficial do governo | http://www.gnre.pe.gov.br/gnre/index.html|
-|Site do Projeto | http://nfephp-org.github.io/sped-gnre/|
-|Wiki, onde é possível encontrar maiores informações de como utilizar a API | https://github.com/nfephp-org/sped-gnre/wiki|
-|Site oficial da SEFAZ de todo os estados|http://www.gnre.pe.gov.br/gnre/portal/linksUteis.jsp|
-
-1. Antes de gerar qualquer guia GNRE com o seu certificado, tenha **CERTEZA** que você possui autorização para isso. A geração de
-GNRE depende de cada estado, ou seja, se você deseja gerar a guia para o Acre (com destino ao Acre) tenha certeza que
-já pediu a liberação do certificado no SEFAZ Acre e repita esse processo para cada estado.
-
-Documentação
-------
-* Documentação da GNRE PHP gerada com o PHPDOC pode ser visualizada [aqui](http://nfephp-org.github.io/sped-gnre//doc/namespaces/Gnre.html)
-
-* Nosso wiki de como utilizar a API e gerar as GNRES está disponível [aqui no github](https://github.com/nfephp-org/sped-gnre/wiki)
-
-* Exemplos com código fonte são encontrados na pasta [exemplos/](https://github.com/nfephp-org/sped-gnre/tree/master/exemplos)
-
-Instalação via composer
-------
-Adicionando a GNRE PHP em um projeto existente com o composer
-
-Caso você não possua o composer veja [esse link](https://getcomposer.org/doc/01-basic-usage.md) antes de prosseguir
-
-Adicione a dependência da GNRE PHP no arquivo composer.json :
-
-Para PHP <= 5.5
-``` json
+```json
 {
-    "nfephp-org/sped-gnre": "0.1.1"
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/gbbs-cloud/sped-gnre"
+    }
+  ],
+  "require": {
+    "nfephp-org/sped-gnre": "dev-master",
+  },
 }
 ```
 
-Para PHP = 5.6
-``` json
-{
-    "nfephp-org/sped-gnre": "0.1.4"
-}
-```
+E então execute:
 
-
-Para PHP >= 7.0
-``` json
-{
-    "nfephp-org/sped-gnre": "0.1.5"
-}
-```
-
-Atualize suas depedências existentes no composer :
-
-``` terminal
+```bash
 composer update
 ```
------
-Possíveis erros
------
 
-Erro : **unable to use client certificate (no key found or wrong pass phrase?)**
+## Docker
 
-Se você está obtendo essa mensagem após enviar a requisição para o web service da SEFAZ verifique a senha que você está utilizando, pois esse erro ocorre quando a senha informada não bate com a senha do certificado utilizado
+Para executar o projeto utilizando Docker e Docker Compose, siga os passos abaixo:
 
-Erro: **[InvalidArgumentException]
-Could not find package marabesi/gnre at any version for your minimum-stability (stable). Check the package spelling or your minimum-stability**
+1. Construa e inicie os contêineres:
 
-Esse problema ocorre pois não estamos informando ao composer qual a versão mínima que queremos utilizar, para resolver esse problema basta adicionar a seguinte linha no seu arquivo composer.json
+```bash
+docker-compose up --build -d
+```
 
-``` json
-{
-    "minimum-stability": "dev"
-}
-```
------
-Quick start
------
-Clone o repositório do projeto
-``` terminal
-git clone https://github.com/nfephp-org/sped-gnre.git
-```
-Vá para a pasta de exemplos
-```
-cd exemplos/
-```
-Rode o servidor built-in do PHP
-```
-php -S localhost:8181
-```
-Abra o seu navegador e digite a seguinte URL
-```
-http://localhost:8181/gerar-xml.php
-```
------
+2. Acesse a aplicação em `http://localhost`.
 
-Caso queira ver outros exemplos utilizados pela API acesse esse link https://github.com/nfephp-org/sped-gnre/tree/master/exemplos
+## Documentação
+
+A documentação foi extraída da wiki do projeto original e pode ser encontrada na pasta `docs` deste repositório.
+
+- [O que é GNRE?](./docs/o-que-e-gnre.md)
+- [Instalando](./docs/instalando.md)
+- [Extraindo dados do certificado](./docs/extraindo-dados-certificado.md)
+- [Utilizando dados do certificado extraído](./docs/usando-dados-certificado-extraido.md)
+- [Utilizando proxy](./docs/usando-proxy.md)
+- [Preenchendo a guia GNRE](./docs/preenchendo-guia-gnre.md)
+- [Gerando o XML da GNRE](./docs/gerando-xml-gnre.md)
+- [Enviando um lote de GNRE para a SEFAZ](./docs/enviando-lote-gnre.md)
+- [Consultando a GNRE](./docs/consultando-gnre.md)
+
+## Referência da API
+
+A referência da API gerada com phpDocumentor pode ser encontrada em [https://gbbs-cloud.github.io/sped-gnre/](https://gbbs-cloud.github.io/sped-gnre/).
+
+## Exemplos
+
+Exemplos de como utilizar a API podem ser encontrados na pasta `exemplos`.
