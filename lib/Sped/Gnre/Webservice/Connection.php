@@ -49,7 +49,20 @@ class Connection
      */
     public function __construct(private readonly Setup $setup, $headers, $data)
     {
-        $this->curlOptions = [CURLOPT_PORT => 443, CURLOPT_HEADER => 1, CURLOPT_SSLVERSION => 3, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSLCERT => $this->setup->getCertificatePemFile(), CURLOPT_SSLKEY => $this->setup->getPrivateKey(), CURLOPT_POST => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_POSTFIELDS => $data, CURLOPT_HTTPHEADER => $headers, CURLOPT_VERBOSE => $this->setup->getDebug()];
+        $this->curlOptions = [
+            CURLOPT_PORT           => 443,
+            CURLOPT_HEADER         => 1,
+            CURLOPT_SSLVERSION     => 3,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_SSLCERT        => $this->setup->getCertificatePemFile(),
+            CURLOPT_SSLKEY         => $this->setup->getPrivateKey(),
+            CURLOPT_POST           => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_POSTFIELDS     => $data,
+            CURLOPT_HTTPHEADER     => $headers,
+            CURLOPT_VERBOSE        => $this->setup->getDebug(),
+        ];
 
         $ip = $this->setup->getProxyIp();
         $port = $this->setup->getProxyPort();

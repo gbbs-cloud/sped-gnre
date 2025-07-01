@@ -14,7 +14,20 @@ class ConnectionTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->curlOptions = [CURLOPT_PORT => 443, CURLOPT_HEADER => 1, CURLOPT_SSLVERSION => 3, CURLOPT_SSL_VERIFYHOST => 0, CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_SSLCERT => null, CURLOPT_SSLKEY => null, CURLOPT_POST => 1, CURLOPT_RETURNTRANSFER => 1, CURLOPT_POSTFIELDS => '', CURLOPT_HTTPHEADER => [], CURLOPT_VERBOSE => false];
+        $this->curlOptions = [
+            CURLOPT_PORT           => 443,
+            CURLOPT_HEADER         => 1,
+            CURLOPT_SSLVERSION     => 3,
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_SSLCERT        => null,
+            CURLOPT_SSLKEY         => null,
+            CURLOPT_POST           => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_POSTFIELDS     => '',
+            CURLOPT_HTTPHEADER     => [],
+            CURLOPT_VERBOSE        => false,
+        ];
     }
 
     protected function tearDown(): void
