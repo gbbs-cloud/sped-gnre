@@ -190,12 +190,12 @@ class LoteV2 extends Lote
             $identificacao = $gnre->createElement('identificacao');
 
             if ($gnreGuia->c34_tipoIdentificacaoDestinatario == parent::DESTINATARIO_PESSOA_JURIDICA) {
-                $destinatarioContribuinteDocumento = $gnre->createElement('CNPJ', $gnreGuia->c35_idContribuinteDestinatario);
+                $documentoIdentificacao = $gnre->createElement('CNPJ', $gnreGuia->c35_idContribuinteDestinatario);
             } else {
-                $destinatarioContribuinteDocumento = $gnre->createElement('CPF', $gnreGuia->c35_idContribuinteDestinatario);
+                $documentoIdentificacao = $gnre->createElement('CPF', $gnreGuia->c35_idContribuinteDestinatario);
             }
 
-            $identificacao->appendChild($destinatarioContribuinteDocumento);
+            $identificacao->appendChild($documentoIdentificacao);
             if ($gnreGuia->c36_inscricaoEstadualDestinatario != '') {
                 $IE = $gnre->createElement('IE', $gnreGuia->c36_inscricaoEstadualDestinatario);
                 $identificacao->appendChild($IE);
@@ -294,7 +294,8 @@ class LoteV2 extends Lote
         $doc = '10';
 
         return match ($uf) {
-            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => '10',
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO',
+            'RR', 'SP', 'SE', 'TO' => '10',
             'AM', 'RS' => '22',
             'PE' => $difa ? '24' : '22',
             'RJ', 'SC' => '24',
@@ -307,7 +308,8 @@ class LoteV2 extends Lote
         $doc = 'numero';
 
         return match ($uf) {
-            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO', 'RR', 'SP', 'SE', 'TO' => 'numero',
+            'AC', 'AL', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PI', 'RN', 'RO',
+            'RR', 'SP', 'SE', 'TO' => 'numero',
             'AM', 'PE', 'RJ', 'RS', 'SC' => 'chave',
             default => $doc,
         };

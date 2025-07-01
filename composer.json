@@ -13,7 +13,7 @@
         "test": "phpunit",
         "quality-checks": [
             "vendor/bin/rector process",
-            "vendor/bin/phpcbf",
+            "vendor/bin/phpcbf || true",
             "vendor/bin/phpcs || true",
             "vendor/bin/phpstan analyse --level 0 lib/ testes/"
         ]
