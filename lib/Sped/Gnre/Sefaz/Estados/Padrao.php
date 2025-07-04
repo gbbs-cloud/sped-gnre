@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -26,10 +28,10 @@ abstract class Padrao
      */
     public function getNodeCamposExtras(\DOMDocument $gnre, Guia $gnreGuia)
     {
-        if (is_array($gnreGuia->c39_camposExtras) && $gnreGuia->c39_camposExtras !== []) {
+        if ($gnreGuia->getC39CamposExtras() !== []) {
             $c39_camposExtras = $gnre->createElement('c39_camposExtras');
 
-            foreach ($gnreGuia->c39_camposExtras as $campos) {
+            foreach ($gnreGuia->getC39CamposExtras() as $campos) {
                 $campoExtra = $gnre->createElement('campoExtra');
                 $codigo = $gnre->createElement('codigo', $campos['campoExtra']['codigo']);
                 $tipo = $gnre->createElement('tipo', $campos['campoExtra']['tipo']);
@@ -49,23 +51,23 @@ abstract class Padrao
     }
 
     /**
-     * @return \DOMElement
+     * @return \DOMElement|null
      */
     public function getNodeReferencia(\DOMDocument $gnre, Guia $gnreGuia)
     {
-        if (! $gnreGuia->periodo && ! $gnreGuia->mes && ! $gnreGuia->ano && ! $gnreGuia->parcela) {
+        if (! $gnreGuia->getPeriodo() && ! $gnreGuia->getMes() && ! $gnreGuia->getAno() && ! $gnreGuia->getParcela()) {
             return null;
         }
 
         $c05 = $gnre->createElement('c05_referencia');
 
-        if ($gnreGuia->periodo) {
-            $periodo = $gnre->createElement('periodo', $gnreGuia->periodo);
+        if ($gnreGuia->getPeriodo()) {
+            $periodo = $gnre->createElement('periodo', (string) $gnreGuia->getPeriodo());
         }
-        $mes = $gnre->createElement('mes', $gnreGuia->mes);
-        $ano = $gnre->createElement('ano', $gnreGuia->ano);
-        if ($gnreGuia->parcela) {
-            $parcela = $gnre->createElement('parcela', $gnreGuia->parcela);
+        $mes = $gnre->createElement('mes', (string) $gnreGuia->getMes());
+        $ano = $gnre->createElement('ano', (string) $gnreGuia->getAno());
+        if ($gnreGuia->getParcela()) {
+            $parcela = $gnre->createElement('parcela', (string) $gnreGuia->getParcela());
         }
 
         if (isset($periodo)) {

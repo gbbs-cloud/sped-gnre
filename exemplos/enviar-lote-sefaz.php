@@ -1,10 +1,15 @@
 <?php
+declare(strict_types=1);
 
-namespace Exemplo;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-class MySetup extends Sped\Gnre\Configuration\Setup
+use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\Lote;
+use Sped\Gnre\Webservice\Connection;
+
+class MySetup extends Setup
 {
     public function getBaseUrl()
     {
@@ -54,7 +59,7 @@ class MySetup extends Sped\Gnre\Configuration\Setup
     {
     }
 
-    public function getDebug()
+    public function getDebug(): bool
     {
         return true;
     }
@@ -64,12 +69,12 @@ $xml = file_get_contents('xml/estrutura-lote-completo-gnre.xml');
 
 $minhaConfiguracao = new MySetup();
 
-$guia = new Sped\Gnre\Sefaz\Guia();
+$guia = new Guia();
 
-$lote = new Sped\Gnre\Sefaz\Lote();
+$lote = new Lote();
 // $lote->utilizarAmbienteDeTeste(true); Descomente essa linha para utilizar o ambiente de testes
 
 $lote->addGuia($guia);
 
-$webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $lote->getHeaderSoap(), $lote->toXml());
+$webService = new Connection($minhaConfiguracao, $lote->getHeaderSoap(), $lote->toXml());
 echo $webService->doRequest($lote->soapAction());
