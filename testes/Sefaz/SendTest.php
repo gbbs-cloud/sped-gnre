@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
@@ -67,6 +69,9 @@ class SendTest extends TestCase
         $send->sefaz($this->objetoSefaz);
     }
 
+    /**
+     * @test
+     */
     public function test_deve_exibir_debug(): void
     {
         $connection = $this->getMockBuilder(\Sped\Gnre\Webservice\Connection::class)

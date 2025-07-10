@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -48,14 +50,14 @@ class FilePrefix
     }
 
     /**
-     * Aplica o prefixo desejado no arquivo caso ele exista
+     * Aplica o prefixo desejado no arquivo caso ele exista.
      *
-     * @param  string  $path  O caminho completo junto com o nome do arquivo por exemplo /var/foo/arquivo.tmp
-     * @return string O novo nome do arquivo e seu caminho completo
+     * @param  string  $path  O caminho completo junto com o nome do arquivo, por exemplo /var/foo/arquivo.tmp.
+     * @return string O novo nome do arquivo e seu caminho completo.
      *
      * @since  1.0.0
      */
-    public function apply($path)
+    public function apply($path): string
     {
         if (empty($this->prefix)) {
             return $path;

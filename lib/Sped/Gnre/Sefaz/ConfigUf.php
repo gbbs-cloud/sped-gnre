@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -110,9 +112,9 @@ class ConfigUf extends ConsultaConfigUf
     }
 
     /**
-     * Define se será utilizado o ambiente de testes ou não
+     * Define se será utilizado o ambiente de testes ou não.
      *
-     * @param  bool  $ambiente  Ambiente
+     * @param  bool  $ambiente  Ambiente de testes (true para usar, false para não usar).
      */
     public function utilizarAmbienteDeTeste($ambiente = false): void
     {

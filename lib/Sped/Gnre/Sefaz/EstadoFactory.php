@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -21,7 +23,7 @@ class EstadoFactory
 {
     /**
      * @param  string  $estado
-     * @return \Sped\Gnre\Sefaz\Estados\Padrao
+     * @return \Sped\Gnre\Sefaz\Estados\Padrao Uma instância da classe do estado correspondente.
      */
     public function create($estado = 'BA')
     {
