@@ -1,9 +1,4 @@
-[![Build status (PHP Composer)](https://github.com/nfephp-org/sped-gnre/actions/workflows/php.yml/badge.svg)](https://github.com/nfephp-org/sped-gnre/actions/workflows/php.yml)
-[![Coverage Status](https://coveralls.io/repos/marabesi/gnrephp/badge.svg)](https://coveralls.io/r/nfephp-org/sped-gnre)
-[![Total Downloads](https://poser.pugx.org/marabesi/gnre/downloads)](https://packagist.org/packages/nfephp-org/sped-gnre)
-[![Latest Stable Version](https://poser.pugx.org/marabesi/gnre/v/stable)](https://packagist.org/packages/nfephp-org/sped-gnre)
-[![Latest Unstable Version](https://poser.pugx.org/marabesi/gnre/v/unstable.png)](https://packagist.org/packages/nfephp-org/sped-gnre)
-[![License](https://poser.pugx.org/marabesi/gnre/license)](https://packagist.org/packages/nfephp-org/sped-gnre)
+[![Build status (PHP Composer)](https://github.com/gbbs-cloud/sped-gnre/actions/workflows/php.yml/badge.svg)](https://github.com/gbbs-cloud/sped-gnre/actions/workflows/php.yml)
 
 Atenção!!
 =================
@@ -104,6 +99,39 @@ Documentação
 * Nosso wiki de como utilizar a API e gerar as GNRES está disponível [aqui no github](https://github.com/nfephp-org/sped-gnre/wiki)
 
 * Exemplos com código fonte são encontrados na pasta [exemplos/](https://github.com/nfephp-org/sped-gnre/tree/master/exemplos)
+
+Estados Atendidos
+------
+### Estados que utilizam o serviço do Portal GNRE (www.gnre.pe.gov.br)
+* Acre (AC)
+* Alagoas (AL)
+* Amapá (AP)
+* Amazonas (AM)
+* Bahia (BA)
+* Ceará (CE)
+* Distrito Federal (DF)
+* Goiás (GO)
+* Maranhão (MA)
+* Mato Grosso (MT)
+* Mato Grosso do Sul (MS)
+* Minas Gerais (MG)
+* Pará (PA)
+* Paraíba (PB)
+* Pernambuco (PE)
+* Piauí (PI)
+* Paraná (PR)
+* Rio de Janeiro (RJ)
+* Rio Grande do Norte (RN)
+* Rio Grande do Sul (RS)
+* Rondônia (RO)
+* Roraima (RR)
+* Santa Catarina (SC)
+* Sergipe (SE)
+* Tocantins (TO)
+
+### Estados que utilizam serviço próprio
+* **Espírito Santo (ES)**: Utiliza o DUA (Documento Único de Arrecadação). A emissão é feita pelo site da [SEFAZ-ES](https://internet.sefaz.es.gov.br/agenciavirtual/area_publica/e-dua/).
+* **São Paulo (SP)**: Utiliza o DARE/SP (Documento de Arrecadação de Receitas Estaduais). A emissão é feita pelo site da [Fazenda de São Paulo](https://portal.fazenda.sp.gov.br/servicos/gnre/).
 
 Instalação via composer
 ------
