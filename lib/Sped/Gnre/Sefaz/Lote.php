@@ -1,19 +1,6 @@
 <?php
 
-/**
- * Este arquivo é parte do programa GNRE PHP
- * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
- * modificá-lo dentro dos termos da Licença Pública Geral GNU como
- * publicada pela Fundação do Software Livre (FSF); na versão 2 da
- * Licença, ou (na sua opinião) qualquer versão.
- * Este programa é distribuído na esperança de que possa ser  útil,
- * mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer
- * MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
- * Licença Pública Geral GNU para maiores detalhes.
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU
- * junto com este programa, se não, escreva para a Fundação do Software
- * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- */
+declare(strict_types=1);
 
 namespace Sped\Gnre\Sefaz;
 
@@ -24,40 +11,13 @@ namespace Sped\Gnre\Sefaz;
  *
  * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
  * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
- *
- * @version     1.0.0
  */
 class Lote extends LoteGnre
 {
-    private ?\Sped\Gnre\Sefaz\EstadoFactory $estadoFactory = null;
+    private const XSD_PATH = __DIR__ . '/../../../../xsd/lote_gnre_v2.00.xsd';
 
-    /**
-     * @var bool
-     */
-    private $ambienteDeTeste = false;
+    private bool $ambienteDeTeste = false;
 
-    public function getEstadoFactory(): \Sped\Gnre\Sefaz\EstadoFactory
-    {
-        if (! $this->estadoFactory instanceof \Sped\Gnre\Sefaz\EstadoFactory) {
-            $this->estadoFactory = new EstadoFactory();
-        }
-
-        return $this->estadoFactory;
-    }
-
-    /**
-     * @param  mixed  $estadoFactory
-     */
-    public function setEstadoFactory(EstadoFactory $estadoFactory): static
-    {
-        $this->estadoFactory = $estadoFactory;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getHeaderSoap(): array
     {
         $action = $this->ambienteDeTeste ?
@@ -67,9 +27,6 @@ class Lote extends LoteGnre
         return ['Content-Type: application/soap+xml;charset=utf-8;action="' . $action . '"', 'SOAPAction: processar'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function soapAction(): string
     {
         return $this->ambienteDeTeste ?
@@ -77,203 +34,274 @@ class Lote extends LoteGnre
             'https://www.gnre.pe.gov.br/gnreWS/services/GnreLoteRecepcao';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function toXml(): string|false
     {
-        $gnre = new \DOMDocument('1.0', 'UTF-8');
-        $gnre->formatOutput = false;
-        $gnre->preserveWhiteSpace = false;
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = false;
+        $dom->preserveWhiteSpace = false;
 
-        $loteGnre = $gnre->createElement('TLote_GNRE');
-        $loteXmlns = $gnre->createAttribute('xmlns');
-        $loteXmlns->value = 'http://www.gnre.pe.gov.br';
-        $loteGnre->appendChild($loteXmlns);
-        $guia = $gnre->createElement('guias');
+        $loteGnre = $dom->createElement('TLote_GNRE');
+        $loteGnre->setAttribute('xmlns', 'http://www.gnre.pe.gov.br');
+        $loteGnre->setAttribute('versao', '2.00');
 
-        foreach ($this->getGuias() as $gnreGuia) {
-            $estado = $gnreGuia->c01_UfFavorecida;
+        $guiasElement = $dom->createElement('guias');
 
-            $guiaEstado = $this->getEstadoFactory()->create($estado);
+        foreach ($this->getGuias() as $guia) {
+            $dadosGnre = $dom->createElement('TDadosGNRE');
+            $dadosGnre->setAttribute('versao', '2.00');
 
-            $dados = $gnre->createElement('TDadosGNRE');
-            $c1 = $gnre->createElement('c01_UfFavorecida', $estado);
-            $c2 = $gnre->createElement('c02_receita', $gnreGuia->c02_receita);
-            $c25 = $gnre->createElement('c25_detalhamentoReceita', $gnreGuia->c25_detalhamentoReceita);
-            $c26 = $gnre->createElement('c26_produto', $gnreGuia->c26_produto);
-            $c27 = $gnre->createElement('c27_tipoIdentificacaoEmitente', $gnreGuia->c27_tipoIdentificacaoEmitente);
+            $ufFavorecida = $dom->createElement('ufFavorecida', $guia->ufFavorecida->value);
+            $dadosGnre->appendChild($ufFavorecida);
 
-            $c03 = $gnre->createElement('c03_idContribuinteEmitente');
+            $tipoGnre = $dom->createElement('tipoGnre', $guia->tipoGnre->value);
+            $dadosGnre->appendChild($tipoGnre);
 
-            if ($gnreGuia->c27_tipoIdentificacaoEmitente == parent::EMITENTE_PESSOA_JURIDICA) {
-                $emitenteContribuinteDocumento = $gnre->createElement('CNPJ', $gnreGuia->c03_idContribuinteEmitente);
-            } else {
-                $emitenteContribuinteDocumento = $gnre->createElement('CPF', $gnreGuia->c03_idContribuinteEmitente);
-            }
+            if ($guia->contribuinteEmitente) {
+                $contribuinteEmitente = $dom->createElement('contribuinteEmitente');
+                $identificacaoEmitente = $dom->createElement('identificacao');
 
-            $c03->appendChild($emitenteContribuinteDocumento);
+                if ($guia->contribuinteEmitente->identificacao->cnpj) {
+                    $cnpj = $dom->createElement('CNPJ', $guia->contribuinteEmitente->identificacao->cnpj);
+                    $identificacaoEmitente->appendChild($cnpj);
+                } elseif ($guia->contribuinteEmitente->identificacao->cpf) {
+                    $cpf = $dom->createElement('CPF', $guia->contribuinteEmitente->identificacao->cpf);
+                    $identificacaoEmitente->appendChild($cpf);
+                }
+                if ($guia->contribuinteEmitente->identificacao->ie) {
+                    $ie = $dom->createElement('IE', $guia->contribuinteEmitente->identificacao->ie);
+                    $identificacaoEmitente->appendChild($ie);
+                }
+                $contribuinteEmitente->appendChild($identificacaoEmitente);
 
-            $c28 = $gnre->createElement('c28_tipoDocOrigem', $gnreGuia->c28_tipoDocOrigem);
-            $c04 = $gnre->createElement('c04_docOrigem', $gnreGuia->c04_docOrigem);
-            if ($gnreGuia->c06_valorPrincipal) {
-                $c06 = $gnre->createElement('c06_valorPrincipal', $gnreGuia->c06_valorPrincipal);
-            }
-            if ($gnreGuia->c10_valorTotal) {
-                $c10 = $gnre->createElement('c10_valorTotal', $gnreGuia->c10_valorTotal);
-            }
-            $c14 = $gnre->createElement('c14_dataVencimento', $gnreGuia->c14_dataVencimento);
-            $c15 = $gnre->createElement('c15_convenio', $gnreGuia->c15_convenio);
-            $c16 = $gnre->createElement('c16_razaoSocialEmitente', $gnreGuia->c16_razaoSocialEmitente);
-            if ($gnreGuia->c17_inscricaoEstadualEmitente) {
-                $c17 = $gnre->createElement('c17_inscricaoEstadualEmitente', $gnreGuia->c17_inscricaoEstadualEmitente);
-            }
-            $c18 = $gnre->createElement('c18_enderecoEmitente', $gnreGuia->c18_enderecoEmitente);
-            $c19 = $gnre->createElement('c19_municipioEmitente', $gnreGuia->c19_municipioEmitente);
-            $c20 = $gnre->createElement('c20_ufEnderecoEmitente', $gnreGuia->c20_ufEnderecoEmitente);
-            if ($gnreGuia->c21_cepEmitente) {
-                $c21 = $gnre->createElement('c21_cepEmitente', $gnreGuia->c21_cepEmitente);
-            }
-            if ($gnreGuia->c22_telefoneEmitente) {
-                $c22 = $gnre->createElement('c22_telefoneEmitente', $gnreGuia->c22_telefoneEmitente);
-            }
-
-            $c34_tipoIdentificacaoDestinatario = $gnreGuia->c34_tipoIdentificacaoDestinatario;
-            $c34 = $gnre->createElement('c34_tipoIdentificacaoDestinatario', $c34_tipoIdentificacaoDestinatario);
-
-            $c35 = $gnre->createElement('c35_idContribuinteDestinatario');
-
-            $c35_idContribuinteDestinatario = $gnreGuia->c35_idContribuinteDestinatario;
-            if ($gnreGuia->c34_tipoIdentificacaoDestinatario == parent::DESTINATARIO_PESSOA_JURIDICA) {
-                $destinatarioContribuinteDocumento = $gnre->createElement('CNPJ', $c35_idContribuinteDestinatario);
-            } else {
-                $destinatarioContribuinteDocumento = $gnre->createElement('CPF', $c35_idContribuinteDestinatario);
+                if ($guia->contribuinteEmitente->razaoSocial) {
+                    $razaoSocial = $dom->createElement('razaoSocial', $guia->contribuinteEmitente->razaoSocial);
+                    $contribuinteEmitente->appendChild($razaoSocial);
+                }
+                if ($guia->contribuinteEmitente->endereco) {
+                    $endereco = $dom->createElement('endereco', $guia->contribuinteEmitente->endereco);
+                    $contribuinteEmitente->appendChild($endereco);
+                }
+                if ($guia->contribuinteEmitente->municipio) {
+                    $municipio = $dom->createElement('municipio', $guia->contribuinteEmitente->municipio);
+                    $contribuinteEmitente->appendChild($municipio);
+                }
+                if ($guia->contribuinteEmitente->uf) {
+                    $uf = $dom->createElement('uf', $guia->contribuinteEmitente->uf);
+                    $contribuinteEmitente->appendChild($uf);
+                }
+                if ($guia->contribuinteEmitente->cep) {
+                    $cep = $dom->createElement('cep', $guia->contribuinteEmitente->cep);
+                    $contribuinteEmitente->appendChild($cep);
+                }
+                if ($guia->contribuinteEmitente->telefone) {
+                    $telefone = $dom->createElement('telefone', $guia->contribuinteEmitente->telefone);
+                    $contribuinteEmitente->appendChild($telefone);
+                }
+                $dadosGnre->appendChild($contribuinteEmitente);
             }
 
-            $c35->appendChild($destinatarioContribuinteDocumento);
+            $itensGnreElement = $dom->createElement('itensGNRE');
+            foreach ($guia->itensGNRE as $item) {
+                $itemElement = $dom->createElement('item');
 
-            $c36_inscricaoEstadualDestinatario = $gnreGuia->c36_inscricaoEstadualDestinatario;
-            $c36 = $gnre->createElement('c36_inscricaoEstadualDestinatario', $c36_inscricaoEstadualDestinatario);
-            $c37 = $gnre->createElement('c37_razaoSocialDestinatario', $gnreGuia->c37_razaoSocialDestinatario);
-            $c38 = $gnre->createElement('c38_municipioDestinatario', $gnreGuia->c38_municipioDestinatario);
-            $c33 = $gnre->createElement('c33_dataPagamento', $gnreGuia->c33_dataPagamento);
+                $receita = $dom->createElement('receita', $item->receita);
+                $itemElement->appendChild($receita);
 
-            $dados->appendChild($c1);
-            $dados->appendChild($c2);
-            if ($gnreGuia->c25_detalhamentoReceita) {
-                $dados->appendChild($c25);
+                if ($item->detalhamentoReceita) {
+                    $detalhamentoReceita = $dom->createElement('detalhamentoReceita', $item->detalhamentoReceita);
+                    $itemElement->appendChild($detalhamentoReceita);
+                }
+
+                if ($item->documentoOrigem) {
+                    $documentoOrigem = $dom->createElement('documentoOrigem', $item->documentoOrigem->numero);
+                    $documentoOrigem->setAttribute('tipo', $item->documentoOrigem->tipo);
+                    $itemElement->appendChild($documentoOrigem);
+                }
+
+                if ($item->produto) {
+                    $produto = $dom->createElement('produto', $item->produto);
+                    $itemElement->appendChild($produto);
+                }
+
+                if ($item->referencia) {
+                    $referencia = $dom->createElement('referencia');
+                    if ($item->referencia->periodo) {
+                        $periodo = $dom->createElement('periodo', $item->referencia->periodo->value);
+                        $referencia->appendChild($periodo);
+                    }
+                    if ($item->referencia->mes) {
+                        $mes = $dom->createElement('mes', $item->referencia->mes->value);
+                        $referencia->appendChild($mes);
+                    }
+                    if ($item->referencia->ano) {
+                        $ano = $dom->createElement('ano', $item->referencia->ano->value);
+                        $referencia->appendChild($ano);
+                    }
+                    if ($item->referencia->parcela) {
+                        $parcela = $dom->createElement('parcela', $item->referencia->parcela);
+                        $referencia->appendChild($parcela);
+                    }
+                    $itemElement->appendChild($referencia);
+                }
+
+                if ($item->dataVencimento) {
+                    $dataVencimento = $dom->createElement('dataVencimento', $item->dataVencimento);
+                    $itemElement->appendChild($dataVencimento);
+                }
+
+                foreach ($item->valores as $valor) {
+                    $valorElement = $dom->createElement('valor', (string) $valor->valor);
+                    $valorElement->setAttribute('tipo', $valor->tipo->value);
+                    $itemElement->appendChild($valorElement);
+                }
+
+                if ($item->convenio) {
+                    $convenio = $dom->createElement('convenio', $item->convenio);
+                    $itemElement->appendChild($convenio);
+                }
+
+                if ($item->contribuinteDestinatario) {
+                    $contribuinteDestinatario = $dom->createElement('contribuinteDestinatario');
+                    $identificacaoDestinatario = $dom->createElement('identificacao');
+
+                    if ($item->contribuinteDestinatario->identificacao->cnpj) {
+                        $cnpj = $dom->createElement('CNPJ', $item->contribuinteDestinatario->identificacao->cnpj);
+                        $identificacaoDestinatario->appendChild($cnpj);
+                    } elseif ($item->contribuinteDestinatario->identificacao->cpf) {
+                        $cpf = $dom->createElement('CPF', $item->contribuinteDestinatario->identificacao->cpf);
+                        $identificacaoDestinatario->appendChild($cpf);
+                    }
+                    if ($item->contribuinteDestinatario->identificacao->ie) {
+                        $ie = $dom->createElement('IE', $item->contribuinteDestinatario->identificacao->ie);
+                        $identificacaoDestinatario->appendChild($ie);
+                    }
+                    $contribuinteDestinatario->appendChild($identificacaoDestinatario);
+
+                    if ($item->contribuinteDestinatario->razaoSocial) {
+                        $razaoSocial = $dom->createElement('razaoSocial', $item->contribuinteDestinatario->razaoSocial);
+                        $contribuinteDestinatario->appendChild($razaoSocial);
+                    }
+                    if ($item->contribuinteDestinatario->municipio) {
+                        $municipio = $dom->createElement('municipio', $item->contribuinteDestinatario->municipio);
+                        $contribuinteDestinatario->appendChild($municipio);
+                    }
+                    $itemElement->appendChild($contribuinteDestinatario);
+                }
+
+                if ($item->camposExtras) {
+                    $camposExtrasElement = $dom->createElement('camposExtras');
+                    foreach ($item->camposExtras as $campoExtra) {
+                        $campoExtraElement = $dom->createElement('campoExtra');
+                        $codigo = $dom->createElement('codigo', (string) $campoExtra->codigo);
+                        $valorCampoExtra = $dom->createElement('valor', $campoExtra->valor);
+                        $campoExtraElement->appendChild($codigo);
+                        $campoExtraElement->appendChild($valorCampoExtra);
+                        $camposExtrasElement->appendChild($campoExtraElement);
+                    }
+                    $itemElement->appendChild($camposExtrasElement);
+                }
+
+                if ($item->numeroControle) {
+                    $numeroControle = $dom->createElement('numeroControle', $item->numeroControle);
+                    $itemElement->appendChild($numeroControle);
+                }
+
+                if ($item->numeroControleFecp) {
+                    $numeroControleFecp = $dom->createElement('numeroControleFecp', $item->numeroControleFecp);
+                    $itemElement->appendChild($numeroControleFecp);
+                }
+
+                $itensGnreElement->appendChild($itemElement);
             }
-            if ($gnreGuia->c26_produto) {
-                $dados->appendChild($c26);
-            }
-            $dados->appendChild($c27);
-            $dados->appendChild($c03);
-            $dados->appendChild($c28);
-            $dados->appendChild($c04);
-            if (isset($c06)) {
-                $dados->appendChild($c06);
-            }
-            if (isset($c10)) {
-                $dados->appendChild($c10);
-            }
-            $dados->appendChild($c14);
-            if ($gnreGuia->c15_convenio) {
-                $dados->appendChild($c15);
-            }
-            $dados->appendChild($c16);
-            if ($gnreGuia->c17_inscricaoEstadualEmitente) {
-                $dados->appendChild($c17);
-            }
-            $dados->appendChild($c18);
-            $dados->appendChild($c19);
-            $dados->appendChild($c20);
-            if (isset($c21)) {
-                $dados->appendChild($c21);
-            }
-            if (isset($c22)) {
-                $dados->appendChild($c22);
-            }
-            if ($c34_tipoIdentificacaoDestinatario) {
-                $dados->appendChild($c34);
-            }
-            if ($c35_idContribuinteDestinatario) {
-                $dados->appendChild($c35);
-            }
-            if ($gnreGuia->c36_inscricaoEstadualDestinatario) {
-                $dados->appendChild($c36);
-            }
-            if ($gnreGuia->c37_razaoSocialDestinatario) {
-                $dados->appendChild($c37);
-            }
-            if ($gnreGuia->c38_municipioDestinatario) {
-                $dados->appendChild($c38);
-            }
-            $dados->appendChild($c33);
-            if ($gnreGuia->c42_identificadorGuia) {
-                $c42 = $gnre->createElement('c42_identificadorGuia', $gnreGuia->c42_identificadorGuia);
-                $dados->appendChild($c42);
+            $dadosGnre->appendChild($itensGnreElement);
+
+            if ($guia->dataPagamento) {
+                $dataPagamento = $dom->createElement('dataPagamento', $guia->dataPagamento);
+                $dadosGnre->appendChild($dataPagamento);
             }
 
-            $c05 = $guiaEstado->getNodeReferencia($gnre, $gnreGuia);
-            if ($c05) {
-                $dados->appendChild($c05);
+            if ($guia->identificadorGuia) {
+                $identificadorGuia = $dom->createElement('identificadorGuia', $guia->identificadorGuia);
+                $dadosGnre->appendChild($identificadorGuia);
             }
 
-            $c39_camposExtras = $guiaEstado->getNodeCamposExtras($gnre, $gnreGuia);
+            $guiasElement->appendChild($dadosGnre);
+        }
+        $loteGnre->appendChild($guiasElement);
 
-            if ($c39_camposExtras != null) {
-                $dados->appendChild($c39_camposExtras);
-            }
+        $this->getSoapEnvelop($dom, $loteGnre);
 
-            $guia->appendChild($dados);
-            $gnre->appendChild($loteGnre);
-            $loteGnre->appendChild($guia);
+        $xml = $dom->saveXML();
+
+        if (! $xml) {
+            return false;
         }
 
-        $this->getSoapEnvelop($gnre, $loteGnre);
+        file_put_contents('/tmp/generated_gnre_lote.xml', $xml);
 
-        return $gnre->saveXML();
+        $this->validateXml($xml);
+
+        return $xml;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getSoapEnvelop($gnre, $loteGnre): void
+    private function validateXml(string $xml): void
     {
-        $soapEnv = $gnre->createElement('soap12:Envelope');
+        libxml_use_internal_errors(true);
+        $dom = new \DOMDocument();
+        $dom->loadXML($xml);
+
+        $loteGnreElement = $dom->getElementsByTagNameNS('http://www.gnre.pe.gov.br', 'TLote_GNRE')->item(0);
+
+        if ($loteGnreElement) {
+            $loteGnreDom = new \DOMDocument('1.0', 'UTF-8');
+            $loteGnreDom->appendChild($loteGnreDom->importNode($loteGnreElement, true));
+
+            if (! $loteGnreDom->schemaValidate(self::XSD_PATH)) {
+                $errors = libxml_get_errors();
+                libxml_clear_errors();
+                $message = 'XML validation failed!\n';
+                foreach ($errors as $error) {
+                    $message .= sprintf("  Line %d: %s\n", $error->line, $error->message);
+                }
+                throw new \RuntimeException($message);
+            }
+        }
+        libxml_clear_errors();
+    }
+
+    public function getSoapEnvelop(\DOMDocument $dom, \DOMElement $loteGnre): void
+    {
+        $soapEnv = $dom->createElement('soap12:Envelope');
         $soapEnv->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
         $soapEnv->setAttribute('xmlns:xsd', 'http://www.w3.org/2001/XMLSchema');
         $soapEnv->setAttribute('xmlns:soap12', 'http://www.w3.org/2003/05/soap-envelope');
 
-        $gnreCabecalhoSoap = $gnre->createElement('gnreCabecMsg');
+        $gnreCabecalhoSoap = $dom->createElement('gnreCabecMsg');
         $gnreCabecalhoSoap->setAttribute('xmlns', 'http://www.gnre.pe.gov.br/wsdl/processar');
-        $gnreCabecalhoSoap->appendChild($gnre->createElement('versaoDados', '1.00'));
+        $gnreCabecalhoSoap->appendChild($dom->createElement('versaoDados', '2.00'));
 
-        $soapHeader = $gnre->createElement('soap12:Header');
+        $soapHeader = $dom->createElement('soap12:Header');
         $soapHeader->appendChild($gnreCabecalhoSoap);
 
         $soapEnv->appendChild($soapHeader);
-        $gnre->appendChild($soapEnv);
+        $dom->appendChild($soapEnv);
 
         $action = $this->ambienteDeTeste ?
             'http://www.testegnre.pe.gov.br/webservice/GnreLoteRecepcao' :
             'http://www.gnre.pe.gov.br/webservice/GnreLoteRecepcao';
 
-        $gnreDadosMsg = $gnre->createElement('gnreDadosMsg');
+        $gnreDadosMsg = $dom->createElement('gnreDadosMsg');
         $gnreDadosMsg->setAttribute('xmlns', $action);
 
         $gnreDadosMsg->appendChild($loteGnre);
 
-        $soapBody = $gnre->createElement('soap12:Body');
+        $soapBody = $dom->createElement('soap12:Body');
         $soapBody->appendChild($gnreDadosMsg);
 
         $soapEnv->appendChild($soapBody);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function utilizarAmbienteDeTeste($ambiente = false): void
+    public function utilizarAmbienteDeTeste(bool $ambiente = false): void
     {
         $this->ambienteDeTeste = $ambiente;
     }

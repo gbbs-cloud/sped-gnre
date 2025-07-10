@@ -61,17 +61,14 @@ interface ObjetoSefaz
     /**
      * Método responsável por encapsular todo o XML gerado e encapsula-lo dentro
      * de um envelop SOAP válido para ser enviado
-     *
-     * @return mixed
      */
-    public function getSoapEnvelop($noRaiz, $conteudoEnvelope);
+    public function getSoapEnvelop(\DOMDocument $noRaiz, \DOMElement $conteudoEnvelope): void;
 
     /**
      * Define se a requisição será realizada no ambiente de testes ou não
      *
-     * @param  boolen  $ambiente  Define se será utilizado o ambiente de teste ou não, o padrão é <b>false</b>(para
+     * @param  bool  $ambiente  Define se será utilizado o ambiente de teste ou não, o padrão é <b>false</b>(para
      *                            não usar o ambiente de testes)
-     * @return mixed
      */
-    public function utilizarAmbienteDeTeste($ambiente = false);
+    public function utilizarAmbienteDeTeste(bool $ambiente = false): void;
 }

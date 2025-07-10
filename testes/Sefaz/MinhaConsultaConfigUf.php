@@ -21,11 +21,11 @@ class MinhaConsultaConfigUf extends ConsultaConfigUf
         return '';
     }
 
-    public function getSoapEnvelop($noRaiz, $conteudoEnvelope)
+    public function getSoapEnvelop(\DOMDocument $noRaiz, \DOMElement $conteudoEnvelope): void
     {
     }
 
-    public function utilizarAmbienteDeTeste($ambiente = false)
+    public function utilizarAmbienteDeTeste(bool $ambiente = false): void
     {
     }
 }
