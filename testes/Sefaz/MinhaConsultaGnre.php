@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Sped\Gnre\Test\Sefaz;
 
 use Sped\Gnre\Sefaz\ConsultaGnre;
@@ -23,11 +21,11 @@ class MinhaConsultaGnre extends ConsultaGnre
         return '';
     }
 
-    public function getSoapEnvelop($noRaiz, $conteudoEnvelope)
+    public function getSoapEnvelop(\DOMDocument $noRaiz, \DOMElement $conteudoEnvelope): void
     {
     }
 
-    public function utilizarAmbienteDeTeste($ambiente = false): void
+    public function utilizarAmbienteDeTeste(bool $ambiente = false): void
     {
     }
 }

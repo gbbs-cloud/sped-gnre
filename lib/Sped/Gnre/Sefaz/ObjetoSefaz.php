@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * Este arquivo é parte do programa GNRE PHP
  * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
@@ -63,16 +61,14 @@ interface ObjetoSefaz
     /**
      * Método responsável por encapsular todo o XML gerado e encapsula-lo dentro
      * de um envelop SOAP válido para ser enviado
-     *
-     * @return mixed
      */
-    public function getSoapEnvelop(\DOMDocument $noRaiz, \DOMNode $conteudoEnvelope);
+    public function getSoapEnvelop(\DOMDocument $noRaiz, \DOMElement $conteudoEnvelope): void;
 
     /**
      * Define se a requisição será realizada no ambiente de testes ou não
      *
-     * @param  bool  $ambiente  Define se será utilizado o ambiente de teste ou não,
-     *                          o padrão é **false** (para não usar o ambiente de testes).
+     * @param  bool  $ambiente  Define se será utilizado o ambiente de teste ou não, o padrão é <b>false</b>(para
+     *                            não usar o ambiente de testes)
      */
-    public function utilizarAmbienteDeTeste($ambiente = false): void;
+    public function utilizarAmbienteDeTeste(bool $ambiente = false): void;
 }
