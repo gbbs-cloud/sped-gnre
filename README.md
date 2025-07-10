@@ -135,7 +135,7 @@ Estados Atendidos
 * Tocantins (TO)
 
 ### Estados que utilizam serviço próprio
-* **Espírito Santo (ES)**: Utiliza o DUA (Documento Único de Arrecadação). A emissão é feita pelo site da [SEFAZ-ES](https://sistemas.sefaz.es.gov.br/idaf/pre-dua-externo/principal.php).
+* **Espírito Santo (ES)**: Utiliza o DUA (Documento Único de Arrecadação). A emissão é feita pelo site da [SEFAZ-ES](https://internet.sefaz.es.gov.br/agenciavirtual/area_publica/e-dua/).
 * **São Paulo (SP)**: Utiliza o DARE/SP (Documento de Arrecadação de Receitas Estaduais). A emissão é feita pelo site da [Fazenda de São Paulo](https://portal.fazenda.sp.gov.br/servicos/gnre/).
 
 Instalação via composer
