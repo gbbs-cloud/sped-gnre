@@ -1,8 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
+use Sped\Gnre\Sefaz\DTO\CampoExtra;
+use Sped\Gnre\Sefaz\DTO\Contribuinte;
+use Sped\Gnre\Sefaz\DTO\DocumentoOrigem;
+use Sped\Gnre\Sefaz\DTO\Identificacao;
+use Sped\Gnre\Sefaz\DTO\ItemGNRE;
+use Sped\Gnre\Sefaz\DTO\Referencia;
+use Sped\Gnre\Sefaz\DTO\Valor;
+use Sped\Gnre\Sefaz\Enum\AnoEnum;
+use Sped\Gnre\Sefaz\Enum\MesEnum;
+use Sped\Gnre\Sefaz\Enum\PeriodoEnum;
+use Sped\Gnre\Sefaz\Enum\TipoCampoExtraEnum;
+use Sped\Gnre\Sefaz\Enum\TipoGnreEnum;
+use Sped\Gnre\Sefaz\Enum\TipoIdentificacaoEnum;
+use Sped\Gnre\Sefaz\Enum\UfEnum;
+use Sped\Gnre\Sefaz\Enum\ValorTipoEnum;
 use Sped\Gnre\Sefaz\Guia;
 use Sped\Gnre\Sefaz\Lote;
 
@@ -39,37 +56,45 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cnpj-dest-cnpj-sem-campos-extras.xml');
 
-        $guia = new Guia();
-
-        $guia->c01_UfFavorecida = '26';
-        $guia->c02_receita = '1000099';
-        $guia->c25_detalhamentoReceita = '10101010';
-        $guia->c26_produto = 'TESTE DE PROD';
-        $guia->c27_tipoIdentificacaoEmitente = 1;
-        $guia->c03_idContribuinteEmitente = '41819055000105';
-        $guia->c28_tipoDocOrigem = '10';
-        $guia->c04_docOrigem = '5656';
-        $guia->c06_valorPrincipal = 10.99;
-        $guia->c10_valorTotal = 12.52;
-        $guia->c14_dataVencimento = '2015-05-01';
-        $guia->c15_convenio = '546456';
-        $guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-        $guia->c17_inscricaoEstadualEmitente = '56756';
-        $guia->c18_enderecoEmitente = 'Queens St';
-        $guia->c19_municipioEmitente = '5300108';
-        $guia->c20_ufEnderecoEmitente = 'DF';
-        $guia->c21_cepEmitente = '08215917';
-        $guia->c22_telefoneEmitente = '1199999999';
-        $guia->c34_tipoIdentificacaoDestinatario = 1;
-        $guia->c35_idContribuinteDestinatario = '86268158000162';
-        $guia->c36_inscricaoEstadualDestinatario = '10809181';
-        $guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-        $guia->c38_municipioDestinatario = '2702306';
-        $guia->c33_dataPagamento = '2015-11-30';
-        $guia->mes = '05';
-        $guia->ano = '2015';
-        $guia->parcela = '2';
-        $guia->periodo = '2014';
+        $guia = new Guia(
+            ufFavorecida: UfEnum::PE,
+            tipoGnre: TipoGnreEnum::SIMPLES,
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
+                razaoSocial: 'GNRE PHP EMITENTE',
+                endereco: 'Queens St',
+                municipio: '53001',
+                uf: 'DF',
+                cep: '08215917',
+                telefone: '1199999999',
+            ),
+            itensGNRE: [
+                new ItemGNRE(
+                    receita: '100099',
+                    detalhamentoReceita: '101010',
+                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    produto: '1234',
+                    referencia: new Referencia(
+                        periodo: PeriodoEnum::MENSAL,
+                        mes: MesEnum::MAIO,
+                        ano: AnoEnum::ANO_2015,
+                        parcela: '2',
+                    ),
+                    dataVencimento: '2015-05-01',
+                    valores: [
+                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                    ],
+                    convenio: '546456',
+                    contribuinteDestinatario: new Contribuinte(
+                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '86268158000162'),
+                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                        municipio: '27023',
+                    ),
+                ),
+            ],
+            dataPagamento: '2015-11-30',
+        );
 
         $lote = new Lote();
         $lote->addGuia($guia);
@@ -81,37 +106,45 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-campos-extras.xml');
 
-        $guia = new Guia();
-
-        $guia->c01_UfFavorecida = '26';
-        $guia->c02_receita = '1000099';
-        $guia->c25_detalhamentoReceita = '10101010';
-        $guia->c26_produto = 'TESTE DE PROD';
-        $guia->c27_tipoIdentificacaoEmitente = 2;
-        $guia->c03_idContribuinteEmitente = '52162197650';
-        $guia->c28_tipoDocOrigem = '10';
-        $guia->c04_docOrigem = '5656';
-        $guia->c06_valorPrincipal = 10.99;
-        $guia->c10_valorTotal = 12.52;
-        $guia->c14_dataVencimento = '2015-05-01';
-        $guia->c15_convenio = '546456';
-        $guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-        $guia->c17_inscricaoEstadualEmitente = '56756';
-        $guia->c18_enderecoEmitente = 'Queens St';
-        $guia->c19_municipioEmitente = '5300108';
-        $guia->c20_ufEnderecoEmitente = 'DF';
-        $guia->c21_cepEmitente = '08215917';
-        $guia->c22_telefoneEmitente = '1199999999';
-        $guia->c34_tipoIdentificacaoDestinatario = 2;
-        $guia->c35_idContribuinteDestinatario = '99942896759';
-        $guia->c36_inscricaoEstadualDestinatario = '10809181';
-        $guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-        $guia->c38_municipioDestinatario = '2702306';
-        $guia->c33_dataPagamento = '2015-11-30';
-        $guia->mes = '05';
-        $guia->ano = '2015';
-        $guia->parcela = '2';
-        $guia->periodo = '2014';
+        $guia = new Guia(
+            ufFavorecida: UfEnum::PE,
+            tipoGnre: TipoGnreEnum::SIMPLES,
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                razaoSocial: 'GNRE PHP EMITENTE',
+                endereco: 'Queens St',
+                municipio: '53001',
+                uf: 'DF',
+                cep: '08215917',
+                telefone: '1199999999',
+            ),
+            itensGNRE: [
+                new ItemGNRE(
+                    receita: '100099',
+                    detalhamentoReceita: '101010',
+                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    produto: '1234',
+                    referencia: new Referencia(
+                        periodo: PeriodoEnum::MENSAL,
+                        mes: MesEnum::MAIO,
+                        ano: AnoEnum::ANO_2015,
+                        parcela: '2',
+                    ),
+                    dataVencimento: '2015-05-01',
+                    valores: [
+                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                    ],
+                    convenio: '546456',
+                    contribuinteDestinatario: new Contribuinte(
+                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                        municipio: '27023',
+                    ),
+                ),
+            ],
+            dataPagamento: '2015-11-30',
+        );
 
         $lote = new Lote();
         $lote->addGuia($guia);
@@ -123,36 +156,44 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-cep-emitente.xml');
 
-        $guia = new Guia();
-
-        $guia->c01_UfFavorecida = '26';
-        $guia->c02_receita = '1000099';
-        $guia->c25_detalhamentoReceita = '10101010';
-        $guia->c26_produto = 'TESTE DE PROD';
-        $guia->c27_tipoIdentificacaoEmitente = 2;
-        $guia->c03_idContribuinteEmitente = '52162197650';
-        $guia->c28_tipoDocOrigem = '10';
-        $guia->c04_docOrigem = '5656';
-        $guia->c06_valorPrincipal = 10.99;
-        $guia->c10_valorTotal = 12.52;
-        $guia->c14_dataVencimento = '2015-05-01';
-        $guia->c15_convenio = '546456';
-        $guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-        $guia->c17_inscricaoEstadualEmitente = '56756';
-        $guia->c18_enderecoEmitente = 'Queens St';
-        $guia->c19_municipioEmitente = '5300108';
-        $guia->c20_ufEnderecoEmitente = 'DF';
-        $guia->c22_telefoneEmitente = '1199999999';
-        $guia->c34_tipoIdentificacaoDestinatario = 2;
-        $guia->c35_idContribuinteDestinatario = '99942896759';
-        $guia->c36_inscricaoEstadualDestinatario = '10809181';
-        $guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-        $guia->c38_municipioDestinatario = '2702306';
-        $guia->c33_dataPagamento = '2015-11-30';
-        $guia->mes = '05';
-        $guia->ano = '2015';
-        $guia->parcela = '2';
-        $guia->periodo = '2014';
+        $guia = new Guia(
+            ufFavorecida: UfEnum::PE,
+            tipoGnre: TipoGnreEnum::SIMPLES,
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                razaoSocial: 'GNRE PHP EMITENTE',
+                endereco: 'Queens St',
+                municipio: '53001',
+                uf: 'DF',
+                telefone: '1199999999',
+            ),
+            itensGNRE: [
+                new ItemGNRE(
+                    receita: '100099',
+                    detalhamentoReceita: '101010',
+                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    produto: '1234',
+                    referencia: new Referencia(
+                        periodo: PeriodoEnum::MENSAL,
+                        mes: MesEnum::MAIO,
+                        ano: AnoEnum::ANO_2015,
+                        parcela: '2',
+                    ),
+                    dataVencimento: '2015-05-01',
+                    valores: [
+                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                    ],
+                    convenio: '546456',
+                    contribuinteDestinatario: new Contribuinte(
+                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                        municipio: '27023',
+                    ),
+                ),
+            ],
+            dataPagamento: '2015-11-30',
+        );
 
         $lote = new Lote();
         $lote->addGuia($guia);
@@ -164,36 +205,44 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-telefone-emitente.xml');
 
-        $guia = new Guia();
-
-        $guia->c01_UfFavorecida = '26';
-        $guia->c02_receita = '1000099';
-        $guia->c25_detalhamentoReceita = '10101010';
-        $guia->c26_produto = 'TESTE DE PROD';
-        $guia->c27_tipoIdentificacaoEmitente = 2;
-        $guia->c03_idContribuinteEmitente = '52162197650';
-        $guia->c28_tipoDocOrigem = '10';
-        $guia->c04_docOrigem = '5656';
-        $guia->c06_valorPrincipal = 10.99;
-        $guia->c10_valorTotal = 12.52;
-        $guia->c14_dataVencimento = '2015-05-01';
-        $guia->c15_convenio = '546456';
-        $guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-        $guia->c17_inscricaoEstadualEmitente = '56756';
-        $guia->c18_enderecoEmitente = 'Queens St';
-        $guia->c19_municipioEmitente = '5300108';
-        $guia->c20_ufEnderecoEmitente = 'DF';
-        $guia->c21_cepEmitente = '08215917';
-        $guia->c34_tipoIdentificacaoDestinatario = 2;
-        $guia->c35_idContribuinteDestinatario = '99942896759';
-        $guia->c36_inscricaoEstadualDestinatario = '10809181';
-        $guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-        $guia->c38_municipioDestinatario = '2702306';
-        $guia->c33_dataPagamento = '2015-11-30';
-        $guia->mes = '05';
-        $guia->ano = '2015';
-        $guia->parcela = '2';
-        $guia->periodo = '2014';
+        $guia = new Guia(
+            ufFavorecida: UfEnum::PE,
+            tipoGnre: TipoGnreEnum::SIMPLES,
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                razaoSocial: 'GNRE PHP EMITENTE',
+                endereco: 'Queens St',
+                municipio: '53001',
+                uf: 'DF',
+                cep: '08215917',
+            ),
+            itensGNRE: [
+                new ItemGNRE(
+                    receita: '100099',
+                    detalhamentoReceita: '101010',
+                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    produto: '1234',
+                    referencia: new Referencia(
+                        periodo: PeriodoEnum::MENSAL,
+                        mes: MesEnum::MAIO,
+                        ano: AnoEnum::ANO_2015,
+                        parcela: '2',
+                    ),
+                    dataVencimento: '2015-05-01',
+                    valores: [
+                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                    ],
+                    convenio: '546456',
+                    contribuinteDestinatario: new Contribuinte(
+                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                        municipio: '27023',
+                    ),
+                ),
+            ],
+            dataPagamento: '2015-11-30',
+        );
 
         $lote = new Lote();
         $lote->addGuia($guia);
@@ -205,36 +254,49 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-inscricao-estadual-emitente.xml');
 
-        $guia = new Guia();
-
-        $guia->c01_UfFavorecida = '26';
-        $guia->c02_receita = '1000099';
-        $guia->c25_detalhamentoReceita = '10101010';
-        $guia->c26_produto = 'TESTE DE PROD';
-        $guia->c27_tipoIdentificacaoEmitente = 2;
-        $guia->c03_idContribuinteEmitente = '52162197650';
-        $guia->c28_tipoDocOrigem = '10';
-        $guia->c04_docOrigem = '5656';
-        $guia->c06_valorPrincipal = 10.99;
-        $guia->c10_valorTotal = 12.52;
-        $guia->c14_dataVencimento = '2015-05-01';
-        $guia->c15_convenio = '546456';
-        $guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-        $guia->c18_enderecoEmitente = 'Queens St';
-        $guia->c19_municipioEmitente = '5300108';
-        $guia->c20_ufEnderecoEmitente = 'DF';
-        $guia->c21_cepEmitente = '08215917';
-        $guia->c22_telefoneEmitente = '1199999999';
-        $guia->c34_tipoIdentificacaoDestinatario = 2;
-        $guia->c35_idContribuinteDestinatario = '99942896759';
-        $guia->c36_inscricaoEstadualDestinatario = '10809181';
-        $guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-        $guia->c38_municipioDestinatario = '2702306';
-        $guia->c33_dataPagamento = '2015-11-30';
-        $guia->mes = '05';
-        $guia->ano = '2015';
-        $guia->parcela = '2';
-        $guia->periodo = '2014';
+        $guia = new Guia(
+            ufFavorecida: UfEnum::PE,
+            tipoGnre: TipoGnreEnum::SIMPLES,
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                razaoSocial: 'GNRE PHP EMITENTE',
+                endereco: 'Queens St',
+                municipio: '53001',
+                uf: 'DF',
+                cep: '08215917',
+                telefone: '1199999999',
+            ),
+            itensGNRE: [
+                new ItemGNRE(
+                    receita: '100099',
+                    detalhamentoReceita: '101010',
+                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    produto: '1234',
+                    referencia: new Referencia(
+                        periodo: PeriodoEnum::MENSAL,
+                        mes: MesEnum::MAIO,
+                        ano: AnoEnum::ANO_2015,
+                        parcela: '2',
+                    ),
+                    dataVencimento: '2015-05-01',
+                    valores: [
+                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                    ],
+                    convenio: '546456',
+                    contribuinteDestinatario: new Contribuinte(
+                        identificacao: new Identificacao(
+                            tipo: TipoIdentificacaoEnum::CPF,
+                            cpf: '99942896759',
+                            ie: '10809181',
+                        ),
+                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                        municipio: '27023',
+                    ),
+                ),
+            ],
+            dataPagamento: '2015-11-30',
+        );
 
         $lote = new Lote();
         $lote->addGuia($guia);
@@ -246,39 +308,74 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml');
 
-        $guia = new Guia();
-
-        $guia->c01_UfFavorecida = '26';
-        $guia->c02_receita = '1000099';
-        $guia->c25_detalhamentoReceita = '10101010';
-        $guia->c26_produto = 'TESTE DE PROD';
-        $guia->c27_tipoIdentificacaoEmitente = 1;
-        $guia->c03_idContribuinteEmitente = '41819055000105';
-        $guia->c28_tipoDocOrigem = '10';
-        $guia->c04_docOrigem = '5656';
-        $guia->c06_valorPrincipal = 10.99;
-        $guia->c10_valorTotal = 12.52;
-        $guia->c14_dataVencimento = '2015-05-01';
-        $guia->c15_convenio = '546456';
-        $guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-        $guia->c17_inscricaoEstadualEmitente = '56756';
-        $guia->c18_enderecoEmitente = 'Queens St';
-        $guia->c19_municipioEmitente = '5300108';
-        $guia->c20_ufEnderecoEmitente = 'DF';
-        $guia->c21_cepEmitente = '08215917';
-        $guia->c22_telefoneEmitente = '1199999999';
-        $guia->c34_tipoIdentificacaoDestinatario = 1;
-        $guia->c35_idContribuinteDestinatario = '86268158000162';
-        $guia->c36_inscricaoEstadualDestinatario = '10809181';
-        $guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-        $guia->c38_municipioDestinatario = '2702306';
-        $guia->c33_dataPagamento = '2015-11-30';
-        $guia->mes = '05';
-        $guia->ano = '2015';
-        $guia->parcela = '2';
-        $guia->periodo = '2014';
-
-        $guia->c39_camposExtras = [['campoExtra' => ['codigo' => 16, 'tipo' => 'T', 'valor' => '1200012']], ['campoExtra' => ['codigo' => 15, 'tipo' => 'D', 'valor' => '2015-03-02']], ['campoExtra' => ['codigo' => 10, 'tipo' => 'T', 'valor' => 17.21]]];
+        $guia = new Guia(
+            ufFavorecida: UfEnum::PE,
+            tipoGnre: TipoGnreEnum::SIMPLES,
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
+                razaoSocial: 'GNRE PHP EMITENTE',
+                endereco: 'Queens St',
+                municipio: '53001',
+                uf: 'DF',
+                cep: '08215917',
+                telefone: '1199999999',
+            ),
+            itensGNRE: [
+                new ItemGNRE(
+                    receita: '100099',
+                    detalhamentoReceita: '101010',
+                    documentoOrigem: new DocumentoOrigem(
+                        tipo: '10',
+                        numero: '5656',
+                    ),
+                    produto: '1234',
+                    referencia: new Referencia(
+                        periodo: PeriodoEnum::MENSAL,
+                        mes: MesEnum::MAIO,
+                        ano: AnoEnum::ANO_2015,
+                        parcela: '2',
+                    ),
+                    dataVencimento: '2015-05-01',
+                    valores: [
+                        new Valor(
+                            tipo: ValorTipoEnum::PRINCIPAL_ICMS,
+                            valor: 10.99,
+                        ),
+                        new Valor(
+                            tipo: ValorTipoEnum::TOTAL_ICMS,
+                            valor: 12.52,
+                        ),
+                    ],
+                    convenio: '546456',
+                    contribuinteDestinatario: new Contribuinte(
+                        identificacao: new Identificacao(
+                            tipo: TipoIdentificacaoEnum::CNPJ,
+                            cnpj: '86268158000162',
+                        ),
+                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                        municipio: '27023',
+                    ),
+                    camposExtras: [
+                        new CampoExtra(
+                            codigo: 16,
+                            tipo: TipoCampoExtraEnum::TEXTO,
+                            valor: '1200012',
+                        ),
+                        new CampoExtra(
+                            codigo: 15,
+                            tipo: TipoCampoExtraEnum::DATA,
+                            valor: '2015-03-02',
+                        ),
+                        new CampoExtra(
+                            codigo: 10,
+                            tipo: TipoCampoExtraEnum::TEXTO,
+                            valor: '17.21',
+                        ),
+                    ],
+                ),
+            ],
+            dataPagamento: '2015-11-30',
+        );
 
         $lote = new Lote();
         $lote->addGuia($guia);

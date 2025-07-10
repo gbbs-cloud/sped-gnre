@@ -18,17 +18,21 @@
 namespace Sped\Gnre\Test\Sefaz;
 
 use PHPUnit\Framework\TestCase;
+use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\Lote;
+use Sped\Gnre\Sefaz\Enum\UfEnum;
+use Sped\Gnre\Sefaz\Enum\TipoGnreEnum;
 
 /**
  * @covers Sped\Gnre\Sefaz\LoteGnre
  */
 class LoteGnreTest extends TestCase
 {
-    private ?\Sped\Gnre\Sefaz\Lote $lote = null;
+    private ?Lote $lote = null;
 
     protected function setUp(): void
     {
-        $this->lote = new \Sped\Gnre\Sefaz\Lote();
+        $this->lote = new Lote();
     }
 
     protected function tearDown(): void
@@ -38,16 +42,16 @@ class LoteGnreTest extends TestCase
 
     public function test_adicionar_uma_guia_ao_lote(): void
     {
-        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
+        $this->lote->addGuia(new Guia(ufFavorecida: UfEnum::PE, tipoGnre: TipoGnreEnum::SIMPLES));
         $this->assertEquals(1, count($this->lote->getGuias()));
     }
 
     public function test_buscar_uma_guia_em_especifico(): void
     {
-        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
-        $this->lote->addGuia(new \Sped\Gnre\Sefaz\Guia());
+        $this->lote->addGuia(new Guia(ufFavorecida: UfEnum::PE, tipoGnre: TipoGnreEnum::SIMPLES));
+        $this->lote->addGuia(new Guia(ufFavorecida: UfEnum::PE, tipoGnre: TipoGnreEnum::SIMPLES));
 
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Guia::class, $this->lote->getGuia(0));
-        $this->assertInstanceOf(\Sped\Gnre\Sefaz\Guia::class, $this->lote->getGuia(1));
+        $this->assertInstanceOf(Guia::class, $this->lote->getGuia(0));
+        $this->assertInstanceOf(Guia::class, $this->lote->getGuia(1));
     }
 }
