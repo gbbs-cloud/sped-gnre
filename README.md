@@ -105,6 +105,39 @@ Documentação
 
 * Exemplos com código fonte são encontrados na pasta [exemplos/](https://github.com/nfephp-org/sped-gnre/tree/master/exemplos)
 
+Estados Atendidos
+------
+### Estados que utilizam o serviço do Portal GNRE (www.gnre.pe.gov.br)
+* Acre (AC)
+* Alagoas (AL)
+* Amapá (AP)
+* Amazonas (AM)
+* Bahia (BA)
+* Ceará (CE)
+* Distrito Federal (DF)
+* Goiás (GO)
+* Maranhão (MA)
+* Mato Grosso (MT)
+* Mato Grosso do Sul (MS)
+* Minas Gerais (MG)
+* Pará (PA)
+* Paraíba (PB)
+* Pernambuco (PE)
+* Piauí (PI)
+* Paraná (PR)
+* Rio de Janeiro (RJ)
+* Rio Grande do Norte (RN)
+* Rio Grande do Sul (RS)
+* Rondônia (RO)
+* Roraima (RR)
+* Santa Catarina (SC)
+* Sergipe (SE)
+* Tocantins (TO)
+
+### Estados que utilizam serviço próprio
+* **Espírito Santo (ES)**: Utiliza o DUA (Documento Único de Arrecadação). A emissão é feita pelo site da [SEFAZ-ES](https://sistemas.sefaz.es.gov.br/idaf/pre-dua-externo/principal.php).
+* **São Paulo (SP)**: Utiliza o DARE/SP (Documento de Arrecadação de Receitas Estaduais). A emissão é feita pelo site da [Fazenda de São Paulo](https://portal.fazenda.sp.gov.br/servicos/gnre/).
+
 Instalação via composer
 ------
 Adicionando a GNRE PHP em um projeto existente com o composer
