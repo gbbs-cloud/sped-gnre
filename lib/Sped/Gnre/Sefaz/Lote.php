@@ -209,6 +209,10 @@ class Lote extends LoteGnre
                 $dados->appendChild($c38);
             }
             $dados->appendChild($c33);
+            if ($gnreGuia->c42_identificadorGuia) {
+                $c42 = $gnre->createElement('c42_identificadorGuia', $gnreGuia->c42_identificadorGuia);
+                $dados->appendChild($c42);
+            }
 
             $c05 = $guiaEstado->getNodeReferencia($gnre, $gnreGuia);
             if ($c05) {
