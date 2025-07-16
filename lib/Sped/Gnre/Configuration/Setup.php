@@ -35,6 +35,11 @@ abstract class Setup
     protected bool $debug = false;
 
     /**
+     * @return \NFePHP\Common\Certificate
+     */
+    abstract public function getCertificate();
+
+    /**
      * Retorna o IP do proxy caso a API esteja atrás de um por exemplo 192.168.0.1
      */
     abstract public function getProxyIp(): string;
@@ -43,18 +48,6 @@ abstract class Setup
      * Retorna a porta do servidor de proxy por exemplo 3128 (squid)
      */
     abstract public function getProxyPort(): string;
-
-    /**
-     * Método que retorna o caminho e o nome do arquivo privado extraído do certificado por exemplo
-     * /var/www/chave_privada.pem
-     */
-    abstract public function getPrivateKey(): string;
-
-    /**
-     * Método que retorna o caminho e o nome do arquivo extraído do certificado por exemplo
-     * /var/www/certificado_pem.pem
-     */
-    abstract public function getCertificatePemFile(): string;
 
     /**
      * Método utilizado para retornar o modo de debug

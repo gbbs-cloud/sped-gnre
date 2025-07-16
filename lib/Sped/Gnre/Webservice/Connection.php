@@ -49,14 +49,16 @@ class Connection
      */
     public function __construct(private readonly Setup $setup, $headers, $data)
     {
+        $certificate = $this->setup->getCertificate();
+
         $this->curlOptions = [
             CURLOPT_PORT           => 443,
             CURLOPT_HEADER         => 1,
             CURLOPT_SSLVERSION     => 3,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_SSLCERT        => $this->setup->getCertificatePemFile(),
-            CURLOPT_SSLKEY         => $this->setup->getPrivateKey(),
+            CURLOPT_SSLCERT        => $certificate->getCertPemFile(),
+            CURLOPT_SSLKEY         => $certificate->getPrivateKeyFile(),
             CURLOPT_POST           => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_POSTFIELDS     => $data,

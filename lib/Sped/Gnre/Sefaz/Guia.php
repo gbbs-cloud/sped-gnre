@@ -41,7 +41,7 @@ class Guia
      * Uma sigla representando um dos 27 estados brasileiros
      * por exemplo AC, BA, DF
      */
-    private string $c01_UfFavorecida;
+    private readonly string $c01_UfFavorecida;
 
     private ?string $c02_receita = null;
 

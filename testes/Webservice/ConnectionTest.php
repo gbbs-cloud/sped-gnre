@@ -2,6 +2,7 @@
 
 namespace Sped\Gnre\Test\Sefaz;
 
+use NFePHP\Common\Certificate;
 use PHPUnit\Framework\TestCase;
 use Sped\Gnre\Webservice\Connection;
 
@@ -20,8 +21,8 @@ class ConnectionTest extends TestCase
             CURLOPT_SSLVERSION     => 3,
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
-            CURLOPT_SSLCERT        => null,
-            CURLOPT_SSLKEY         => null,
+            CURLOPT_SSLCERT        => '/foo/bar/cert.pem',
+            CURLOPT_SSLKEY         => '/foo/bar/priv.pem',
             CURLOPT_POST           => 1,
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_POSTFIELDS     => '',
@@ -37,7 +38,18 @@ class ConnectionTest extends TestCase
 
     public function test_deve_adicionar_uma_noca_opcao_as_opcoes_do_curl(): void
     {
+        $certificate = $this->getMockBuilder(Certificate::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getCertPemFile', 'getPrivateKeyFile'])
+            ->getMock();
+        $certificate->method('getCertPemFile')->willReturn('/foo/bar/cert.pem');
+        $certificate->method('getPrivateKeyFile')->willReturn('/foo/bar/priv.pem');
+
         $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);
+        $setup->method('getCertificate')
+            ->willReturn($certificate);
+
+        /** @var \Sped\Gnre\Configuration\Setup $setup */
 
         $connection = new Connection($setup, [], '');
 
@@ -55,13 +67,21 @@ class ConnectionTest extends TestCase
         $this->curlOptions[CURLOPT_SSLCERT] = '/foo/bar/cert.pem';
         $this->curlOptions[CURLOPT_SSLKEY] = '/foo/bar/priv.pem';
 
+        $certificate = $this->getMockBuilder(Certificate::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getCertPemFile', 'getPrivateKeyFile'])
+            ->getMock();
+        $certificate->method('getCertPemFile')->willReturn('/foo/bar/cert.pem');
+        $certificate->method('getPrivateKeyFile')->willReturn('/foo/bar/priv.pem');
+        $certificate->method('getCertPemFile')->willReturn('/foo/bar/cert.pem');
+        $certificate->method('getPrivateKeyFile')->willReturn('/foo/bar/priv.pem');
+
         $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);
         $setup->expects($this->once())
-            ->method('getCertificatePemFile')
-            ->will($this->returnValue('/foo/bar/cert.pem'));
-        $setup->expects($this->once())
-            ->method('getPrivateKey')
-            ->will($this->returnValue('/foo/bar/priv.pem'));
+            ->method('getCertificate')
+            ->willReturn($certificate);
+
+        /** @var \Sped\Gnre\Configuration\Setup $setup */
 
         $connection = new Connection($setup, [], '');
 
@@ -74,13 +94,22 @@ class ConnectionTest extends TestCase
         $this->curlOptions[CURLOPT_PROXYTYPE] = 'CURLPROXY_HTTP';
         $this->curlOptions[CURLOPT_PROXY] = '192.168.0.1:3128';
 
+        $certificate = $this->getMockBuilder(Certificate::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getCertPemFile', 'getPrivateKeyFile'])
+            ->getMock();
+        $certificate->method('getCertPemFile')->willReturn('/foo/bar/cert.pem');
+        $certificate->method('getPrivateKeyFile')->willReturn('/foo/bar/priv.pem');
+
         $setup = $this->getMockForAbstractClass(\Sped\Gnre\Configuration\Setup::class);
-        $setup->expects($this->exactly(2))
-            ->method('getProxyIp')
-            ->will($this->returnValue('192.168.0.1'));
-        $setup->expects($this->exactly(2))
-            ->method('getProxyPort')
-            ->will($this->returnValue('3128'));
+        $setup->method('getCertificate')
+            ->willReturn($certificate);
+        $setup->method('getProxyIp')
+            ->willReturn('192.168.0.1');
+        $setup->method('getProxyPort')
+            ->willReturn('3128');
+        
+        /** @var \Sped\Gnre\Configuration\Setup $setup */
 
         $connection = new Connection($setup, [], '');
 
