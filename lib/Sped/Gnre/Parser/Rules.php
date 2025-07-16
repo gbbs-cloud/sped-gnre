@@ -1,18 +1,8 @@
 <?php
 
 /**
- * Este arquivo é parte do programa GNRE PHP
- * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
- * modificá-lo dentro dos termos da Licença Pública Geral GNU como
- * abstractada pela Fundação do Software Livre (FSF); na versão 2 da
- * Licença, ou (na sua opinião) qualquer versão.
- * Este programa é distribuído na esperança de que possa ser  útil,
- * mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer
- * MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
- * Licença Pública Geral GNU para maiores detalhes.
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU
- * junto com este programa, se não, escreva para a Fundação do Software
- * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Part of GNRE PHP – see LICENSE.md in the project root for details.
  */
 
 namespace Sped\Gnre\Parser;
@@ -21,12 +11,9 @@ namespace Sped\Gnre\Parser;
  * Classe abstrata que utiliza o padrão de projeto Template Method para
  * setar as regras de leitura do retorno da SEFAZ
  *
- * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
- * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
  *
  * @link        http://en.wikipedia.org/wiki/Template_method_pattern Template Method Design Pattern
  *
- * @version     1.0.0
  */
 abstract class Rules
 {
@@ -66,7 +53,6 @@ abstract class Rules
      * @param  string  $dadosArquivo  <p>String contendo o conteúdo de retorno do
      *                                web service da SEFAZ</p>
      *
-     * @since 1.0.0
      */
     public function __construct($dadosArquivo)
     {

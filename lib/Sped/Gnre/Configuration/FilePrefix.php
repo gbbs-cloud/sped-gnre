@@ -1,18 +1,8 @@
 <?php
 
 /**
- * Este arquivo é parte do programa GNRE PHP
- * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
- * modificá-lo dentro dos termos da Licença Pública Geral GNU como
- * publicada pela Fundação do Software Livre (FSF); na versão 2 da
- * Licença, ou (na sua opinião) qualquer versão.
- * Este programa é distribuído na esperança de que possa ser  útil,
- * mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer
- * MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
- * Licença Pública Geral GNU para maiores detalhes.
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU
- * junto com este programa, se não, escreva para a Fundação do Software
- * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Part of GNRE PHP – see LICENSE.md in the project root for details.
  */
 
 namespace Sped\Gnre\Configuration;
@@ -21,10 +11,7 @@ namespace Sped\Gnre\Configuration;
  * Classe que realiza a adição de prefixos no nome do arquivo desejado
  * IMPORTANTE: A classe não realiza escrita em disco ou manipulação de arquivos
  *
- * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
- * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
  *
- * @version     1.0.0
  */
 class FilePrefix
 {
@@ -40,7 +27,6 @@ class FilePrefix
      *
      * @param  string  $prefix  Nome do prefixo por exemplo _private, _public etc
      *
-     * @since  1.0.0
      */
     public function setPrefix($prefix): void
     {
@@ -53,7 +39,6 @@ class FilePrefix
      * @param  string  $path  O caminho completo junto com o nome do arquivo por exemplo /var/foo/arquivo.tmp
      * @return string O novo nome do arquivo e seu caminho completo
      *
-     * @since  1.0.0
      */
     public function apply($path)
     {

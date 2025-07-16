@@ -1,30 +1,17 @@
 <?php
 
 /**
- * Este arquivo é parte do programa GNRE PHP
- * GNRE PHP é um software livre; você pode redistribuí-lo e/ou
- * modificá-lo dentro dos termos da Licença Pública Geral GNU como
- * publicada pela Fundação do Software Livre (FSF); na versão 2 da
- * Licença, ou (na sua opinião) qualquer versão.
- * Este programa é distribuído na esperança de que possa ser  útil,
- * mas SEM NENHUMA GARANTIA; sem uma garantia implícita de ADEQUAÇÃO a qualquer
- * MERCADO ou APLICAÇÃO EM PARTICULAR. Veja a
- * Licença Pública Geral GNU para maiores detalhes.
- * Você deve ter recebido uma cópia da Licença Pública Geral GNU
- * junto com este programa, se não, escreva para a Fundação do Software
- * Livre(FSF) Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Part of GNRE PHP – see LICENSE.md in the project root for details.
  */
+
+declare(strict_types=1);
 
 namespace Sped\Gnre\Configuration;
 
 /**
  * Classe responsável por extrair os dados de um certificado baseado
  * nos parâmetros passados para enviar uma consulta para a sefaz com sucesso
- *
- * @author      Matheus Marabesi <matheus.marabesi@gmail.com>
- * @license     http://www.gnu.org/licenses/gpl-howto.html GPL
- *
- * @version     1.0.0
  */
 class CertificatePfx
 {
@@ -33,21 +20,17 @@ class CertificatePfx
      *
      * @var array
      */
-    private $dataCertificate = [];
+    private array $dataCertificate = [];
 
     /**
      * Dependências utilizadas para efetuar operação no certificado desejado
      *
+     * @param  CertificatePfxFileOperation  $cerficationFileOperation  Objecto necessário para realizar operações de criação de arquivos a partir dos dados do certificado
      * @param  string  $password  senha utilizada para realizar operações com o certificado
-     *
-     * @since  1.0.0
      */
-    public function __construct(/**
-         * Objecto necessário para realizar operações de criação de arquivos
-         * a partir dos dados do certificado
-         */
+    public function __construct(
         private readonly CertificatePfxFileOperation $cerficationFileOperation,
-        $password
+        string $password
     ) {
         $this->dataCertificate = $this->cerficationFileOperation->open($password);
     }
@@ -60,10 +43,8 @@ class CertificatePfx
      * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado
      *
      * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
-     *
-     * @since  1.0.0
      */
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
         $filePrefix = new FilePrefix();
         $filePrefix->setPrefix('_privKEY');
@@ -79,10 +60,8 @@ class CertificatePfx
      * @return string Retorna uma string com o caminho e o nome do arquivo que foi criado
      *
      * @throws Sped\Gnre\Exception\UnableToWriteFile Se a pasta de destino não tiver permissão para escrita
-     *
-     * @since  1.0.0
      */
-    public function getCertificatePem()
+    public function getCertificatePem(): string
     {
         $filePrefix = new FilePrefix();
         $filePrefix->setPrefix('_certKEY');
