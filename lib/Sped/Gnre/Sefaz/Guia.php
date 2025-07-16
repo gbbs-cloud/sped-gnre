@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ * Part of GNRE PHP – see LICENSE.md in the project root for details.
+ */
+
 declare(strict_types=1);
 
 namespace Sped\Gnre\Sefaz;
