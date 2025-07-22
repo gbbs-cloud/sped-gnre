@@ -2,59 +2,36 @@
 
 namespace Exemplo;
 
+use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\Lote;
+use Sped\Gnre\Webservice\Connection;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-class MySetup extends Sped\Gnre\Configuration\Setup
+class MySetup extends Setup
 {
-    public function getBaseUrl()
+    public function getCertificatePemFile(): string
     {
+        return '';
     }
 
-    public function getCertificateCnpj()
+    public function getPrivateKey(): string
     {
+        return '';
     }
 
-    public function getCertificateDirectory()
+    public function getProxyIp(): string
     {
+        return '';
     }
 
-    public function getCertificateName()
+    public function getProxyPort(): string
     {
+        return '';
     }
 
-    public function getCertificatePassword()
-    {
-    }
-
-    public function getCertificatePemFile()
-    {
-    }
-
-    public function getEnvironment()
-    {
-    }
-
-    public function getPrivateKey()
-    {
-    }
-
-    public function getProxyIp()
-    {
-    }
-
-    public function getProxyPass()
-    {
-    }
-
-    public function getProxyPort()
-    {
-    }
-
-    public function getProxyUser()
-    {
-    }
-
-    public function getDebug()
+    public function getDebug(): bool
     {
         return true;
     }
@@ -64,12 +41,12 @@ $xml = file_get_contents('xml/estrutura-lote-completo-gnre.xml');
 
 $minhaConfiguracao = new MySetup();
 
-$guia = new Sped\Gnre\Sefaz\Guia();
+$guia = new Guia();
 
-$lote = new Sped\Gnre\Sefaz\Lote();
+$lote = new Lote();
 // $lote->utilizarAmbienteDeTeste(true); Descomente essa linha para utilizar o ambiente de testes
 
 $lote->addGuia($guia);
 
-$webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $lote->getHeaderSoap(), $lote->toXml());
+$webService = new Connection($minhaConfiguracao, $lote->getHeaderSoap(), $lote->toXml());
 echo $webService->doRequest($lote->soapAction());

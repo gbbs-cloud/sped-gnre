@@ -2,68 +2,45 @@
 
 namespace Exemplo;
 
+use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Sefaz\Consulta;
+use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Webservice\Connection;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-class MySetup extends Sped\Gnre\Configuration\Setup
+class MySetup extends Setup
 {
-    public function getBaseUrl()
+    public function getCertificatePemFile(): string
     {
+        return '';
     }
 
-    public function getCertificateCnpj()
+    public function getPrivateKey(): string
     {
+        return '';
     }
 
-    public function getCertificateDirectory()
+    public function getProxyIp(): string
     {
+        return '';
     }
 
-    public function getCertificateName()
+    public function getProxyPort(): string
     {
-    }
-
-    public function getCertificatePassword()
-    {
-    }
-
-    public function getCertificatePemFile()
-    {
-    }
-
-    public function getEnvironment()
-    {
-    }
-
-    public function getPrivateKey()
-    {
-    }
-
-    public function getProxyIp()
-    {
-    }
-
-    public function getProxyPass()
-    {
-    }
-
-    public function getProxyPort()
-    {
-    }
-
-    public function getProxyUser()
-    {
+        return '';
     }
 }
 
 $minhaConfiguracao = new MySetup();
 
-$guia = new Sped\Gnre\Sefaz\Guia();
+$guia = new Guia();
 
-$consulta = new Sped\Gnre\Sefaz\Consulta();
+$consulta = new Consulta();
 $consulta->setRecibo(12345123);
 
 /**
- * O número que representa em qual ambiente sera realizada a consulta
+ * O número que representa em qual ambiente será realizada a consulta
  * 1 - produção 2 - homologação
  */
 $consulta->setEnvironment(1);
@@ -72,5 +49,5 @@ $consulta->setEnvironment(1);
 // header('Content-Type: text/xml');
 // print $consulta->toXml(); // exibe o XML da consulta
 
-$webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
+$webService = new Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
 echo $webService->doRequest($consulta->soapAction());
