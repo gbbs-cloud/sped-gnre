@@ -100,7 +100,7 @@ class Lote extends LoteGnre
             $dados = $gnre->createElement('TDadosGNRE');
             $c1 = $gnre->createElement('c01_UfFavorecida', $estado);
             $c2 = $gnre->createElement('c02_receita', $gnreGuia->c02_receita);
-            $c25 = $gnre->createElement('c25_detalhamentoReceita', $gnreGuia->c25_detalhamentoReceita);
+            $c25 = $gnre->createElement('c25_detalhamentoReceita', (string) $gnreGuia->c25_detalhamentoReceita);
             $c26 = $gnre->createElement('c26_produto', $gnreGuia->c26_produto);
             $c27 = $gnre->createElement('c27_tipoIdentificacaoEmitente', $gnreGuia->c27_tipoIdentificacaoEmitente);
 
@@ -114,7 +114,7 @@ class Lote extends LoteGnre
 
             $c03->appendChild($emitenteContribuinteDocumento);
 
-            $c28 = $gnre->createElement('c28_tipoDocOrigem', $gnreGuia->c28_tipoDocOrigem);
+            $c28 = $gnre->createElement('c28_tipoDocOrigem', (string) $gnreGuia->c28_tipoDocOrigem);
             $c04 = $gnre->createElement('c04_docOrigem', $gnreGuia->c04_docOrigem);
             if ($gnreGuia->c06_valorPrincipal) {
                 $c06 = $gnre->createElement('c06_valorPrincipal', $gnreGuia->c06_valorPrincipal);
@@ -124,7 +124,7 @@ class Lote extends LoteGnre
             }
             $c14 = $gnre->createElement('c14_dataVencimento', $gnreGuia->c14_dataVencimento);
             $c15 = $gnre->createElement('c15_convenio', $gnreGuia->c15_convenio);
-            $c16 = $gnre->createElement('c16_razaoSocialEmitente', $gnreGuia->c16_razaoSocialEmitente);
+            $c16 = $gnre->createElement('c16_razaoSocialEmitente', (string) $gnreGuia->c16_razaoSocialEmitente);
             if ($gnreGuia->c17_inscricaoEstadualEmitente) {
                 $c17 = $gnre->createElement('c17_inscricaoEstadualEmitente', $gnreGuia->c17_inscricaoEstadualEmitente);
             }
@@ -153,8 +153,8 @@ class Lote extends LoteGnre
             $c35->appendChild($destinatarioContribuinteDocumento);
 
             $c36_inscricaoEstadualDestinatario = $gnreGuia->c36_inscricaoEstadualDestinatario;
-            $c36 = $gnre->createElement('c36_inscricaoEstadualDestinatario', $c36_inscricaoEstadualDestinatario);
-            $c37 = $gnre->createElement('c37_razaoSocialDestinatario', $gnreGuia->c37_razaoSocialDestinatario);
+            $c36 = $gnre->createElement('c36_inscricaoEstadualDestinatario', (string) $gnreGuia->c36_inscricaoEstadualDestinatario);
+            $c37 = $gnre->createElement('c37_razaoSocialDestinatario', (string) $gnreGuia->c37_razaoSocialDestinatario);
             $c38 = $gnre->createElement('c38_municipioDestinatario', $gnreGuia->c38_municipioDestinatario);
             $c33 = $gnre->createElement('c33_dataPagamento', $gnreGuia->c33_dataPagamento);
 

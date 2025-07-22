@@ -88,7 +88,7 @@ class SefazRetorno extends Rules
     protected function getTipoEmitente()
     {
         $content = $this->getContent($this->dadosArquivo[$this->index], 14, 1);
-        $this->lote['lote'][$this->index]->c27_tipoIdentificacaoEmitente = $content;
+        $this->lote['lote'][$this->index]->c27_tipoIdentificacaoEmitente = (int) $content;
     }
 
     protected function getDocumentoEmitente()
@@ -136,7 +136,7 @@ class SefazRetorno extends Rules
     protected function getTipoDocDestinatario()
     {
         $content = $this->getContent($this->dadosArquivo[$this->index], 222, 1);
-        $this->lote['lote'][$this->index]->c34_tipoIdentificacaoDestinatario = $content;
+        $this->lote['lote'][$this->index]->c34_tipoIdentificacaoDestinatario = (int) $content;
     }
 
     protected function getDocumentoDestinatario()
@@ -202,7 +202,7 @@ class SefazRetorno extends Rules
     protected function getValorPrincipal()
     {
         $content = $this->getContent($this->dadosArquivo[$this->index], 918, 15);
-        $this->lote['lote'][$this->index]->c06_valorPrincipal = $content;
+        $this->lote['lote'][$this->index]->c06_valorPrincipal = (float) $content;
     }
 
     protected function getSequencialGuia()
@@ -226,19 +226,19 @@ class SefazRetorno extends Rules
     protected function getAtualizacaoMonetaria()
     {
         $content = $this->getContent($this->dadosArquivo[$this->index], 933, 15);
-        $this->lote['lote'][$this->index]->retornoAtualizacaoMonetaria = $content;
+        $this->lote['lote'][$this->index]->retornoAtualizacaoMonetaria = (float) $content;
     }
 
     protected function getJuros()
     {
         $content = $this->getContent($this->dadosArquivo[$this->index], 948, 15);
-        $this->lote['lote'][$this->index]->retornoJuros = $content;
+        $this->lote['lote'][$this->index]->retornoJuros = (float) $content;
     }
 
     protected function getMulta()
     {
         $content = $this->getContent($this->dadosArquivo[$this->index], 963, 15);
-        $this->lote['lote'][$this->index]->retornoMulta = $content;
+        $this->lote['lote'][$this->index]->retornoMulta = (float) $content;
     }
 
     protected function getRepresentacaoNumerica()

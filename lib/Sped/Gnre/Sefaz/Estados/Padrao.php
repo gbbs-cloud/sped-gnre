@@ -62,8 +62,8 @@ abstract class Padrao
         if ($gnreGuia->periodo) {
             $periodo = $gnre->createElement('periodo', $gnreGuia->periodo);
         }
-        $mes = $gnre->createElement('mes', $gnreGuia->mes);
-        $ano = $gnre->createElement('ano', $gnreGuia->ano);
+        $mes = $gnre->createElement('mes', (string) $gnreGuia->mes);
+        $ano = $gnre->createElement('ano', (string) $gnreGuia->ano);
         if ($gnreGuia->parcela) {
             $parcela = $gnre->createElement('parcela', $gnreGuia->parcela);
         }
