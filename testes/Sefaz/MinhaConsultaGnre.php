@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sped\Gnre\Test\Sefaz;
 
 use Sped\Gnre\Sefaz\ConsultaGnre;
@@ -25,7 +27,7 @@ class MinhaConsultaGnre extends ConsultaGnre
     {
     }
 
-    public function utilizarAmbienteDeTeste($ambiente = false)
+    public function utilizarAmbienteDeTeste($ambiente = false): void
     {
     }
 }

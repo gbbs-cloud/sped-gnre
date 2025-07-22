@@ -1,12 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 require __DIR__ . '/../vendor/autoload.php';
 
+use Sped\Gnre\Configuration\CertificatePfx;
 use Sped\Gnre\Configuration\CertificatePfxFileOperation;
 
-$certificadoArquivo = new CertificatePfxFileOperation('/var/www/sped-gnre/certs/certificado.pfx');
+// Informe o caminho para o seu certificado .pfx
+$pfxPath = '/caminho/para/seu/certificado.pfx';
 
-$gnre = new Sped\Gnre\Configuration\CertificatePfx($certificadoArquivo, '425236');
+if (! file_exists($pfxPath)) {
+    exit("Certificado não encontrado em: {$pfxPath}\n");
+}
+
+$certificadoArquivo = new CertificatePfxFileOperation($pfxPath);
+
+// Informe a senha do seu certificado
+$gnre = new CertificatePfx($certificadoArquivo, 'sua-senha');
 
 echo 'Private key' . PHP_EOL;
 echo $gnre->getPrivateKey();
