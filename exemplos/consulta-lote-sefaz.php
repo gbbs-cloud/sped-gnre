@@ -11,20 +11,24 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Setup
 {
-    public function getCertificatePemFile()
+    public function getCertificatePemFile(): string
     {
+        return '';
     }
 
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
+        return '';
     }
 
-    public function getProxyIp()
+    public function getProxyIp(): string
     {
+        return '';
     }
 
-    public function getProxyPort()
+    public function getProxyPort(): string
     {
+        return '';
     }
 }
 
@@ -36,7 +40,7 @@ $consulta = new Consulta();
 $consulta->setRecibo(12345123);
 
 /**
- * O número que representa em qual ambiente sera realizada a consulta
+ * O número que representa em qual ambiente será realizada a consulta
  * 1 - produção 2 - homologação
  */
 $consulta->setEnvironment(1);

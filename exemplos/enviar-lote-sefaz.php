@@ -11,23 +11,27 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Setup
 {
-    public function getCertificatePemFile()
+    public function getCertificatePemFile(): string
     {
+        return '';
     }
 
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
+        return '';
     }
 
-    public function getProxyIp()
+    public function getProxyIp(): string
     {
+        return '';
     }
 
-    public function getProxyPort()
+    public function getProxyPort(): string
     {
+        return '';
     }
 
-    public function getDebug()
+    public function getDebug(): bool
     {
         return true;
     }

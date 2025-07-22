@@ -10,20 +10,24 @@ require __DIR__ . '/../vendor/autoload.php';
 
 class MySetup extends Setup
 {
-    public function getCertificatePemFile()
+    public function getCertificatePemFile(): string
     {
+        return '';
     }
 
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
+        return '';
     }
 
-    public function getProxyIp()
+    public function getProxyIp(): string
     {
+        return '';
     }
 
-    public function getProxyPort()
+    public function getProxyPort(): string
     {
+        return '';
     }
 }
 
@@ -32,7 +36,7 @@ $minhaConfiguracao = new MySetup();
 $config = new ConfigUf();
 
 /**
- * Qual ambiente sera realizada a consulta
+ * Qual ambiente será realizada a consulta
  */
 $config->setEnvironment(1);
 $config->setReceita(100099);
