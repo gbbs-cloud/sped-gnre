@@ -1,27 +1,28 @@
-FROM php:7.3
+FROM php:8.1
 
 WORKDIR /var/www
 
+RUN apt update && \
+    apt install -y \
+    libfreetype6-dev \
+    libgd-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    unzip 
+
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install -j$(nproc) gd
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN pecl install xdebug && \
+    docker-php-ext-enable xdebug && \
+    echo "xdebug.mode=develop,debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.start_with_request=yes" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && \
+    echo "xdebug.client_host=host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 COPY . .
-
-RUN apt-get update && \
-    apt-get install -y libzip-dev libxml2-dev \
-    libfreetype6-dev libjpeg62-turbo-dev \
-    libgd-dev libpng-dev && \
-    docker-php-ext-configure gd \
-    --with-freetype-dir=/usr/include/ \
-    --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install -j$(nproc) zip soap gd && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN pecl install xdebug \
-    pecl install gmagick \
-    && docker-php-ext-enable xdebug \
-    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
-    && echo "xdebug.remote_host = host.docker.internal" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 EXPOSE 8181
 
-RUN composer install
-
-CMD php -S 0.0.0.0:8181
+CMD ["php", "-S", "0.0.0.0:8181"]

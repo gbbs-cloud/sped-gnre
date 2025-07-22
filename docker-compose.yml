@@ -1,11 +1,10 @@
-version: "2"
-
 services:
   gnre:
-    build:
-      context: .
+    build: .
     ports:
       - '8181:8181'
     volumes:
       - ./:/var/www
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: php -S 0.0.0.0:8181
