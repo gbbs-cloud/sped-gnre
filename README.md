@@ -208,3 +208,19 @@ http://localhost:8181/gerar-xml.php
 -----
 
 Caso queira ver outros exemplos utilizados pela API acesse esse link https://github.com/nfephp-org/sped-gnre/tree/master/exemplos
+
+## Configuração Docker
+
+Para executar a aplicação usando Docker, siga estes passos:
+
+1.  Construa e inicie os contêineres Docker:
+
+    ```bash
+    docker compose up --build -d
+    ```
+
+2.  Acesse a aplicação no seu navegador:
+
+    ```
+    http://localhost:8181/exemplos
+    ```
