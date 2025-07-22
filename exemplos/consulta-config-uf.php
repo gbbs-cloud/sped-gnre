@@ -2,35 +2,15 @@
 
 namespace Exemplo;
 
+use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Sefaz\ConfigUf;
+use Sped\Gnre\Webservice\Connection;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-class MySetup extends Sped\Gnre\Configuration\Setup
+class MySetup extends Setup
 {
-    public function getBaseUrl()
-    {
-    }
-
-    public function getCertificateCnpj()
-    {
-    }
-
-    public function getCertificateDirectory()
-    {
-    }
-
-    public function getCertificateName()
-    {
-    }
-
-    public function getCertificatePassword()
-    {
-    }
-
     public function getCertificatePemFile()
-    {
-    }
-
-    public function getEnvironment()
     {
     }
 
@@ -42,22 +22,14 @@ class MySetup extends Sped\Gnre\Configuration\Setup
     {
     }
 
-    public function getProxyPass()
-    {
-    }
-
     public function getProxyPort()
-    {
-    }
-
-    public function getProxyUser()
     {
     }
 }
 
 $minhaConfiguracao = new MySetup();
 
-$config = new \Sped\Gnre\Sefaz\ConfigUf();
+$config = new ConfigUf();
 
 /**
  * Qual ambiente sera realizada a consulta
@@ -66,7 +38,7 @@ $config->setEnvironment(1);
 $config->setReceita(100099);
 $config->setEstado('PR');
 
-$webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $config->getHeaderSoap(), $config->toXml());
+$webService = new Connection($minhaConfiguracao, $config->getHeaderSoap(), $config->toXml());
 
 $consulta = $webService->doRequest($config->soapAction());
 echo '<pre>';

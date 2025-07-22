@@ -39,63 +39,6 @@ abstract class Setup
     protected $debug = false;
 
     /**
-     * Método utilizado para retornar o número do ambiente em que se deseja
-     * realizar a conexão com o webservice da sefaz 1 - Produção 2 - Homologação
-     *
-     * @since  1.0.0
-     *
-     * @return int
-     */
-    abstract public function getEnvironment();
-
-    /**
-     * Método utilizado para retornar o diretório onde se encontram os certificados
-     * que seram utilizados
-     *
-     * @since  1.0.0
-     *
-     * @return string
-     */
-    abstract public function getCertificateDirectory();
-
-    /**
-     * Retorna o nome do certificado que será usado junto com sua extenção por exemplo
-     * certificado_teste.pfx
-     *
-     * @since   1.0.0
-     *
-     * @return string
-     */
-    abstract public function getCertificateName();
-
-    /**
-     * Retorna a senha do certificado
-     *
-     * @since   1.0.0
-     *
-     * @return string
-     */
-    abstract public function getCertificatePassword();
-
-    /**
-     * Retorna a URL base em que a api se encontra por exemplo http://gnre-api/
-     *
-     * @since   1.0.0
-     *
-     * @return string
-     */
-    abstract public function getBaseUrl();
-
-    /**
-     * Retorna o CNPJ da empresa em que que realizará a emissão da guia para a sefaz
-     *
-     * @since   1.0.0
-     *
-     * @return int
-     */
-    abstract public function getCertificateCnpj();
-
-    /**
      * Retorna o IP do proxy caso a API estaja atrás de um por exemplo 192.168.0.1
      *
      * @since   1.0.0
@@ -112,24 +55,6 @@ abstract class Setup
      * @return int
      */
     abstract public function getProxyPort();
-
-    /**
-     * Retorna o usuário do servidor de proxy caso seja necessário a indentificação
-     *
-     * @since   1.0.0
-     *
-     * @return string
-     */
-    abstract public function getProxyUser();
-
-    /**
-     * Retorna a senha do usuário do servidor de proxy caso seja necessário a indentificação
-     *
-     * @since   1.0.0
-     *
-     * @return string
-     */
-    abstract public function getProxyPass();
 
     /**
      * Método que retorna o caminho e o nome do arquivo privado extraido do certificado por exemplo

@@ -2,35 +2,16 @@
 
 namespace Exemplo;
 
+use Sped\Gnre\Configuration\Setup;
+use Sped\Gnre\Sefaz\Consulta;
+use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Webservice\Connection;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-class MySetup extends Sped\Gnre\Configuration\Setup
+class MySetup extends Setup
 {
-    public function getBaseUrl()
-    {
-    }
-
-    public function getCertificateCnpj()
-    {
-    }
-
-    public function getCertificateDirectory()
-    {
-    }
-
-    public function getCertificateName()
-    {
-    }
-
-    public function getCertificatePassword()
-    {
-    }
-
     public function getCertificatePemFile()
-    {
-    }
-
-    public function getEnvironment()
     {
     }
 
@@ -42,24 +23,16 @@ class MySetup extends Sped\Gnre\Configuration\Setup
     {
     }
 
-    public function getProxyPass()
-    {
-    }
-
     public function getProxyPort()
-    {
-    }
-
-    public function getProxyUser()
     {
     }
 }
 
 $minhaConfiguracao = new MySetup();
 
-$guia = new Sped\Gnre\Sefaz\Guia();
+$guia = new Guia();
 
-$consulta = new Sped\Gnre\Sefaz\Consulta();
+$consulta = new Consulta();
 $consulta->setRecibo(12345123);
 
 /**
@@ -72,5 +45,5 @@ $consulta->setEnvironment(1);
 // header('Content-Type: text/xml');
 // print $consulta->toXml(); // exibe o XML da consulta
 
-$webService = new Sped\Gnre\Webservice\Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
+$webService = new Connection($minhaConfiguracao, $consulta->getHeaderSoap(), $consulta->toXml());
 echo $webService->doRequest($consulta->soapAction());
