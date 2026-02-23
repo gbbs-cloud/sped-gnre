@@ -67,7 +67,7 @@ class Connection
         $ip = $this->setup->getProxyIp();
         $port = $this->setup->getProxyPort();
 
-        if (! empty($ip) && $port) {
+        if ($ip !== '' && $ip !== '0' && $port) {
             $this->curlOptions[CURLOPT_HTTPPROXYTUNNEL] = 1;
             $this->curlOptions[CURLOPT_PROXYTYPE] = 'CURLPROXY_HTTP';
             $this->curlOptions[CURLOPT_PROXY] = $this->setup->getProxyIp() . ':' . $this->setup->getProxyPort();
