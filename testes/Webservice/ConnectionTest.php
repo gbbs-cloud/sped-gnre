@@ -115,7 +115,7 @@ class ConnectionTest extends TestCase
             ->willReturn('192.168.0.1');
         $setup->method('getProxyPort')
             ->willReturn('3128');
-        
+
         /** @var \Sped\Gnre\Configuration\Setup $setup */
 
         $connection = new Connection($setup, [], '');

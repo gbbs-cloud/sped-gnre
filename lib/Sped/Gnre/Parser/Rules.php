@@ -150,11 +150,12 @@ abstract class Rules
     abstract protected function aplicarParser();
 
     /**
-     * @return \Sped\Gnre\Sefaz\Lote
+     * Processa o retorno posicional do web service e retorna as guias parseadas.
+     *
+     * @return array<int, \Sped\Gnre\Sefaz\GuiaResposta>
      */
-    public function getLote()
+    public function getLote(): array
     {
-        $lote = new \Sped\Gnre\Sefaz\Lote();
         $counter = count($this->dadosArquivo);
 
         for ($i = 0; $i < $counter; $i++) {
@@ -168,7 +169,7 @@ abstract class Rules
                 $this->getNumeroDoProtocoloDoLote();
                 $this->getAmbiente();
             } elseif ($this->identificador == 1) {
-                $this->lote['lote'][$i] = new \Sped\Gnre\Sefaz\Guia();
+                $this->lote['lote'][$i] = new \Sped\Gnre\Sefaz\GuiaResposta();
 
                 $this->getSequencialGuia();
                 $this->getSituacaoGuia();
@@ -200,8 +201,6 @@ abstract class Rules
                 $this->getCodigoBarras();
                 $this->getNumeroDeControle();
                 $this->getIdentificadorGuia();
-
-                $lote->addGuia($this->lote['lote'][$i]);
             } elseif ($this->identificador == self::GUIA_EMITIDA_COM_SUCESSO) {
                 $this->getNumeroProtocolo();
                 $this->getTotalGuias();
@@ -216,7 +215,7 @@ abstract class Rules
 
         $this->aplicarParser();
 
-        return $lote;
+        return $this->lote['lote'] ?? [];
     }
 
     /**

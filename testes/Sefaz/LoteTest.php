@@ -60,7 +60,7 @@ class LoteTest extends TestCase
             ufFavorecida: UfEnum::PE,
             tipoGnre: TipoGnreEnum::SIMPLES,
             contribuinteEmitente: new Contribuinte(
-                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
+                identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
                 razaoSocial: 'GNRE PHP EMITENTE',
                 endereco: 'Queens St',
                 municipio: '53001',
@@ -72,7 +72,7 @@ class LoteTest extends TestCase
                 new ItemGNRE(
                     receita: '100099',
                     detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
                     produto: '1234',
                     referencia: new Referencia(
                         periodo: PeriodoEnum::MENSAL,
@@ -82,12 +82,12 @@ class LoteTest extends TestCase
                     ),
                     dataVencimento: '2015-05-01',
                     valores: [
-                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
                     ],
                     convenio: '546456',
                     contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '86268158000162'),
+                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '86268158000162'),
                         razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
                         municipio: '27023',
                     ),
@@ -110,7 +110,7 @@ class LoteTest extends TestCase
             ufFavorecida: UfEnum::PE,
             tipoGnre: TipoGnreEnum::SIMPLES,
             contribuinteEmitente: new Contribuinte(
-                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
                 endereco: 'Queens St',
                 municipio: '53001',
@@ -122,7 +122,7 @@ class LoteTest extends TestCase
                 new ItemGNRE(
                     receita: '100099',
                     detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
                     produto: '1234',
                     referencia: new Referencia(
                         periodo: PeriodoEnum::MENSAL,
@@ -132,12 +132,12 @@ class LoteTest extends TestCase
                     ),
                     dataVencimento: '2015-05-01',
                     valores: [
-                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
                     ],
                     convenio: '546456',
                     contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
                         razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
                         municipio: '27023',
                     ),
@@ -160,7 +160,7 @@ class LoteTest extends TestCase
             ufFavorecida: UfEnum::PE,
             tipoGnre: TipoGnreEnum::SIMPLES,
             contribuinteEmitente: new Contribuinte(
-                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
                 endereco: 'Queens St',
                 municipio: '53001',
@@ -171,7 +171,7 @@ class LoteTest extends TestCase
                 new ItemGNRE(
                     receita: '100099',
                     detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
                     produto: '1234',
                     referencia: new Referencia(
                         periodo: PeriodoEnum::MENSAL,
@@ -181,12 +181,12 @@ class LoteTest extends TestCase
                     ),
                     dataVencimento: '2015-05-01',
                     valores: [
-                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
                     ],
                     convenio: '546456',
                     contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
                         razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
                         municipio: '27023',
                     ),
@@ -209,7 +209,7 @@ class LoteTest extends TestCase
             ufFavorecida: UfEnum::PE,
             tipoGnre: TipoGnreEnum::SIMPLES,
             contribuinteEmitente: new Contribuinte(
-                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
                 endereco: 'Queens St',
                 municipio: '53001',
@@ -220,7 +220,7 @@ class LoteTest extends TestCase
                 new ItemGNRE(
                     receita: '100099',
                     detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
                     produto: '1234',
                     referencia: new Referencia(
                         periodo: PeriodoEnum::MENSAL,
@@ -230,12 +230,12 @@ class LoteTest extends TestCase
                     ),
                     dataVencimento: '2015-05-01',
                     valores: [
-                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
                     ],
                     convenio: '546456',
                     contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
                         razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
                         municipio: '27023',
                     ),
@@ -258,7 +258,7 @@ class LoteTest extends TestCase
             ufFavorecida: UfEnum::PE,
             tipoGnre: TipoGnreEnum::SIMPLES,
             contribuinteEmitente: new Contribuinte(
-                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
+                identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
                 endereco: 'Queens St',
                 municipio: '53001',
@@ -270,7 +270,7 @@ class LoteTest extends TestCase
                 new ItemGNRE(
                     receita: '100099',
                     detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem( tipo: '10', numero: '5656'),
+                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
                     produto: '1234',
                     referencia: new Referencia(
                         periodo: PeriodoEnum::MENSAL,
@@ -280,8 +280,8 @@ class LoteTest extends TestCase
                     ),
                     dataVencimento: '2015-05-01',
                     valores: [
-                        new Valor( tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor( tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
                     ],
                     convenio: '546456',
                     contribuinteDestinatario: new Contribuinte(
@@ -312,7 +312,7 @@ class LoteTest extends TestCase
             ufFavorecida: UfEnum::PE,
             tipoGnre: TipoGnreEnum::SIMPLES,
             contribuinteEmitente: new Contribuinte(
-                identificacao: new Identificacao( tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
+                identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
                 razaoSocial: 'GNRE PHP EMITENTE',
                 endereco: 'Queens St',
                 municipio: '53001',

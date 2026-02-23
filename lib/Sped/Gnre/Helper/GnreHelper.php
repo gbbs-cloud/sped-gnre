@@ -7,6 +7,11 @@
 
 namespace Sped\Gnre\Helper;
 
+use Sped\Gnre\Sefaz\DTO\Contribuinte;
+use Sped\Gnre\Sefaz\DTO\Identificacao;
+use Sped\Gnre\Sefaz\Enum\TipoGnreEnum;
+use Sped\Gnre\Sefaz\Enum\TipoIdentificacaoEnum;
+use Sped\Gnre\Sefaz\Enum\UfEnum;
 use Sped\Gnre\Sefaz\Guia;
 use stdClass;
 
@@ -23,35 +28,38 @@ class GnreHelper
     protected static ?\SimpleXMLElement $xmlNf = null;
 
     /**
-     * Método utilizado para gerar os dados principais da GNRE utilizando os dados encontrados dentro do XML
+     * Pré-preenche uma Guia com os dados do emitente extraídos de um XML de NF-e.
+     * Os dados do destinatário e do item (receita, valor, etc.) devem ser
+     * adicionados pelo chamador via ItemGNRE.
      *
-     *
-     * @param  string  $dadosArquivo  <p>String contendo o xml da NF de venda
-     *                                utilizada no SEFAZ</p>
-     *
+     * @param string $xmlNf XML completo da NF-e
+     * @param TipoGnreEnum $tipoGnre Tipo de GNRE a ser gerado
      */
-    public static function getGuiaGnre(string $xmlNf): Guia
+    public static function getGuiaGnre(string $xmlNf, TipoGnreEnum $tipoGnre): Guia
     {
-
         $xml = self::parseNf($xmlNf);
-        $guia = new Guia();
-        $guia->c04_docOrigem = $xml->NrNf;
-        $guia->c28_tipoDocOrigem = $xml->TipoDoc;
-        $guia->c21_cepEmitente = $xml->CEPEmpresa;
-        $guia->c16_razaoSocialEmitente = $xml->NmEmpresa;
-        $guia->c03_idContribuinteEmitente = $xml->NrDocumentoEmpresa;
-        $guia->c18_enderecoEmitente = $xml->EnderecoEmpresa;
-        $guia->c19_municipioEmitente = $xml->MunicipioEmpresa;
-        $guia->c20_ufEnderecoEmitente = $xml->UfEmpresa;
-        $guia->c17_inscricaoEstadualEmitente = $xml->NrIEEmpresa;
-        $guia->c22_telefoneEmitente = $xml->TelefoneEmpresa;
-        $guia->c01_UfFavorecida = $xml->IdUfCliente;
-        $guia->c35_idContribuinteDestinatario = $xml->NrDocumentoCliente;
-        $guia->c36_inscricaoEstadualDestinatario = $xml->NrIECliente;
-        $guia->c37_razaoSocialDestinatario = $xml->NmCliente;
-        $guia->c38_municipioDestinatario = $xml->MunicipioCliente;
 
-        return $guia;
+        $identificacaoEmitente = new Identificacao(
+            tipo: TipoIdentificacaoEnum::CNPJ,
+            cnpj: (string) $xml->NrDocumentoEmpresa,
+            ie: (string) $xml->NrIEEmpresa,
+        );
+
+        $contribuinteEmitente = new Contribuinte(
+            identificacao: $identificacaoEmitente,
+            razaoSocial: (string) $xml->NmEmpresa,
+            endereco: (string) $xml->EnderecoEmpresa,
+            municipio: (string) $xml->MunicipioEmpresa,
+            uf: (string) $xml->UfEmpresa,
+            cep: (string) $xml->CEPEmpresa,
+            telefone: (string) $xml->TelefoneEmpresa,
+        );
+
+        return new Guia(
+            ufFavorecida: UfEnum::from((string) $xml->IdUfCliente),
+            tipoGnre: $tipoGnre,
+            contribuinteEmitente: $contribuinteEmitente,
+        );
     }
 
     /**
