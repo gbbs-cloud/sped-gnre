@@ -56,8 +56,8 @@ class Consulta extends ConsultaGnre
         $consulta = $gnre->createElement('TConsLote_GNRE');
         $consulta->setAttribute('xmlns', 'http://www.gnre.pe.gov.br');
 
-        $ambiente = $gnre->createElement('ambiente', $this->getEnvironment());
-        $numeroRecibo = $gnre->createElement('numeroRecibo', $this->getRecibo());
+        $ambiente = $gnre->createElement('ambiente', (string) $this->getEnvironment());
+        $numeroRecibo = $gnre->createElement('numeroRecibo', (string) $this->getRecibo());
 
         $consulta->appendChild($ambiente);
         $consulta->appendChild($numeroRecibo);

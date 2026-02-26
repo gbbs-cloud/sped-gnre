@@ -58,7 +58,7 @@ class Lote extends LoteGnre
             $ufFavorecida = $dom->createElement('ufFavorecida', $guia->ufFavorecida->value);
             $dadosGnre->appendChild($ufFavorecida);
 
-            $tipoGnre = $dom->createElement('tipoGnre', $guia->tipoGnre->value);
+            $tipoGnre = $dom->createElement('tipoGnre', $guia->getTipoGnre()->value);
             $dadosGnre->appendChild($tipoGnre);
 
             if ($guia->contribuinteEmitente) {
@@ -106,7 +106,7 @@ class Lote extends LoteGnre
             }
 
             $itensGnreElement = $dom->createElement('itensGNRE');
-            foreach ($guia->itensGNRE as $item) {
+            foreach ($guia->getItensGNRE() as $item) {
                 $itemElement = $dom->createElement('item');
 
                 $receita = $dom->createElement('receita', $item->receita);

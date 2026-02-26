@@ -4,20 +4,19 @@ declare(strict_types=1);
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use NFePHP\Common\Certificate;
 use Sped\Gnre\Configuration\Setup;
 use Sped\Gnre\Sefaz\ConfigUf;
 use Sped\Gnre\Webservice\Connection;
 
 class MySetup extends Setup
 {
-    public function getCertificatePemFile(): string
+    public function getCertificate(): Certificate
     {
-        return __DIR__ . '/../certs/private_key.pem';
-    }
-
-    public function getPrivateKey(): string
-    {
-        return '';
+        return Certificate::readPfx(
+            file_get_contents(__DIR__ . '/../certs/certificate.pfx'),
+            'certificate_password',
+        );
     }
 
     public function getProxyIp(): string

@@ -6,6 +6,16 @@ namespace Sped\Gnre\Test\Render;
 
 use PHPUnit\Framework\TestCase;
 use Sped\Gnre\Render\Html;
+use Sped\Gnre\Sefaz\DTO\Contribuinte;
+use Sped\Gnre\Sefaz\DTO\Identificacao;
+use Sped\Gnre\Sefaz\DTO\ItemGNRE;
+use Sped\Gnre\Sefaz\DTO\Valor;
+use Sped\Gnre\Sefaz\Enum\TipoIdentificacaoEnum;
+use Sped\Gnre\Sefaz\Enum\UfEnum;
+use Sped\Gnre\Sefaz\Enum\ValorTipoEnum;
+use Sped\Gnre\Sefaz\GuiaResposta;
+use Sped\Gnre\Sefaz\GuiaSimples;
+use Sped\Gnre\Sefaz\Lote;
 
 /**
  * @covers \Sped\Gnre\Render\Html
@@ -52,40 +62,39 @@ class HtmlTest extends TestCase
 
     public function testIntegracaoRenderizaTemplateComDadosDaGuia(): void
     {
-        $guia = new \Sped\Gnre\Sefaz\Guia();
-        $guia->c16_razaoSocialEmitente       = 'Empresa Teste LTDA';
-        $guia->c03_idContribuinteEmitente    = '12345678000199';
-        $guia->c18_enderecoEmitente          = 'Rua Teste, 123';
-        $guia->c19_municipioEmitente         = 'São Paulo';
-        $guia->c20_ufEnderecoEmitente        = 'SP';
-        $guia->c21_cepEmitente               = '01310100';
-        $guia->c22_telefoneEmitente          = '1133334444';
-        $guia->c35_idContribuinteDestinatario = '98765432000100';
-        $guia->c38_municipioDestinatario     = 'Rio de Janeiro';
-        $guia->c15_convenio                  = '001';
-        $guia->c26_produto                   = '01';
-        $guia->c01_UfFavorecida              = 'RJ';
-        $guia->c02_receita                   = '100102';
-        $guia->c04_docOrigem                 = 'NF-001';
-        $guia->c14_dataVencimento            = '2026-03-01';
-        $guia->c06_valorPrincipal            = '100.00';
-        $guia->c10_valorTotal                = '110.00';
-        $guia->mes                           = '02';
-        $guia->ano                           = '2026';
-        $guia->parcela                       = '1';
-        $guia->retornoNumeroDeControle       = '123456789';
-        $guia->retornoCodigoDeBarras         = '83800000001100000001002100102000012345678000100';
-        $guia->retornoRepresentacaoNumerica  = '83800.00000 01100.000010 02100.102000 1 12345678000100';
-        $guia->retornoAtualizacaoMonetaria   = '0.00';
-        $guia->retornoJuros                  = '5.00';
-        $guia->retornoMulta                  = '5.00';
-        $guia->retornoInformacoesComplementares = 'Informação complementar teste';
+        $guia = new GuiaSimples(
+            ufFavorecida: UfEnum::from('RJ'),
+            item: new ItemGNRE(
+                receita: '100102',
+                dataVencimento: '2026-03-01',
+                valores: [
+                    new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 100.00),
+                    new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 110.00),
+                ],
+            ),
+            contribuinteEmitente: new Contribuinte(
+                identificacao: new Identificacao(
+                    tipo: TipoIdentificacaoEnum::CNPJ,
+                    cnpj: '12345678000199',
+                ),
+                razaoSocial: 'Empresa Teste LTDA',
+            ),
+        );
 
-        $lote = new \Sped\Gnre\Sefaz\Lote();
+        $guiaResposta = new GuiaResposta();
+        $guiaResposta->retornoNumeroDeControle = '123456789';
+        $guiaResposta->retornoCodigoDeBarras = '83800000001100000001002100102000012345678000100';
+        $guiaResposta->retornoRepresentacaoNumerica = '83800.00000 01100.000010 02100.102000 1 12345678000100';
+        $guiaResposta->retornoAtualizacaoMonetaria = 0.00;
+        $guiaResposta->retornoJuros = 5.00;
+        $guiaResposta->retornoMulta = 5.00;
+        $guiaResposta->retornoInformacoesComplementares = 'Informação complementar teste';
+
+        $lote = new Lote();
         $lote->addGuia($guia);
 
         $html = new Html();
-        $html->create($lote);
+        $html->create($lote, [$guiaResposta]);
 
         $output = $html->getHtml();
 

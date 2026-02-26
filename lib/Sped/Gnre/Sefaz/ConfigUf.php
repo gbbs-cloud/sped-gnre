@@ -58,9 +58,9 @@ class ConfigUf extends ConsultaConfigUf
         $consulta = $gnre->createElement('TConsultaConfigUf');
         $consulta->setAttribute('xmlns', 'http://www.gnre.pe.gov.br');
 
-        $ambiente = $gnre->createElement('ambiente', $this->getEnvironment());
-        $estado = $gnre->createElement('uf', $this->getEstado());
-        $receita = $gnre->createElement('receita', $this->getReceita());
+        $ambiente = $gnre->createElement('ambiente', (string) $this->getEnvironment());
+        $estado = $gnre->createElement('uf', (string) $this->getEstado());
+        $receita = $gnre->createElement('receita', (string) $this->getReceita());
 
         $consulta->appendChild($ambiente);
         $consulta->appendChild($estado);

@@ -16,11 +16,10 @@ use Sped\Gnre\Sefaz\Enum\AnoEnum;
 use Sped\Gnre\Sefaz\Enum\MesEnum;
 use Sped\Gnre\Sefaz\Enum\PeriodoEnum;
 use Sped\Gnre\Sefaz\Enum\TipoCampoExtraEnum;
-use Sped\Gnre\Sefaz\Enum\TipoGnreEnum;
 use Sped\Gnre\Sefaz\Enum\TipoIdentificacaoEnum;
 use Sped\Gnre\Sefaz\Enum\UfEnum;
 use Sped\Gnre\Sefaz\Enum\ValorTipoEnum;
-use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\GuiaSimples;
 use Sped\Gnre\Sefaz\Lote;
 
 /**
@@ -56,9 +55,31 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cnpj-dest-cnpj-sem-campos-extras.xml');
 
-        $guia = new Guia(
+        $guia = new GuiaSimples(
             ufFavorecida: UfEnum::PE,
-            tipoGnre: TipoGnreEnum::SIMPLES,
+            item: new ItemGNRE(
+                receita: '100099',
+                detalhamentoReceita: '101010',
+                documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
+                produto: '1234',
+                referencia: new Referencia(
+                    periodo: PeriodoEnum::MENSAL,
+                    mes: MesEnum::MAIO,
+                    ano: AnoEnum::ANO_2015,
+                    parcela: '2',
+                ),
+                dataVencimento: '2015-05-01',
+                valores: [
+                    new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                    new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                ],
+                convenio: '546456',
+                contribuinteDestinatario: new Contribuinte(
+                    identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '86268158000162'),
+                    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                    municipio: '27023',
+                ),
+            ),
             contribuinteEmitente: new Contribuinte(
                 identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
                 razaoSocial: 'GNRE PHP EMITENTE',
@@ -68,31 +89,6 @@ class LoteTest extends TestCase
                 cep: '08215917',
                 telefone: '1199999999',
             ),
-            itensGNRE: [
-                new ItemGNRE(
-                    receita: '100099',
-                    detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
-                    produto: '1234',
-                    referencia: new Referencia(
-                        periodo: PeriodoEnum::MENSAL,
-                        mes: MesEnum::MAIO,
-                        ano: AnoEnum::ANO_2015,
-                        parcela: '2',
-                    ),
-                    dataVencimento: '2015-05-01',
-                    valores: [
-                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
-                    ],
-                    convenio: '546456',
-                    contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '86268158000162'),
-                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
-                        municipio: '27023',
-                    ),
-                ),
-            ],
             dataPagamento: '2015-11-30',
         );
 
@@ -106,9 +102,31 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-campos-extras.xml');
 
-        $guia = new Guia(
+        $guia = new GuiaSimples(
             ufFavorecida: UfEnum::PE,
-            tipoGnre: TipoGnreEnum::SIMPLES,
+            item: new ItemGNRE(
+                receita: '100099',
+                detalhamentoReceita: '101010',
+                documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
+                produto: '1234',
+                referencia: new Referencia(
+                    periodo: PeriodoEnum::MENSAL,
+                    mes: MesEnum::MAIO,
+                    ano: AnoEnum::ANO_2015,
+                    parcela: '2',
+                ),
+                dataVencimento: '2015-05-01',
+                valores: [
+                    new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                    new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                ],
+                convenio: '546456',
+                contribuinteDestinatario: new Contribuinte(
+                    identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                    municipio: '27023',
+                ),
+            ),
             contribuinteEmitente: new Contribuinte(
                 identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
@@ -118,31 +136,6 @@ class LoteTest extends TestCase
                 cep: '08215917',
                 telefone: '1199999999',
             ),
-            itensGNRE: [
-                new ItemGNRE(
-                    receita: '100099',
-                    detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
-                    produto: '1234',
-                    referencia: new Referencia(
-                        periodo: PeriodoEnum::MENSAL,
-                        mes: MesEnum::MAIO,
-                        ano: AnoEnum::ANO_2015,
-                        parcela: '2',
-                    ),
-                    dataVencimento: '2015-05-01',
-                    valores: [
-                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
-                    ],
-                    convenio: '546456',
-                    contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
-                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
-                        municipio: '27023',
-                    ),
-                ),
-            ],
             dataPagamento: '2015-11-30',
         );
 
@@ -156,9 +149,31 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-cep-emitente.xml');
 
-        $guia = new Guia(
+        $guia = new GuiaSimples(
             ufFavorecida: UfEnum::PE,
-            tipoGnre: TipoGnreEnum::SIMPLES,
+            item: new ItemGNRE(
+                receita: '100099',
+                detalhamentoReceita: '101010',
+                documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
+                produto: '1234',
+                referencia: new Referencia(
+                    periodo: PeriodoEnum::MENSAL,
+                    mes: MesEnum::MAIO,
+                    ano: AnoEnum::ANO_2015,
+                    parcela: '2',
+                ),
+                dataVencimento: '2015-05-01',
+                valores: [
+                    new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                    new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                ],
+                convenio: '546456',
+                contribuinteDestinatario: new Contribuinte(
+                    identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                    municipio: '27023',
+                ),
+            ),
             contribuinteEmitente: new Contribuinte(
                 identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
@@ -167,31 +182,6 @@ class LoteTest extends TestCase
                 uf: 'DF',
                 telefone: '1199999999',
             ),
-            itensGNRE: [
-                new ItemGNRE(
-                    receita: '100099',
-                    detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
-                    produto: '1234',
-                    referencia: new Referencia(
-                        periodo: PeriodoEnum::MENSAL,
-                        mes: MesEnum::MAIO,
-                        ano: AnoEnum::ANO_2015,
-                        parcela: '2',
-                    ),
-                    dataVencimento: '2015-05-01',
-                    valores: [
-                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
-                    ],
-                    convenio: '546456',
-                    contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
-                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
-                        municipio: '27023',
-                    ),
-                ),
-            ],
             dataPagamento: '2015-11-30',
         );
 
@@ -205,9 +195,31 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-telefone-emitente.xml');
 
-        $guia = new Guia(
+        $guia = new GuiaSimples(
             ufFavorecida: UfEnum::PE,
-            tipoGnre: TipoGnreEnum::SIMPLES,
+            item: new ItemGNRE(
+                receita: '100099',
+                detalhamentoReceita: '101010',
+                documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
+                produto: '1234',
+                referencia: new Referencia(
+                    periodo: PeriodoEnum::MENSAL,
+                    mes: MesEnum::MAIO,
+                    ano: AnoEnum::ANO_2015,
+                    parcela: '2',
+                ),
+                dataVencimento: '2015-05-01',
+                valores: [
+                    new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                    new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                ],
+                convenio: '546456',
+                contribuinteDestinatario: new Contribuinte(
+                    identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
+                    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                    municipio: '27023',
+                ),
+            ),
             contribuinteEmitente: new Contribuinte(
                 identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
@@ -216,31 +228,6 @@ class LoteTest extends TestCase
                 uf: 'DF',
                 cep: '08215917',
             ),
-            itensGNRE: [
-                new ItemGNRE(
-                    receita: '100099',
-                    detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
-                    produto: '1234',
-                    referencia: new Referencia(
-                        periodo: PeriodoEnum::MENSAL,
-                        mes: MesEnum::MAIO,
-                        ano: AnoEnum::ANO_2015,
-                        parcela: '2',
-                    ),
-                    dataVencimento: '2015-05-01',
-                    valores: [
-                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
-                    ],
-                    convenio: '546456',
-                    contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '99942896759'),
-                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
-                        municipio: '27023',
-                    ),
-                ),
-            ],
             dataPagamento: '2015-11-30',
         );
 
@@ -254,9 +241,35 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/lote-emit-cpf-dest-cpf-sem-inscricao-estadual-emitente.xml');
 
-        $guia = new Guia(
+        $guia = new GuiaSimples(
             ufFavorecida: UfEnum::PE,
-            tipoGnre: TipoGnreEnum::SIMPLES,
+            item: new ItemGNRE(
+                receita: '100099',
+                detalhamentoReceita: '101010',
+                documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
+                produto: '1234',
+                referencia: new Referencia(
+                    periodo: PeriodoEnum::MENSAL,
+                    mes: MesEnum::MAIO,
+                    ano: AnoEnum::ANO_2015,
+                    parcela: '2',
+                ),
+                dataVencimento: '2015-05-01',
+                valores: [
+                    new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
+                    new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
+                ],
+                convenio: '546456',
+                contribuinteDestinatario: new Contribuinte(
+                    identificacao: new Identificacao(
+                        tipo: TipoIdentificacaoEnum::CPF,
+                        cpf: '99942896759',
+                        ie: '10809181',
+                    ),
+                    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                    municipio: '27023',
+                ),
+            ),
             contribuinteEmitente: new Contribuinte(
                 identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CPF, cpf: '52162197650'),
                 razaoSocial: 'GNRE PHP EMITENTE',
@@ -266,35 +279,6 @@ class LoteTest extends TestCase
                 cep: '08215917',
                 telefone: '1199999999',
             ),
-            itensGNRE: [
-                new ItemGNRE(
-                    receita: '100099',
-                    detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
-                    produto: '1234',
-                    referencia: new Referencia(
-                        periodo: PeriodoEnum::MENSAL,
-                        mes: MesEnum::MAIO,
-                        ano: AnoEnum::ANO_2015,
-                        parcela: '2',
-                    ),
-                    dataVencimento: '2015-05-01',
-                    valores: [
-                        new Valor(tipo: ValorTipoEnum::PRINCIPAL_ICMS, valor: 10.99),
-                        new Valor(tipo: ValorTipoEnum::TOTAL_ICMS, valor: 12.52),
-                    ],
-                    convenio: '546456',
-                    contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao(
-                            tipo: TipoIdentificacaoEnum::CPF,
-                            cpf: '99942896759',
-                            ie: '10809181',
-                        ),
-                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
-                        municipio: '27023',
-                    ),
-                ),
-            ],
             dataPagamento: '2015-11-30',
         );
 
@@ -308,9 +292,60 @@ class LoteTest extends TestCase
     {
         $estruturaLote = file_get_contents(__DIR__ . '/../../exemplos/xml/estrutura-lote-completo-gnre.xml');
 
-        $guia = new Guia(
+        $guia = new GuiaSimples(
             ufFavorecida: UfEnum::PE,
-            tipoGnre: TipoGnreEnum::SIMPLES,
+            item: new ItemGNRE(
+                receita: '100099',
+                detalhamentoReceita: '101010',
+                documentoOrigem: new DocumentoOrigem(
+                    tipo: '10',
+                    numero: '5656',
+                ),
+                produto: '1234',
+                referencia: new Referencia(
+                    periodo: PeriodoEnum::MENSAL,
+                    mes: MesEnum::MAIO,
+                    ano: AnoEnum::ANO_2015,
+                    parcela: '2',
+                ),
+                dataVencimento: '2015-05-01',
+                valores: [
+                    new Valor(
+                        tipo: ValorTipoEnum::PRINCIPAL_ICMS,
+                        valor: 10.99,
+                    ),
+                    new Valor(
+                        tipo: ValorTipoEnum::TOTAL_ICMS,
+                        valor: 12.52,
+                    ),
+                ],
+                convenio: '546456',
+                contribuinteDestinatario: new Contribuinte(
+                    identificacao: new Identificacao(
+                        tipo: TipoIdentificacaoEnum::CNPJ,
+                        cnpj: '86268158000162',
+                    ),
+                    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+                    municipio: '27023',
+                ),
+                camposExtras: [
+                    new CampoExtra(
+                        codigo: 16,
+                        tipo: TipoCampoExtraEnum::TEXTO,
+                        valor: '1200012',
+                    ),
+                    new CampoExtra(
+                        codigo: 15,
+                        tipo: TipoCampoExtraEnum::DATA,
+                        valor: '2015-03-02',
+                    ),
+                    new CampoExtra(
+                        codigo: 10,
+                        tipo: TipoCampoExtraEnum::TEXTO,
+                        valor: '17.21',
+                    ),
+                ],
+            ),
             contribuinteEmitente: new Contribuinte(
                 identificacao: new Identificacao(tipo: TipoIdentificacaoEnum::CNPJ, cnpj: '41819055000105'),
                 razaoSocial: 'GNRE PHP EMITENTE',
@@ -320,60 +355,6 @@ class LoteTest extends TestCase
                 cep: '08215917',
                 telefone: '1199999999',
             ),
-            itensGNRE: [
-                new ItemGNRE(
-                    receita: '100099',
-                    detalhamentoReceita: '101010',
-                    documentoOrigem: new DocumentoOrigem(
-                        tipo: '10',
-                        numero: '5656',
-                    ),
-                    produto: '1234',
-                    referencia: new Referencia(
-                        periodo: PeriodoEnum::MENSAL,
-                        mes: MesEnum::MAIO,
-                        ano: AnoEnum::ANO_2015,
-                        parcela: '2',
-                    ),
-                    dataVencimento: '2015-05-01',
-                    valores: [
-                        new Valor(
-                            tipo: ValorTipoEnum::PRINCIPAL_ICMS,
-                            valor: 10.99,
-                        ),
-                        new Valor(
-                            tipo: ValorTipoEnum::TOTAL_ICMS,
-                            valor: 12.52,
-                        ),
-                    ],
-                    convenio: '546456',
-                    contribuinteDestinatario: new Contribuinte(
-                        identificacao: new Identificacao(
-                            tipo: TipoIdentificacaoEnum::CNPJ,
-                            cnpj: '86268158000162',
-                        ),
-                        razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
-                        municipio: '27023',
-                    ),
-                    camposExtras: [
-                        new CampoExtra(
-                            codigo: 16,
-                            tipo: TipoCampoExtraEnum::TEXTO,
-                            valor: '1200012',
-                        ),
-                        new CampoExtra(
-                            codigo: 15,
-                            tipo: TipoCampoExtraEnum::DATA,
-                            valor: '2015-03-02',
-                        ),
-                        new CampoExtra(
-                            codigo: 10,
-                            tipo: TipoCampoExtraEnum::TEXTO,
-                            valor: '17.21',
-                        ),
-                    ],
-                ),
-            ],
             dataPagamento: '2015-11-30',
         );
 

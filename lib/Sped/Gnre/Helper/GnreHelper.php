@@ -9,10 +9,10 @@ namespace Sped\Gnre\Helper;
 
 use Sped\Gnre\Sefaz\DTO\Contribuinte;
 use Sped\Gnre\Sefaz\DTO\Identificacao;
-use Sped\Gnre\Sefaz\Enum\TipoGnreEnum;
+use Sped\Gnre\Sefaz\DTO\ItemGNRE;
 use Sped\Gnre\Sefaz\Enum\TipoIdentificacaoEnum;
 use Sped\Gnre\Sefaz\Enum\UfEnum;
-use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\GuiaSimples;
 use stdClass;
 
 /**
@@ -28,14 +28,12 @@ class GnreHelper
     protected static ?\SimpleXMLElement $xmlNf = null;
 
     /**
-     * Pré-preenche uma Guia com os dados do emitente extraídos de um XML de NF-e.
-     * Os dados do destinatário e do item (receita, valor, etc.) devem ser
-     * adicionados pelo chamador via ItemGNRE.
+     * Pré-preenche uma GuiaSimples com os dados do emitente extraídos de um XML de NF-e.
      *
      * @param string $xmlNf XML completo da NF-e
-     * @param TipoGnreEnum $tipoGnre Tipo de GNRE a ser gerado
+     * @param ItemGNRE $item Item GNRE com receita, valores e demais dados fiscais
      */
-    public static function getGuiaGnre(string $xmlNf, TipoGnreEnum $tipoGnre): Guia
+    public static function getGuiaGnre(string $xmlNf, ItemGNRE $item): GuiaSimples
     {
         $xml = self::parseNf($xmlNf);
 
@@ -55,9 +53,9 @@ class GnreHelper
             telefone: (string) $xml->TelefoneEmpresa,
         );
 
-        return new Guia(
+        return new GuiaSimples(
             ufFavorecida: UfEnum::from((string) $xml->IdUfCliente),
-            tipoGnre: $tipoGnre,
+            item: $item,
             contribuinteEmitente: $contribuinteEmitente,
         );
     }

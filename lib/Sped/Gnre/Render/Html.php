@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Sped\Gnre\Render;
 
+use Sped\Gnre\Sefaz\GuiaResposta;
 use Sped\Gnre\Sefaz\Lote;
 
 /**
@@ -54,11 +55,13 @@ class Html
     /**
      * Utiliza o lote como parâmetro para transforma-lo em uma guia HTML
      *
+     * @param GuiaResposta[] $respostas Respostas da SEFAZ indexadas pela posição da guia no lote
+     *
      * @link https://github.com/marabesi/gnrephp/blob/dev-pdf/exemplos/guia.jpg <p>
      * Exemplo de como é transformado o objeto <b>\Sped\Gnre\Sefaz\Lote</b> após ser
      * utilizado por esse método</p>
      */
-    public function create(Lote $lote): void
+    public function create(Lote $lote, array $respostas = []): void
     {
         $guiaViaInfo = [1 => '1ª via Banco', 2 => '2ª via Contrinuinte', 3 => '3ª via Contribuinte/Fisco'];
 
@@ -68,12 +71,13 @@ class Html
 
         for ($index = 0; $index < $counter; $index++) {
             $guia = $lote->getGuia($index);
+            $guiaResposta = $respostas[$index] ?? null;
 
             $barcode = $this->getBarCode()
-                ->setNumeroCodigoBarras($guia->retornoCodigoDeBarras);
+                ->setNumeroCodigoBarras($guiaResposta?->retornoCodigoDeBarras);
 
             $documentRoot = dirname(__FILE__, 5) . DIRECTORY_SEPARATOR;
-            $templatePath = $documentRoot . 'templates' . DIRECTORY_SEPARATOR . 'gnre.php';
+            $templatePath = $documentRoot . 'templates' . DIRECTORY_SEPARATOR . $guia->getTemplateName();
 
             ob_start();
             include $templatePath;

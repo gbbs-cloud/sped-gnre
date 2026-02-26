@@ -1,6 +1,6 @@
 <?php
 /**
- * @var \Sped\Gnre\Sefaz\Guia $guia
+ * @var \Sped\Gnre\Sefaz\GuiaMultiplosDocOrigem $guia
  * @var \Sped\Gnre\Sefaz\GuiaResposta|null $guiaResposta
  * @var \Sped\Gnre\Render\Barcode128 $barcode
  * @var array<int, string> $guiaViaInfo
@@ -46,36 +46,30 @@
         .noleft{
             border-left: 0px;
         }
-
         .nobottom{
             border-bottom: 0px;
         }
         .notop{
             border-top: 0px;
         }
-
         .noright{
             border-right: 0px;
         }
-
         .borderleft{
             border-top: 0px;
             border-bottom: 0px;
             border-right: 0px;
         }
-
         .borderbottom{
             border-top: 0px;
             border-left: 0px;
             border-right: 0px;
         }
-
         .borderright{
             border-top: 0px;
             border-bottom: 0px;
             border-left: 0px;
         }
-
     </style>
     <body>
         <?php foreach ($guiaViaInfo as $key => $via): ?>
@@ -130,21 +124,6 @@
                                     DDD/Telefone: <?= $guia->contribuinteEmitente?->telefone ?? '' ?>
                                 </td>
                             </tr>
-                            <tr >
-                                <td class="center nobrdtb" colspan="2">
-                                    Dados do Destinatário
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop nobottom" colspan="2">
-                                    CNPJ/CPF/Insc. Est.: <?= $guia->itensGNRE[0]?->contribuinteDestinatario?->identificacao->cnpj ?? $guia->itensGNRE[0]?->contribuinteDestinatario?->identificacao->cpf ?? '' ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop" colspan="2">
-                                    Município: <?= $guia->itensGNRE[0]?->contribuinteDestinatario?->municipio ?? '' ?>
-                                </td>
-                            </tr>
                             <tr>
                                 <td class="center nobrdtb" colspan="2">
                                     Informações à Fiscalização
@@ -152,22 +131,15 @@
                             </tr>
                             <tr>
                                 <td class="notop nobottom" colspan="2">
-                                    Convênio/Protocolo: <?= $guia->itensGNRE[0]?->convenio ?? '' ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="notop" colspan="2">
-                                    Produto: <?= $guia->itensGNRE[0]?->produto ?? '' ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="nobrdtb" colspan="2" style="height:64px" valign="top">
                                     Informações Complementares: <?= $guiaResposta?->retornoInformacoesComplementares ?? '' ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="notop" colspan="2">
-                                    Documento válido para pagamento até <?= $guia->itensGNRE[0]?->dataVencimento ?? '' ?>
+                                    Documentos de Origem:
+                                    <?php foreach ($guia->itens as $itemIdx => $itemDoc): ?>
+                                        <?= $itemDoc->documentoOrigem?->numero ?? '' ?><?= $itemIdx < count($guia->itens) - 1 ? ', ' : '' ?>
+                                    <?php endforeach; ?>
                                 </td>
                             </tr>
                         </table>
@@ -180,7 +152,7 @@
                             </tr>
                             <tr>
                                 <td class="notop" align="right"><?= $guia->ufFavorecida->value ?></td>
-                                <td class="notop" align="right" colspan="2"><?= $guia->itensGNRE[0]?->receita ?? '' ?></td>
+                                <td class="notop" align="right" colspan="2"><?= $guia->itens[0]?->receita ?? '' ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Nº de Controle</td>
@@ -192,27 +164,13 @@
                                 <td colspan="3" class="nobottom">Data de Vencimento</td>
                             </tr>
                             <tr>
-                                <td colspan="3" align="right" class="notop"><?= $guia->itensGNRE[0]?->dataVencimento ?? '' ?></td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="nobottom">Nº do Documento de Origem</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" align="right" class="notop"><?= $guia->itensGNRE[0]?->documentoOrigem?->numero ?? '' ?></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="nobottom">Período de Referência</td>
-                                <td class="nobottom" align="left">Nº Parcela</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="notop" align="right"><?= $guia->itensGNRE[0]?->referencia?->mes?->value ?? '' ?>/<?= $guia->itensGNRE[0]?->referencia?->ano?->value ?? '' ?></td>
-                                <td class="notop" align="right"><?= $guia->itensGNRE[0]?->referencia?->parcela ?? '' ?></td>
+                                <td colspan="3" align="right" class="notop"><?= $guia->itens[0]?->dataVencimento ?? '' ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Valor Principal</td>
                             </tr>
                             <tr>
-                                <td colspan="3" class="notop" align="right">R$ <?= $guia->itensGNRE[0]?->valores[0]?->valor ?? '' ?></td>
+                                <td colspan="3" class="notop" align="right">R$ <?= $guia->itens[0]?->valores[0]?->valor ?? '' ?></td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="nobottom">Atualização Monetária</td>
@@ -236,7 +194,7 @@
                                 <td colspan="3" class="nobottom">Total a Recolher</td>
                             </tr>
                             <tr>
-                                <td colspan="3" class="notop" align="right"><?= $guia->itensGNRE[0]?->valores[1]?->valor ?? '' ?></td>
+                                <td colspan="3" class="notop" align="right"><?= $guia->itens[0]?->valores[1]?->valor ?? '' ?></td>
                             </tr>
                             <tr>
                                 <td class="noborder" colspan="3" style="text-align:right;"><?= $via ?></td>

@@ -4,48 +4,73 @@ declare(strict_types=1);
 
 use Sped\Gnre\Render\Html;
 use Sped\Gnre\Render\Pdf;
-use Sped\Gnre\Sefaz\Guia;
+use Sped\Gnre\Sefaz\DTO\Contribuinte;
+use Sped\Gnre\Sefaz\DTO\DocumentoOrigem;
+use Sped\Gnre\Sefaz\DTO\Identificacao;
+use Sped\Gnre\Sefaz\DTO\ItemGNRE;
+use Sped\Gnre\Sefaz\DTO\Referencia;
+use Sped\Gnre\Sefaz\DTO\Valor;
+use Sped\Gnre\Sefaz\Enum\MesEnum;
+use Sped\Gnre\Sefaz\Enum\AnoEnum;
+use Sped\Gnre\Sefaz\Enum\PeriodoEnum;
+use Sped\Gnre\Sefaz\Enum\TipoIdentificacaoEnum;
+use Sped\Gnre\Sefaz\Enum\UfEnum;
+use Sped\Gnre\Sefaz\Enum\ValorTipoEnum;
+use Sped\Gnre\Sefaz\GuiaSimples;
 use Sped\Gnre\Sefaz\Lote;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$guia = new Guia();
-$guia->c01_UfFavorecida = 'SP';
-$guia->c02_receita = '1000099';
-$guia->c25_detalhamentoReceita = '10101010';
-$guia->c26_produto = 'TESTE DE PROD';
-$guia->c27_tipoIdentificacaoEmitente = 1;
-$guia->c03_idContribuinteEmitente = '41819055000105';
-$guia->c28_tipoDocOrigem = '10';
-$guia->c04_docOrigem = '5656';
-$guia->c06_valorPrincipal = 10.99;
-$guia->c10_valorTotal = 12.52;
-$guia->c14_dataVencimento = '01/05/2015';
-$guia->c15_convenio = '546456';
-$guia->c16_razaoSocialEmitente = 'GNRE PHP EMITENTE';
-$guia->c17_inscricaoEstadualEmitente = '56756';
-$guia->c18_enderecoEmitente = 'Queens St';
-$guia->c19_municipioEmitente = '5300108';
-$guia->c20_ufEnderecoEmitente = 'DF';
-$guia->c21_cepEmitente = '08215917';
-$guia->c22_telefoneEmitente = '1199999999';
-$guia->c34_tipoIdentificacaoDestinatario = 1;
-$guia->c35_idContribuinteDestinatario = '86268158000162';
-$guia->c36_inscricaoEstadualDestinatario = '10809181';
-$guia->c37_razaoSocialDestinatario = 'RAZAO SOCIAL GNRE PHP DESTINATARIO';
-$guia->c38_municipioDestinatario = '2702306';
-$guia->c33_dataPagamento = '2015-11-30';
-$guia->retornoInformacoesComplementares = 'teste teste teste';
-$guia->retornoAtualizacaoMonetaria = 1.88;
-$guia->retornoNumeroDeControle = '0000000000000000';
-$guia->retornoCodigoDeBarras = '1118929812912011000000001818181000000001212';
-$guia->retornoRepresentacaoNumerica = '11189298129120110000000018181810000000012121201';
-$guia->retornoJuros = 2.78;
-$guia->retornoMulta = 3.55;
-$guia->mes = '05';
-$guia->ano = '2015';
-$guia->parcela = '2';
-$guia->periodo = '2014';
+$emitente = new Contribuinte(
+    identificacao: new Identificacao(
+        tipo: TipoIdentificacaoEnum::CNPJ,
+        cnpj: '41819055000105',
+        ie: '56756',
+    ),
+    razaoSocial: 'GNRE PHP EMITENTE',
+    endereco: 'Queens St',
+    municipio: '5300108',
+    uf: 'DF',
+    cep: '08215917',
+    telefone: '1199999999',
+);
+
+$destinatario = new Contribuinte(
+    identificacao: new Identificacao(
+        tipo: TipoIdentificacaoEnum::CNPJ,
+        cnpj: '86268158000162',
+        ie: '10809181',
+    ),
+    razaoSocial: 'RAZAO SOCIAL GNRE PHP DESTINATARIO',
+    municipio: '2702306',
+);
+
+$item = new ItemGNRE(
+    receita: '1000099',
+    detalhamentoReceita: '10101010',
+    documentoOrigem: new DocumentoOrigem(tipo: '10', numero: '5656'),
+    produto: 'TESTE DE PROD',
+    referencia: new Referencia(
+        periodo: PeriodoEnum::MENSAL,
+        mes: MesEnum::MAIO,
+        ano: AnoEnum::ANO_2015,
+        parcela: '2',
+    ),
+    dataVencimento: '01/05/2015',
+    valores: [
+        new Valor(ValorTipoEnum::PRINCIPAL_ICMS, 10.99),
+        new Valor(ValorTipoEnum::TOTAL_ICMS, 12.52),
+    ],
+    convenio: '546456',
+    contribuinteDestinatario: $destinatario,
+);
+
+$guia = new GuiaSimples(
+    ufFavorecida: UfEnum::SP,
+    item: $item,
+    contribuinteEmitente: $emitente,
+    dataPagamento: '2015-11-30',
+);
 
 $lote = new Lote();
 $lote->addGuia($guia);
@@ -55,4 +80,4 @@ $html->create($lote);
 
 $pdf = new Pdf();
 $output = $pdf->create($html)->output();
-file_put_contents('/home/jotave/dev/sped-gnre/gnre.pdf', $output);
+file_put_contents(__DIR__ . '/gnre.pdf', $output);
